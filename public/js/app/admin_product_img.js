@@ -22723,7 +22723,7 @@ var Infor = function (_React$Component4) {
             React.createElement(
               'h1',
               null,
-              '\u5546\u54C1\u67E5\u770B'
+              '\u56FE\u7247\u67E5\u770B'
             ),
             React.createElement(
               'div',

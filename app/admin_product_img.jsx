@@ -141,7 +141,7 @@ var selected = '04';
 
               <div id="content">
                 <div id="content-header">
-                  <h1>商品查看</h1>
+                  <h1>图片查看</h1>
                   <div className="btn-group">
                     <a className="btn btn-large tip-bottom" title="Manage Files"><i className="icon-file"></i></a>
                     <a className="btn btn-large tip-bottom" title="Manage Users"><i className="icon-user"></i></a>

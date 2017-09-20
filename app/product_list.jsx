@@ -1,6 +1,48 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+import { Provider, connect } from 'react-redux'
+import { createStore } from 'redux'
+
+function product(state, action) {
+  switch (action.type) {
+  case 'PRODUCT_LIST':
+    {
+      $.ajax({
+         url: "/search_products",
+         dataType: 'json',
+         type: 'GET',
+         success: function(data) {
+           if(data.success){
+             store.dispatch({ type: 'GET_DATA', data: data.rows});
+           }else {
+             store.dispatch({ type: 'GET_DATA', data: []});
+           }
+         },
+         error: function(xhr, status, err) {
+         }
+      });
+
+      return state;
+    }
+  case 'GET_DATA':
+  {
+    return {project_list:action.data,number:state.number};
+  }
+  default:
+    return state
+  }
+}
+
+let store = createStore(product,{project_list:[],number:1});
+
+const mapStateToProps = (state) => {
+    return {
+        project_list: state.project_list,
+        number: state.number
+    }
+}
+
 class IoIo extends React.Component {
     constructor(props) {
       super(props);
@@ -45,7 +87,7 @@ class Projectsearch extends React.Component {
       );
     }
 };
-class Projectlist extends React.Component {
+class ProjectlistClass extends React.Component {
     constructor(props) {
       super(props);
       this.handleMinus = this.handleMinus.bind(this);
@@ -57,13 +99,7 @@ class Projectlist extends React.Component {
       this.state = {project_list:[],number:1};
     }
     componentDidMount() {
-      var list = [{img:'images/img1.jpg' ,name:'这个名字够不够长你说，不够长我还可以加，加到你满意为止' ,price:'100.00'},
-                  {img:'images/img2.jpg' ,name:'来一个短一点的' ,price:'100.00'},
-                  {img:'images/img3.jpg' ,name:'汉堡' ,price:'999.00'},
-                  {img:'images/img4.jpg' ,name:'猪肉' ,price:'888.00'},
-                  {img:'images/img5.jpg' ,name:'葡萄' ,price:'777.00'},
-                  {img:'images/img6.jpg' ,name:'连衣裙' ,price:'666.00'}];
-      this.setState({project_list:list});
+      store.dispatch({ type: 'PRODUCT_LIST'});
       var number = this.state.number;
       var num = $('#number').val();
       $('#number').val(num);
@@ -106,14 +142,14 @@ class Projectlist extends React.Component {
       var style = {marginRight:'5px' ,display:'block'};
       return (
         <ul className="project_list_ul">
-          {this.state.project_list.map((item,index) => (
+          {this.props.project_list.map((item,index) => (
             <li key={index}>
               <div className="weui-cells">
                 <div className="weui-cell font_style position_relative">
-                    <div className="weui-cell__hd project_list_img_wrap"><img src={item.img} alt="" style={style}/></div>
+                    <div className="weui-cell__hd project_list_img_wrap"><img src={item.img.location} alt="" style={style}/></div>
                     <div className="weui-cell__bd product_name">
-                        <p className="product_name_infor">{item.name}</p>
-                        <p className="product_price"><span>￥</span>{item.price}</p>
+                        <p className="product_name_infor">{item.product_name}</p>
+                        <p className="product_price"><span>￥</span>{item.product_sale_price}</p>
                     </div>
                     <div className="weui-cell__ft position_absolute" onClick={this.handleBuy}><i className="fa fa-shopping-basket"></i></div>
                 </div>
@@ -189,8 +225,11 @@ class Top extends React.Component {
   }
 };
 
+const Projectlist = connect(mapStateToProps)(ProjectlistClass);
 
 ReactDOM.render(
-  <IoIo/>,
+  <Provider store={store}>
+  <IoIo/>
+  </Provider>,
   document.getElementById("product_list")
 );
