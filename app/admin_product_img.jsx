@@ -71,11 +71,12 @@ var selected = '04';
           this.state = {items: []};
       }
       componentDidMount() {
-        var rows= [{name: "首页",code: "01", href:"/", icon_class: "icon-home",child: [{name: "首页",href: "/",icon_class: "icon-th"}]},
-                  {name: "用户列表",code: "02", href:"admin_user_list", icon_class: "icon-home",child: [{name: "用户列表",href: "/",icon_class: "icon-th"}]},
-                  {name: "商品列表",code: "03", href:"admin_product_list", icon_class: "icon-home",child: [{name: "商品列表",href: "/",icon_class: "icon-th"}]},
-                  {name: "商品图片",code: "04", href:"admin_product_img", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
-                ];
+      var rows= [{name: "首页",code: "01", href:"/", icon_class: "icon-home",child: [{name: "首页",href: "/",icon_class: "icon-th"}]},
+                {name: "用户列表",code: "02", href:"admin_user_list", icon_class: "icon-home",child: [{name: "用户列表",href: "/",icon_class: "icon-th"}]},
+                {name: "商品列表",code: "03", href:"admin_product_list", icon_class: "icon-home",child: [{name: "商品列表",href: "/",icon_class: "icon-th"}]},
+                {name: "商品图片",code: "04", href:"admin_product_img", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
+                {name: "订单列表",code: "05", href:"admin_order_list", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
+              ];
         this.setState({items:rows});
         unicorn();
       }

@@ -33,6 +33,7 @@ module.exports = {
         admin_product_list: './app/admin_product_list.jsx',
         admin_product_img: './app/admin_product_img.jsx',
         admin_add_custom: './app/admin_add_custom.jsx',
+        admin_order_list: './app/admin_order_list.jsx',
     },
     output: {
         path: __dirname,

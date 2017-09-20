@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 186);
+/******/ 	return __webpack_require__(__webpack_require__.s = 187);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -22385,7 +22385,8 @@ module.exports = traverseAllChildren;
 /* 183 */,
 /* 184 */,
 /* 185 */,
-/* 186 */
+/* 186 */,
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22606,7 +22607,7 @@ var Nav = function (_React$Component3) {
   _createClass(Nav, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "/", icon_class: "icon-th" }] }, { name: "用户列表", code: "02", href: "admin_user_list", icon_class: "icon-home", child: [{ name: "用户列表", href: "/", icon_class: "icon-th" }] }, { name: "商品列表", code: "03", href: "admin_product_list", icon_class: "icon-home", child: [{ name: "商品列表", href: "/", icon_class: "icon-th" }] }, { name: "商品图片", code: "04", href: "admin_product_img", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }];
+      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "/", icon_class: "icon-th" }] }, { name: "用户列表", code: "02", href: "admin_user_list", icon_class: "icon-home", child: [{ name: "用户列表", href: "/", icon_class: "icon-th" }] }, { name: "商品列表", code: "03", href: "admin_product_list", icon_class: "icon-home", child: [{ name: "商品列表", href: "/", icon_class: "icon-th" }] }, { name: "商品图片", code: "04", href: "admin_product_img", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单列表", code: "05", href: "admin_order_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }];
       this.setState({ items: rows });
       unicorn();
     }

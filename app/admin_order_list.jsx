@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var selected = '02';
+var selected = '05';
 
     // 框架
     class Wrap extends React.Component {
@@ -141,7 +141,7 @@ var selected = '02';
 
               <div id="content">
                 <div id="content-header">
-                  <h1>用户列表</h1>
+                  <h1>订单列表</h1>
                   <div className="btn-group">
                     <a className="btn btn-large tip-bottom" title="Manage Files"><i className="icon-file"></i></a>
                     <a className="btn btn-large tip-bottom" title="Manage Users"><i className="icon-user"></i></a>
@@ -225,7 +225,7 @@ var selected = '02';
             								<span className="icon">
             									<i className="icon-th"></i>
             								</span>
-            								<h5>用户列表</h5>
+            								<h5>订单列表</h5>
             							</div>
             							<div className="widget-content nopadding">
                             <table className="table table-bordered table-striped table-hover">
@@ -330,7 +330,7 @@ var selected = '02';
                 delete_row(this.props.item[this.props.thitem.name]);
             }
             render() {
-                if (this.props.thitem.type == "edit_delete") {
+                if (this.props.thitem.type == "view") {
 
                   return (<td>
                       <button type="button" className="btn btn-primary btn-xs button_margin_left" onClick={this.handleEdit}>查看</button>
@@ -451,5 +451,5 @@ var selected = '02';
 // 返回到页面
 ReactDOM.render(
     <Wrap/>,
-    document.getElementById("admin_user_list")
+    document.getElementById("admin_order_list")
 );
