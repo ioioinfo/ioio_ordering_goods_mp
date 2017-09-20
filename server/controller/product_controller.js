@@ -33,6 +33,7 @@ exports.register = function(server, options, next) {
     var base = server.plugins.services.base;
 
     server.route([
+        //查询商品列表
         {
             method: 'GET',
             path: '/get_products_list',
@@ -52,7 +53,7 @@ exports.register = function(server, options, next) {
                 });
             },
         },
-
+        
 
 
     ]);
