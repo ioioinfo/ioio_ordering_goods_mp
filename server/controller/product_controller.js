@@ -53,7 +53,32 @@ exports.register = function(server, options, next) {
                 });
             },
         },
-        
+        //查询指定产品信息及图片
+        {
+            method: 'GET',
+            path: '/get_product',
+            handler: function(request, reply) {
+                var product_id = request.query.product_id;
+                if (!product_id) {
+                    return reply({"success":false,"message":"product_id is null"});
+                }
+                api.get_product(product_id,function(err,rows){
+                    if (!err) {
+                        var product = rows.rows[0];
+                        api.get_product_pictures(product_id,function(err,rows){
+                            if (!err) {
+                                return reply({"success":true,"row":product,"pictures":rows.rows});
+                            }else {
+                                return reply({"success":false,"message":rows.message});
+                            }
+                        });
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
+
 
 
     ]);
