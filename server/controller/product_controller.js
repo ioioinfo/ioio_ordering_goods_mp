@@ -45,7 +45,7 @@ exports.register = function(server, options, next) {
                 }
                 api.get_products_list(params,function(err,rows){
                     if (!err) {
-                        return reply({"success":true,"row":rows});
+                        return reply({"success":true,"rows":rows});
                     }else {
                         return reply({"success":false,"message":rows.message});
                     }
