@@ -13,29 +13,29 @@
  └──────────────────────────────────────────────────────────────┘
 */
 
-exports.register = function(server, options, next){
+var _ = require('lodash');
+var eventproxy = require('eventproxy');
+const util = require('util');
+const uu_request = require('../utils/uu_request');
 
-    var load_module = function(key, path) {
-        var module = require(path)(server);
-        if (typeof module.init === 'function') { module.init(); }
-        if (typeof module.refresh === 'function') { module.refresh(); }
-        server.expose(key, module);
+var host = "http://211.149.248.241:18002/";
+
+var nav = function(server) {
+    return {
+
+        //查询商品列表
+        get_products_list: function(params,cb) {
+            var url = host + "get_products_list?params="+params;
+            uu_request.get(url, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,JSON.parse(body).rows);
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
+
     };
-
-    load_module('person', './person.js');
-    load_module('things', './things.js');
-    load_module('amap', './amap.js');
-    load_module('wx_api', './wx_api.js');
-    load_module('clothing_api', './clothing_api.js');
-    load_module('drp_api', './drp_api.js');
-    load_module('fsm', './fsm.js');
-    load_module('notify', './notify.js');
-    load_module('base', './base.js');
-    load_module('product_api', './product_api.js');
-
-    next();
-}
-
-exports.register.attributes = {
-    name: 'services'
 };
+
+module.exports = nav;

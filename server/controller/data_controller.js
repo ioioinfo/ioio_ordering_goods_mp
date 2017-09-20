@@ -27,7 +27,7 @@ exports.register = function(server, options, next) {
     var platform_id = sys_option.platform_id;
     //短信平台编号
     var sms_platform_code = "hrbs";
-    
+
     var api = server.plugins.services["4s_api"];
     var wx_api = server.plugins.services.wx_api;
     var person = server.plugins.services.person;
@@ -94,7 +94,7 @@ exports.register = function(server, options, next) {
             }
         });
     };
-    
+
     server.route([
         //获取门店二维码图片路径
         {
@@ -105,55 +105,55 @@ exports.register = function(server, options, next) {
                 if (!store_code) {
                     return reply({"success":false,"message":"param store_code is null","service_info":service_info});
                 }
-                
+
                 //二维码参数
                 var scene = "store::code::" + store_code;
-                
+
                 //查询基础信息标签
                 var base_type = "store";
                 var base_id = store_code;
                 var tag_type = "qrcode";
                 var tag_value;
-                
+
                 //查询缓存数据
                 tag_value = server.plugins.cache.store.get(scene);
                 if (tag_value) {
                     return reply({"success":true,"message":"ok","url":tag_value,"service_info":service_info});
                 }
-                
+
                 base.get_tag_by_base_info(base_type,base_id,function(err,content) {
                     if (err) {
                         return reply({"success":false,"message":"error","service_info":service_info});
                     }
-                    
+
                     var tags = content.rows;
-                    
+
                     _.each(tags,function(tag) {
                         if (tag.tag_type == tag_type) {
                             tag_value = tag.tag_value;
                             server.plugins.cache.store.set(scene,tag_value);
-                            
+
                             return reply({"success":true,"message":"ok","url":tag_value,"service_info":service_info});
                         }
                     });
-                    
+
                     if (!tag_value) {
                         //调用微信接口生成二维码
                         wx_api.create_qrcode(platform_id,scene,function(err,url) {
                             if (err) {
                                 return reply({"success":false,"message":"wx api error","service_info":service_info});
                             }
-                            
+
                             tag_value = url;
-                            
+
                             //保存基础信息标签
                             base.add_tag(base_type, base_id,tag_type,tag_value,function(err,content) {
                                 if (err) {
                                     return reply({"success":false,"message":"wx api error","service_info":service_info});
                                 }
-                                
+
                                 server.plugins.cache.store.set(scene,tag_value);
-                                
+
                                 return reply({"success":true,"message":"ok","url":tag_value,"service_info":service_info});
                             });
                         });
