@@ -251,6 +251,14 @@ exports.register = function(server, options, next) {
             }
         },
 
+        //订单列表
+        {
+            method: 'GET',
+            path: '/admin_order_list',
+            handler: function(request, reply) {
+              return reply.view("admin_order_list");
+            }
+        },
 
 
 

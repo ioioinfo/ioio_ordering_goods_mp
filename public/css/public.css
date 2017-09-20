@@ -17,3 +17,9 @@
     margin-right: 3px;
 
 }
+td:last-child{
+  text-align: center;
+}
+td .btn{
+  padding: 0 3px;
+}
