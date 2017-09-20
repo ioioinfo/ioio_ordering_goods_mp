@@ -73,7 +73,10 @@ server.register([
         register: require('./server/controller/person_controller.js')
     },{
         register: require('./server/controller/product_controller.js')
+    },{
+        register: require('./server/controller/search_controller.js')
     },
+
 
 
     ], function () {
