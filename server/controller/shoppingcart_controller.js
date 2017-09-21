@@ -39,7 +39,8 @@ exports.register = function(server, options, next) {
             path: '/find_person_cart',
             handler: function(request, reply) {
                 var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
-                api.find_person_cart(person_id,function(err,rows){
+                var cart_code = "";
+                api.sarch_cart_infos(person_id,cart_code,function(err,rows){
                     if (!err) {
                         return reply({"success":true,"rows":rows.shopping_carts,"products":rows.products});
                     }else {

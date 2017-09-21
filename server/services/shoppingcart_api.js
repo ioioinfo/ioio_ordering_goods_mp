@@ -23,8 +23,8 @@ var host = "http://211.149.248.241:18015/";
 var nav = function(server) {
     return {
         //查询有人购物车
-        find_person_cart: function(person_id, cb) {
-            var url = host + "find_person_cart?person_id="+person_id;
+        sarch_cart_infos: function(person_id,cart_code, cb) {
+            var url = host + "find_person_cart?person_id="+person_id+"&cart_code="+cart_code;
             uu_request.get(url, function(err, response, body) {
                 if (!err && response.statusCode === 200) {
                     cb(err,JSON.parse(body));

@@ -33,7 +33,27 @@ exports.register = function(server, options, next) {
     var base = server.plugins.services.base;
 
     server.route([
+        //查询商品列表
+        {
+            method: 'GET',
+            path: '/get_online_orders',
+            handler: function(request, reply) {
+                var params = {};
+                if (request.query.params) {
+                    params = request.query.params;
+                }else {
+                    params = JSON.stringify(params);
+                }
 
+                api.get_online_orders(params,function(err,rows){
+                    if (!err) {
+                        return reply({"success":true,"rows":rows.rows});
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
 
 
     ]);
