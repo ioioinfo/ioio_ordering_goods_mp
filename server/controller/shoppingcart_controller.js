@@ -75,6 +75,36 @@ exports.register = function(server, options, next) {
                 });
             },
         },
+        //修改购物车商品数量
+        {
+            method: 'POST',
+            path: '/update_cart_number',
+            handler: function(request, reply) {
+                var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
+                var cart_code = "";
+                var id = request.payload.id;
+                var num = request.payload.num
+                if (!num||!id) {
+					return reply({"success":false,"message":"params null","service_info":service_info});
+				};
+                var ids = [];
+				ids.push(id);
+				ids = JSON.stringify(ids);
+                api.update_cart_number(ids,num,function(err,rows){
+                    if (!err) {
+                        api.sarch_cart_infos(person_id,cart_code,function(err,rows){
+                            if (!err) {
+                                return reply({"success":true,"rows":rows.shopping_carts,"products":rows.products,"total_data":rows.total_data});
+                            }else {
+                                return reply({"success":false,"message":rows.message});
+                            }
+                        });
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
 
 
     ]);

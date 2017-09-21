@@ -22,6 +22,19 @@ var host = "http://211.149.248.241:18015/";
 
 var nav = function(server) {
     return {
+        //更新购物车商品数量
+        update_cart_number: function(ids,num, cb) {
+            var url = host + "update_cart_number";
+            var data = {ids:ids,num:num};
+
+            uu_request.do_post_method(url, data, function(err, body) {
+                if (!err) {
+                    cb(err,body);
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
         //删除购物车
         delete_shopping_carts: function(ids, cb) {
             var url = host + "delete_shopping_carts?ids="+ids;
