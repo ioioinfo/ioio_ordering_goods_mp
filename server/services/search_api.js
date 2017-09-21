@@ -22,7 +22,17 @@ var host = "http://211.149.248.241:18016/";
 
 var nav = function(server) {
     return {
-
+        //查询商品分类
+        search_sorts: function(cb) {
+            var url = host + "search_sorts";
+            uu_request.get(url, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,JSON.parse(body));
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
         //查询商品列表
         search_products: function(data,cb) {
             var url = host + "search_products";

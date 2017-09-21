@@ -54,6 +54,20 @@ exports.register = function(server, options, next) {
                 });
             },
         },
+        //查询商品分类
+        {
+            method: 'GET',
+            path: '/search_sorts',
+            handler: function(request, reply) {
+                api.search_sorts(function(err,rows){
+                    if (!err) {
+                        return reply({"success":true,"rows":rows,"pictures":rows.rows});
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
 
 
 
