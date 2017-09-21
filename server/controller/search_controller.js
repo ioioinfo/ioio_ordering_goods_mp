@@ -61,7 +61,14 @@ exports.register = function(server, options, next) {
             handler: function(request, reply) {
                 api.search_sorts(function(err,rows){
                     if (!err) {
-                        return reply({"success":true,"rows":rows,"pictures":rows.rows});
+                        var sorts = [];
+                        for (var i = 0; i < rows.rows.length; i++) {
+                            var sort = rows.rows[i];
+                            if (sort.id.substring(6,9) == "000") {
+                                sorts.push(sort);
+                            }
+                        }
+                        return reply({"success":true,"rows":sorts});
                     }else {
                         return reply({"success":false,"message":rows.message});
                     }
