@@ -13,32 +13,34 @@
  └──────────────────────────────────────────────────────────────┘
 */
 
-exports.register = function(server, options, next){
+var _ = require('lodash');
+var r = require('request');
+var moment = require('moment');
+var eventproxy = require('eventproxy');
+const sys_option = require('../config/sys_option');
+const uu_request = require('../utils/uu_request');
 
-    var load_module = function(key, path) {
-        var module = require(path)(server);
-        if (typeof module.init === 'function') { module.init(); }
-        if (typeof module.refresh === 'function') { module.refresh(); }
-        server.expose(key, module);
-    };
 
-    load_module('person', './person.js');
-    load_module('things', './things.js');
-    load_module('amap', './amap.js');
-    load_module('wx_api', './wx_api.js');
-    load_module('clothing_api', './clothing_api.js');
-    load_module('drp_api', './drp_api.js');
-    load_module('fsm', './fsm.js');
-    load_module('notify', './notify.js');
-    load_module('base', './base.js');
-    load_module('product_api', './product_api.js');
-    load_module('search_api', './search_api.js');
-    load_module('shoppingcart_api', './shoppingcart_api.js');
-    load_module('order_api', './order_api.js');
+exports.register = function(server, options, next) {
+    var service_info = sys_option.desc;
+    var platform_id = sys_option.platform_id;
+
+
+    var api = server.plugins.services["order_api"];
+    var wx_api = server.plugins.services.wx_api;
+    var person = server.plugins.services.person;
+    var things = server.plugins.services.things;
+    var base = server.plugins.services.base;
+
+    server.route([
+
+
+
+    ]);
 
     next();
 }
 
 exports.register.attributes = {
-    name: 'services'
+    name: "order_controller"
 };

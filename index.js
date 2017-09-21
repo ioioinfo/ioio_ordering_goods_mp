@@ -77,6 +77,8 @@ server.register([
         register: require('./server/controller/search_controller.js')
     },{
         register: require('./server/controller/shoppingcart_controller.js')
+    },{
+        register: require('./server/controller/order_controller.js')
     },
 
 
