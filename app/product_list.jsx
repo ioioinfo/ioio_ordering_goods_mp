@@ -29,6 +29,14 @@ function product(state, action) {
   {
     return {project_list:action.data,number:state.number};
   }
+  case 'NUMBER_PLUS':
+  {
+    var number = state.number+action.addValue;
+    if (number < 0) {
+      number = 0;
+    }
+    return {project_list:state.project_list,number:number};
+  }
   default:
     return state
   }
@@ -92,41 +100,27 @@ class ProjectlistClass extends React.Component {
       super(props);
       this.handleMinus = this.handleMinus.bind(this);
       this.handlePlus = this.handlePlus.bind(this);
+      this.changeNumber = this.changeNumber.bind(this);
       this.handleSure = this.handleSure.bind(this);
       this.handleBack = this.handleBack.bind(this);
       this.handleBuy = this.handleBuy.bind(this);
-      // 初始化一个空对象
-      this.state = {project_list:[],number:1};
     }
     componentDidMount() {
       store.dispatch({ type: 'PRODUCT_LIST'});
-      var number = this.state.number;
-      var num = $('#number').val();
-      $('#number').val(num);
-      this.setState({number:num});
     }
     handleBuy(e){
       $('.background').show();
       $('.projecrt_number').show();
     }
     handleMinus(e){
-      var number = this.state.number;
-      var num = $('#number').val();
-      if(num>1){
-        num--;
-        $('#number').val(num);
-        this.setState({number:num});
-      }else {
-        $('#number').val('1');
-        this.setState({number:1});
-      }
+      store.dispatch({ type: 'NUMBER_PLUS', addValue: -1});
     }
     handlePlus(e){
-      var number = this.state.number;
-      var num = $('#number').val();
-        num++;
-        $('#number').val(num);
-        this.setState({number:num});
+      store.dispatch({ type: 'NUMBER_PLUS', addValue: 1});
+    }
+
+    changeNumber(e) {
+
     }
 
     handleSure(e){
@@ -136,7 +130,6 @@ class ProjectlistClass extends React.Component {
     handleBack(e){
       $('.background').hide();
       $('.projecrt_number').hide();
-
   }
     render() {
       var style = {marginRight:'5px' ,display:'block'};
@@ -162,7 +155,7 @@ class ProjectlistClass extends React.Component {
           <div className="projecrt_number">
             <div className="projecrt_number_in">
               <p onClick={this.handleMinus}><i className="fa fa-minus"></i></p>
-              <p><span className="input_out"><input type="number" placeholder="1" id="number"/></span></p>
+              <p><span className="input_out"><input type="number" placeholder="1" id="number" value={this.props.number} onChange={this.changeNumber}/></span></p>
               <p onClick={this.handlePlus}><i className="fa fa-plus"></i></p>
               <button className="sure" onClick={this.handleSure}>确定</button>
             </div>

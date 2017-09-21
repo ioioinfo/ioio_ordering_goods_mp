@@ -89,7 +89,7 @@ class ProjectsortNav extends React.Component {
           <li className="project_sort_nav_infor project_sort_nav_infor_5" onClick={this.handleClick.bind(this,5)}>乳饮西点</li>
           <li className="project_sort_nav_infor project_sort_nav_infor_6" onClick={this.handleClick.bind(this,6)}>点心速食</li>
           <li className="project_sort_nav_infor project_sort_nav_infor_7" onClick={this.handleClick.bind(this,7)}>粮油副食</li>
-          <li className="project_sort_nav_infor project_sort_nav_infor_8" onClick={this.handleClick.bind(this,9)}>酒水饮料</li>
+          <li className="project_sort_nav_infor project_sort_nav_infor_8" onClick={this.handleClick.bind(this,8)}>酒水饮料</li>
         </ul>
       );
     }

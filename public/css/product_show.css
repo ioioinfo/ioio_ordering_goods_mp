@@ -39,6 +39,7 @@ body{
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   background: #fff;
+  margin-top: 27px;
 }
 .product_remind p {
   width: 50%;
