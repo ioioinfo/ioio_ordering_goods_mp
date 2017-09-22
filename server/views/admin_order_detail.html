@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>订单列表</title>
+    <title>订单详情</title>
     <link rel="stylesheet" href="css/bootstrap2.min.css" />
 		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
     <link rel="stylesheet" href="css/jquery-ui.css" />
@@ -17,21 +17,23 @@
     <link rel="stylesheet" href="css/public.css">
 </head>
 <body>
-    <div id="admin_order_list"></div>
+    <div id="admin_order_detail"></div>
     <script type="text/javascript">
-    var selected = '05';
+    var selected = '06';
       //表头
       var tt = [{name:'id',title:'编号',sort:false}
-              ,{name:'time',title:'时间',sort:false}
-              ,{name:'money',title:'金额',sort:false}
+              ,{name:'name',title:'名称',sort:false}
+              ,{name:'price',title:'单价',sort:false}
+              ,{name:'number',title:'数量',sort:false}
+              ,{name:'money',title:'总金额',sort:false}
               ,{name:'option',title:'操作',type:'view',sort:false}];
 
 
       function getTableData(params,cb) {
           params.everyNum = 50;
           var allNum = 0;
-          var list = [{id:"1",time:"2017-9-10", money:"1222"},
-                      {id:"2",time:"2017-9-20", money:"1333"},];
+          var list = [{id:"1",name:"萝卜", price:"2.2",number:"10",money:"22"},
+                      {id:"2",name:"冬瓜", price:"4.2",number:"15",money:"63"},];
           cb({tabthitems:tt,tabtritems:list,allNum:allNum,everyNum:params.everyNum});
       };
     </script>
@@ -43,6 +45,6 @@
     <script src="js/unicorn.js"></script>
     <script src="js/unicorn.tables.js"></script>
     <script src="js/mermaid.min.js"></script>
-    <script src="js/app/admin_order_list.js"></script>
+    <script src="js/app/admin_order_detail.js"></script>
 </body>
 </html>

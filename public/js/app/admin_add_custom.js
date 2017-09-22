@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 199);
+/******/ 	return __webpack_require__(__webpack_require__.s = 226);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -22382,7 +22382,107 @@ module.exports = traverseAllChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 183 */,
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var React = __webpack_require__(49);
+
+var Nav = function (_React$Component) {
+  _inherits(Nav, _React$Component);
+
+  function Nav(props) {
+    _classCallCheck(this, Nav);
+
+    // 初始化一个空对象
+    var _this = _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
+
+    _this.state = { items: [] };
+    return _this;
+  }
+
+  _createClass(Nav, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "/", icon_class: "icon-th" }] }, { name: "用户列表", code: "02", href: "admin_user_list", icon_class: "icon-home", child: [{ name: "用户列表", href: "/", icon_class: "icon-th" }] }, { name: "商品列表", code: "03", href: "admin_product_list", icon_class: "icon-home", child: [{ name: "商品列表", href: "/", icon_class: "icon-th" }] }, { name: "商品图片", code: "04", href: "admin_product_img", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单列表", code: "05", href: "admin_order_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单详情", code: "06", href: "admin_order_detail", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单商品详情", code: "07", href: "admin_order_product_detail", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }];
+      this.setState({ items: rows });
+      unicorn();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var nav = [];
+      this.state.items.map(function (item, index) {
+        var c = "submenu";
+        if (item.code == selected) {
+          c = "submenu active";
+        }
+        nav.push(React.createElement(
+          "li",
+          { className: c, key: index },
+          React.createElement(
+            "a",
+            { href: item.href },
+            React.createElement("i", { className: "icon " + item.icon_class }),
+            " ",
+            React.createElement(
+              "span",
+              null,
+              item.name
+            )
+          ),
+          React.createElement(
+            "ul",
+            null,
+            item.child.map(function (item, index) {
+              return React.createElement(
+                "li",
+                { key: index },
+                React.createElement(
+                  "a",
+                  { href: item.href },
+                  item.name
+                )
+              );
+            })
+          )
+        ));
+      });
+
+      return React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "div",
+          { id: "sidebar" },
+          React.createElement(
+            "ul",
+            null,
+            nav
+          )
+        )
+      );
+    }
+  }]);
+
+  return Nav;
+}(React.Component);
+
+;
+
+module.exports = Nav;
+
+/***/ }),
 /* 184 */,
 /* 185 */,
 /* 186 */,
@@ -22398,7 +22498,34 @@ module.exports = traverseAllChildren;
 /* 196 */,
 /* 197 */,
 /* 198 */,
-/* 199 */
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22414,7 +22541,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var React = __webpack_require__(49);
 var ReactDOM = __webpack_require__(82);
-var selected = '04';
+var Nav = __webpack_require__(183);
 
 // 框架
 
@@ -22603,90 +22730,8 @@ var Head = function (_React$Component2) {
 
 ;
 
-var Nav = function (_React$Component3) {
-  _inherits(Nav, _React$Component3);
-
-  function Nav(props) {
-    _classCallCheck(this, Nav);
-
-    // 初始化一个空对象
-    var _this3 = _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
-
-    _this3.state = { items: [] };
-    return _this3;
-  }
-
-  _createClass(Nav, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "/", icon_class: "icon-th" }] }, { name: "用户列表", code: "02", href: "admin_user_list", icon_class: "icon-home", child: [{ name: "用户列表", href: "/", icon_class: "icon-th" }] }, { name: "商品列表", code: "03", href: "admin_product_list", icon_class: "icon-home", child: [{ name: "商品列表", href: "/", icon_class: "icon-th" }] }, { name: "商品图片", code: "04", href: "admin_product_img", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单列表", code: "05", href: "admin_order_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }];
-      this.setState({ items: rows });
-      unicorn();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var nav = [];
-      this.state.items.map(function (item, index) {
-        var c = "submenu";
-        if (item.code == selected) {
-          c = "submenu active";
-        }
-        nav.push(React.createElement(
-          'li',
-          { className: c, key: index },
-          React.createElement(
-            'a',
-            { href: item.href },
-            React.createElement('i', { className: "icon " + item.icon_class }),
-            ' ',
-            React.createElement(
-              'span',
-              null,
-              item.name
-            )
-          ),
-          React.createElement(
-            'ul',
-            null,
-            item.child.map(function (item, index) {
-              return React.createElement(
-                'li',
-                { key: index },
-                React.createElement(
-                  'a',
-                  { href: item.href },
-                  item.name
-                )
-              );
-            })
-          )
-        ));
-      });
-
-      return React.createElement(
-        'div',
-        null,
-        React.createElement(
-          'div',
-          { id: 'sidebar' },
-          React.createElement(
-            'ul',
-            null,
-            nav
-          )
-        )
-      );
-    }
-  }]);
-
-  return Nav;
-}(React.Component);
-
-;
-
-var Infor = function (_React$Component4) {
-  _inherits(Infor, _React$Component4);
+var Infor = function (_React$Component3) {
+  _inherits(Infor, _React$Component3);
 
   function Infor(props) {
     _classCallCheck(this, Infor);
@@ -22791,17 +22836,17 @@ var Infor = function (_React$Component4) {
 ;
 // add
 
-var AddWrap = function (_React$Component5) {
-  _inherits(AddWrap, _React$Component5);
+var AddWrap = function (_React$Component4) {
+  _inherits(AddWrap, _React$Component4);
 
   function AddWrap(props) {
     _classCallCheck(this, AddWrap);
 
     // 初始化一个空对象
-    var _this5 = _possibleConstructorReturn(this, (AddWrap.__proto__ || Object.getPrototypeOf(AddWrap)).call(this, props));
+    var _this4 = _possibleConstructorReturn(this, (AddWrap.__proto__ || Object.getPrototypeOf(AddWrap)).call(this, props));
 
-    _this5.state = { items: [] };
-    return _this5;
+    _this4.state = { items: [] };
+    return _this4;
   }
 
   _createClass(AddWrap, [{

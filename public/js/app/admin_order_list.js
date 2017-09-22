@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 201);
+/******/ 	return __webpack_require__(__webpack_require__.s = 229);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -22382,7 +22382,107 @@ module.exports = traverseAllChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 183 */,
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var React = __webpack_require__(49);
+
+var Nav = function (_React$Component) {
+  _inherits(Nav, _React$Component);
+
+  function Nav(props) {
+    _classCallCheck(this, Nav);
+
+    // 初始化一个空对象
+    var _this = _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
+
+    _this.state = { items: [] };
+    return _this;
+  }
+
+  _createClass(Nav, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "/", icon_class: "icon-th" }] }, { name: "用户列表", code: "02", href: "admin_user_list", icon_class: "icon-home", child: [{ name: "用户列表", href: "/", icon_class: "icon-th" }] }, { name: "商品列表", code: "03", href: "admin_product_list", icon_class: "icon-home", child: [{ name: "商品列表", href: "/", icon_class: "icon-th" }] }, { name: "商品图片", code: "04", href: "admin_product_img", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单列表", code: "05", href: "admin_order_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单详情", code: "06", href: "admin_order_detail", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单商品详情", code: "07", href: "admin_order_product_detail", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }];
+      this.setState({ items: rows });
+      unicorn();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var nav = [];
+      this.state.items.map(function (item, index) {
+        var c = "submenu";
+        if (item.code == selected) {
+          c = "submenu active";
+        }
+        nav.push(React.createElement(
+          "li",
+          { className: c, key: index },
+          React.createElement(
+            "a",
+            { href: item.href },
+            React.createElement("i", { className: "icon " + item.icon_class }),
+            " ",
+            React.createElement(
+              "span",
+              null,
+              item.name
+            )
+          ),
+          React.createElement(
+            "ul",
+            null,
+            item.child.map(function (item, index) {
+              return React.createElement(
+                "li",
+                { key: index },
+                React.createElement(
+                  "a",
+                  { href: item.href },
+                  item.name
+                )
+              );
+            })
+          )
+        ));
+      });
+
+      return React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "div",
+          { id: "sidebar" },
+          React.createElement(
+            "ul",
+            null,
+            nav
+          )
+        )
+      );
+    }
+  }]);
+
+  return Nav;
+}(React.Component);
+
+;
+
+module.exports = Nav;
+
+/***/ }),
 /* 184 */,
 /* 185 */,
 /* 186 */,
@@ -22400,7 +22500,35 @@ module.exports = traverseAllChildren;
 /* 198 */,
 /* 199 */,
 /* 200 */,
-/* 201 */
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22416,7 +22544,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var React = __webpack_require__(49);
 var ReactDOM = __webpack_require__(82);
-var selected = '05';
+var Nav = __webpack_require__(183);
 
 // 框架
 
@@ -22605,90 +22733,8 @@ var Head = function (_React$Component2) {
 
 ;
 
-var Nav = function (_React$Component3) {
-    _inherits(Nav, _React$Component3);
-
-    function Nav(props) {
-        _classCallCheck(this, Nav);
-
-        // 初始化一个空对象
-        var _this3 = _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
-
-        _this3.state = { items: [] };
-        return _this3;
-    }
-
-    _createClass(Nav, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "/", icon_class: "icon-th" }] }, { name: "用户列表", code: "02", href: "admin_user_list", icon_class: "icon-home", child: [{ name: "用户列表", href: "/", icon_class: "icon-th" }] }, { name: "商品列表", code: "03", href: "admin_product_list", icon_class: "icon-home", child: [{ name: "商品列表", href: "/", icon_class: "icon-th" }] }, { name: "商品图片", code: "04", href: "admin_product_img", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单列表", code: "05", href: "admin_order_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }];
-            this.setState({ items: rows });
-            unicorn();
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var nav = [];
-            this.state.items.map(function (item, index) {
-                var c = "submenu";
-                if (item.code == selected) {
-                    c = "submenu active";
-                }
-                nav.push(React.createElement(
-                    'li',
-                    { className: c, key: index },
-                    React.createElement(
-                        'a',
-                        { href: item.href },
-                        React.createElement('i', { className: "icon " + item.icon_class }),
-                        ' ',
-                        React.createElement(
-                            'span',
-                            null,
-                            item.name
-                        )
-                    ),
-                    React.createElement(
-                        'ul',
-                        null,
-                        item.child.map(function (item, index) {
-                            return React.createElement(
-                                'li',
-                                { key: index },
-                                React.createElement(
-                                    'a',
-                                    { href: item.href },
-                                    item.name
-                                )
-                            );
-                        })
-                    )
-                ));
-            });
-
-            return React.createElement(
-                'div',
-                null,
-                React.createElement(
-                    'div',
-                    { id: 'sidebar' },
-                    React.createElement(
-                        'ul',
-                        null,
-                        nav
-                    )
-                )
-            );
-        }
-    }]);
-
-    return Nav;
-}(React.Component);
-
-;
-
-var Infor = function (_React$Component4) {
-    _inherits(Infor, _React$Component4);
+var Infor = function (_React$Component3) {
+    _inherits(Infor, _React$Component3);
 
     function Infor(props) {
         _classCallCheck(this, Infor);
@@ -22699,9 +22745,7 @@ var Infor = function (_React$Component4) {
 
     _createClass(Infor, [{
         key: 'componentDidMount',
-        value: function componentDidMount() {
-            unicorn();
-        }
+        value: function componentDidMount() {}
     }, {
         key: 'render',
         value: function render() {
@@ -22796,21 +22840,21 @@ var Infor = function (_React$Component4) {
 
 // 右侧下部表格
 
-var TableWrap = function (_React$Component5) {
-    _inherits(TableWrap, _React$Component5);
+var TableWrap = function (_React$Component4) {
+    _inherits(TableWrap, _React$Component4);
 
     function TableWrap(props) {
         _classCallCheck(this, TableWrap);
 
-        var _this5 = _possibleConstructorReturn(this, (TableWrap.__proto__ || Object.getPrototypeOf(TableWrap)).call(this, props));
+        var _this4 = _possibleConstructorReturn(this, (TableWrap.__proto__ || Object.getPrototypeOf(TableWrap)).call(this, props));
 
-        _this5.setPage = _this5.setPage.bind(_this5);
-        _this5.handleSort = _this5.handleSort.bind(_this5);
-        _this5.loadData = _this5.loadData.bind(_this5);
-        _this5.handleCallBack1 = _this5.handleCallBack1.bind(_this5);
+        _this4.setPage = _this4.setPage.bind(_this4);
+        _this4.handleSort = _this4.handleSort.bind(_this4);
+        _this4.loadData = _this4.loadData.bind(_this4);
+        _this4.handleCallBack1 = _this4.handleCallBack1.bind(_this4);
         // 初始化一个空对象
-        _this5.state = { tabthitems: [], tabtritems: [], allNum: 0, everyNum: 20, thisPage: 1, sort: { name: "", dir: "" } };
-        return _this5;
+        _this4.state = { tabthitems: [], tabtritems: [], allNum: 0, everyNum: 20, thisPage: 1, sort: { name: "", dir: "" } };
+        return _this4;
     }
 
     _createClass(TableWrap, [{
@@ -22865,22 +22909,22 @@ var TableWrap = function (_React$Component5) {
 ;
 // 表格
 
-var Table = function (_React$Component6) {
-    _inherits(Table, _React$Component6);
+var Table = function (_React$Component5) {
+    _inherits(Table, _React$Component5);
 
     function Table(props) {
         _classCallCheck(this, Table);
 
-        var _this6 = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props));
+        var _this5 = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props));
 
-        _this6.state = { tabtritems: _this6.props.tabtritems };
-        return _this6;
+        _this5.state = { tabtritems: _this5.props.tabtritems };
+        return _this5;
     }
 
     _createClass(Table, [{
         key: 'render',
         value: function render() {
-            var _this7 = this;
+            var _this6 = this;
 
             return React.createElement(
                 'div',
@@ -22921,7 +22965,7 @@ var Table = function (_React$Component6) {
                                             'tr',
                                             null,
                                             this.props.tabthitems.map(function (item, index) {
-                                                return React.createElement(Th, { key: index, item: item, sort: _this7.props.sort, onSort: _this7.props.onSort });
+                                                return React.createElement(Th, { key: index, item: item, sort: _this6.props.sort, onSort: _this6.props.onSort });
                                             })
                                         )
                                     ),
@@ -22929,7 +22973,7 @@ var Table = function (_React$Component6) {
                                         'tbody',
                                         null,
                                         this.props.tabtritems.map(function (item, index) {
-                                            return React.createElement(Tr, { key: index, item: item, tabthitems: _this7.props.tabthitems });
+                                            return React.createElement(Tr, { key: index, item: item, tabthitems: _this6.props.tabthitems });
                                         })
                                     )
                                 )
@@ -22946,29 +22990,29 @@ var Table = function (_React$Component6) {
 
 ;
 
-var Tr = function (_React$Component7) {
-    _inherits(Tr, _React$Component7);
+var Tr = function (_React$Component6) {
+    _inherits(Tr, _React$Component6);
 
     function Tr(props) {
         _classCallCheck(this, Tr);
 
         // 初始化一个空对象
-        var _this8 = _possibleConstructorReturn(this, (Tr.__proto__ || Object.getPrototypeOf(Tr)).call(this, props));
+        var _this7 = _possibleConstructorReturn(this, (Tr.__proto__ || Object.getPrototypeOf(Tr)).call(this, props));
 
-        _this8.state = {};
-        return _this8;
+        _this7.state = {};
+        return _this7;
     }
 
     _createClass(Tr, [{
         key: 'render',
         value: function render() {
-            var _this9 = this;
+            var _this8 = this;
 
             return React.createElement(
                 'tr',
                 null,
                 this.props.tabthitems.map(function (item, index) {
-                    return React.createElement(Td, { key: index, item: _this9.props.item, thitem: item });
+                    return React.createElement(Td, { key: index, item: _this8.props.item, thitem: item });
                 })
             );
         }
@@ -22979,16 +23023,16 @@ var Tr = function (_React$Component7) {
 
 ;
 
-var Th = function (_React$Component8) {
-    _inherits(Th, _React$Component8);
+var Th = function (_React$Component7) {
+    _inherits(Th, _React$Component7);
 
     function Th(props) {
         _classCallCheck(this, Th);
 
-        var _this10 = _possibleConstructorReturn(this, (Th.__proto__ || Object.getPrototypeOf(Th)).call(this, props));
+        var _this9 = _possibleConstructorReturn(this, (Th.__proto__ || Object.getPrototypeOf(Th)).call(this, props));
 
-        _this10.handleClick = _this10.handleClick.bind(_this10);
-        return _this10;
+        _this9.handleClick = _this9.handleClick.bind(_this9);
+        return _this9;
     }
 
     _createClass(Th, [{
@@ -23058,17 +23102,17 @@ var Th = function (_React$Component8) {
 
 ;
 
-var Td = function (_React$Component9) {
-    _inherits(Td, _React$Component9);
+var Td = function (_React$Component8) {
+    _inherits(Td, _React$Component8);
 
     function Td(props) {
         _classCallCheck(this, Td);
 
-        var _this11 = _possibleConstructorReturn(this, (Td.__proto__ || Object.getPrototypeOf(Td)).call(this, props));
+        var _this10 = _possibleConstructorReturn(this, (Td.__proto__ || Object.getPrototypeOf(Td)).call(this, props));
 
-        _this11.handleEdit = _this11.handleEdit.bind(_this11);
-        _this11.handleDelete = _this11.handleDelete.bind(_this11);
-        return _this11;
+        _this10.handleEdit = _this10.handleEdit.bind(_this10);
+        _this10.handleDelete = _this10.handleDelete.bind(_this10);
+        return _this10;
     }
 
     _createClass(Td, [{
@@ -23111,19 +23155,19 @@ var Td = function (_React$Component9) {
 ;
 // 分页
 
-var Tab = function (_React$Component10) {
-    _inherits(Tab, _React$Component10);
+var Tab = function (_React$Component9) {
+    _inherits(Tab, _React$Component9);
 
     function Tab(props) {
         _classCallCheck(this, Tab);
 
-        var _this12 = _possibleConstructorReturn(this, (Tab.__proto__ || Object.getPrototypeOf(Tab)).call(this, props));
+        var _this11 = _possibleConstructorReturn(this, (Tab.__proto__ || Object.getPrototypeOf(Tab)).call(this, props));
 
-        _this12.gotoFirst = _this12.gotoFirst.bind(_this12);
-        _this12.gotoPrevious = _this12.gotoPrevious.bind(_this12);
-        _this12.gotoLast = _this12.gotoLast.bind(_this12);
-        _this12.gotoNext = _this12.gotoNext.bind(_this12);
-        return _this12;
+        _this11.gotoFirst = _this11.gotoFirst.bind(_this11);
+        _this11.gotoPrevious = _this11.gotoPrevious.bind(_this11);
+        _this11.gotoLast = _this11.gotoLast.bind(_this11);
+        _this11.gotoNext = _this11.gotoNext.bind(_this11);
+        return _this11;
     }
 
     _createClass(Tab, [{
@@ -23153,7 +23197,7 @@ var Tab = function (_React$Component10) {
     }, {
         key: 'render',
         value: function render() {
-            var _this13 = this;
+            var _this12 = this;
 
             var fenitems = [];
             // 所有条数allNum
@@ -23254,7 +23298,7 @@ var Tab = function (_React$Component10) {
                         { className: 'pagination' },
                         previous,
                         fenitems.map(function (item, index) {
-                            return React.createElement(PageLi, { key: index, setPage: _this13.props.setPage, item: item, setSelected: _this13.setSelected, selected: thisPage });
+                            return React.createElement(PageLi, { key: index, setPage: _this12.props.setPage, item: item, setSelected: _this12.setSelected, selected: thisPage });
                         }),
                         next
                     )
@@ -23287,17 +23331,17 @@ var Tab = function (_React$Component10) {
 ;
 // 分页数字
 
-var PageLi = function (_React$Component11) {
-    _inherits(PageLi, _React$Component11);
+var PageLi = function (_React$Component10) {
+    _inherits(PageLi, _React$Component10);
 
     function PageLi(props) {
         _classCallCheck(this, PageLi);
 
         // 初始化一个空对象
-        var _this14 = _possibleConstructorReturn(this, (PageLi.__proto__ || Object.getPrototypeOf(PageLi)).call(this, props));
+        var _this13 = _possibleConstructorReturn(this, (PageLi.__proto__ || Object.getPrototypeOf(PageLi)).call(this, props));
 
-        _this14.handleClick = _this14.handleClick.bind(_this14);
-        return _this14;
+        _this13.handleClick = _this13.handleClick.bind(_this13);
+        return _this13;
     }
 
     _createClass(PageLi, [{

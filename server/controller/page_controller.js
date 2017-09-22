@@ -261,6 +261,26 @@ exports.register = function(server, options, next) {
         },
 
 
+        //订单详情
+        {
+            method: 'GET',
+            path: '/admin_order_detail',
+            handler: function(request, reply) {
+              return reply.view("admin_order_detail");
+            }
+        },
+
+        //商品详情
+        {
+            method: 'GET',
+            path: '/admin_order_product_detail',
+            handler: function(request, reply) {
+              return reply.view("admin_order_product_detail");
+            }
+        },
+
+
+
 
     ]);
 

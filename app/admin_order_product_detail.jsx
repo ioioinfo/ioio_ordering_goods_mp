@@ -92,7 +92,7 @@ var Nav = require('Nav');
 
               <div id="content">
                 <div id="content-header">
-                  <h1>商品查看</h1>
+                  <h1>商品详情</h1>
                   <div className="btn-group">
                     <a className="btn btn-large tip-bottom" title="Manage Files"><i className="icon-file"></i></a>
                     <a className="btn btn-large tip-bottom" title="Manage Users"><i className="icon-user"></i></a>
@@ -101,10 +101,10 @@ var Nav = require('Nav');
                   </div>
                 </div>
                 <div id="breadcrumb">
-                  <a href="#" title="Go to Home" className="tip-bottom"><i className="icon-tint"></i> XX</a>
+                  <a href="#" title="Go to Home" className="tip-bottom"><i className="icon-tint"></i> 首页</a>
                 </div>
                 <div className="container-fluid">
-                  <AddWrap/>
+                  <ImgWrap/>
                 </div>
 
               </div>
@@ -112,86 +112,58 @@ var Nav = require('Nav');
           );
       }
     };
-    // add
-    class AddWrap extends React.Component {
+    // 图片
+    class ImgWrap extends React.Component {
       constructor(props) {
           super(props);
-          // 初始化一个空对象
-          this.state={items:[]};
       }
       componentDidMount() {
-        selectTwo();
+
       }
       render() {
-        var style = {display:'none' };
-        var style1 = {width:'1px'};
           return (
             <div className="row-fluid">
-              <div className="span12">
-                <div className="widget-box">
-                  <div className="widget-title">
-                    <span className="icon">
-                      <i className="icon-align-justify"></i>
-                    </span>
-                    <h5>Rest of elements...</h5>
-                  </div>
-                  <div className="widget-content nopadding">
-                    <form action="#" method="get" className="form-horizontal">
-                      <div className="control-group">
-                        <label className="control-label">供应商</label>
-                        <div className="controls">
-                          <div className="select2-container" id="s2id_autogen1">
-
-                            <div className="select2-drop select2-with-searchbox select2-offscreen" style={style}>
-                             <div className="select2-search">
-                              <input type="text" autoComplete="off" className="select2-input" tabIndex="0"/>
-                             </div>
-                             <ul className="select2-results"></ul>
-                            </div>
-                          </div>
-                          <select style={style}>
-                            <option>供应商A</option>
-                            <option>供应商B</option>
-                            <option>供应商C</option>
-                            <option>供应商D</option>
-                            <option>供应商E</option>
-                            <option>供应商F</option>
-                          </select>
-                        </div>
+    					<div className="span12">
+    						<div className="widget-box">
+    							<div className="widget-title">
+    								<span className="icon">
+    									<i className="icon-picture"></i>
+    								</span>
+    								<h5>商品详情</h5>
+    							</div>
+    							<div className="widget-content">
+    								<div className="invoice-content">
+                    <div className="invoice-head">
+                      <div className="invoice-meta">
+                        <span className="invoice-number">日期 ：2017-9-22 </span>
                       </div>
-
-
-
-                      <div className="control-group">
-                        <label className="control-label">门店</label>
-                        <div className="controls">
-                          <div className="select2-container" id="s2id_autogen1">
-
-                            <div className="select2-drop select2-with-searchbox select2-offscreen" style={style}>
-                             <div className="select2-search">
-                              <input type="text" autoComplete="off" className="select2-input" tabIndex="0"/>
-                             </div>
-                             <ul className="select2-results"></ul>
-                            </div>
-                          </div>
-                          <select style={style}>
-                            <option>门店A</option>
-                            <option>门店C</option>
-                            <option>门店B</option>
-                            <option>门店D</option>
-                            <option>门店E</option>
-                            <option>门店F</option>
-                          </select>
-                        </div>
+                      <h5>萝卜</h5>
+                      <div className="invoice-to">
+                        <ul>
+                          <li>
+                          <span><strong>详情：</strong></span>
+                          <span></span>
+                          <span>生产日期：2017-9-22</span>
+                          <span>产地：澳大利亚</span>
+                          <span>材质：XXX</span>
+                          </li>
+                        </ul>
                       </div>
+                      <div className="invoice-from">
+                        <ul>
+                          <li>
+                          <span><strong>统计：</strong></span>
+                          <span>共：20 件</span>
+                          <span>金额：30000.00 元</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
 
-                      <div className="form-actions">
-    										<button type="submit" className="btn btn-primary">保 存</button>
-    									</div>
-                    </form>
-                  </div>
-                </div>
-              </div>
+                    </div>
+    							</div>
+    						</div>
+    					</div>
 	          </div>
           );
       }
@@ -199,5 +171,5 @@ var Nav = require('Nav');
 // 返回到页面
 ReactDOM.render(
     <Wrap/>,
-    document.getElementById("admin_add_custom")
+    document.getElementById("admin_order_product_detail")
 );

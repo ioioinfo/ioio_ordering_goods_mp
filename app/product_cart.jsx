@@ -28,7 +28,7 @@ function product(state, action) {
   case 'GET_DATA':
   {
     var data = action.data;
-    return {items:data.rows,products:data.products,number:state.number};
+    return {items:data.rows,products:data.products,total_data:data.total_data, number:state.number};
   }
   case 'NUMBER_PLUS':
   {
@@ -36,12 +36,12 @@ function product(state, action) {
     if (number < 0) {
       number = 0;
     }
-    return {items:state.items,products:state.products,number:number};
+    return {items:state.items,products:state.products,total_data:state.total_data,number:number};
   }
   case 'NUMBER_STAR':
   {
     var number = action.Value;
-    return {items:state.items,products:state.products,number:number};
+    return {items:state.items,products:state.products,total_data:state.total_data,number:number};
   }
   case 'DELECT_PRODUCT':
   {
@@ -69,13 +69,14 @@ function product(state, action) {
   }
 }
 
-let store = createStore(product,{items:[],products:{},number:1});
+let store = createStore(product,{items:[],products:{},total_data:{}, number:1});
 
 const mapStateToProps = (state) => {
     return {
         items: state.items,
         products: state.products,
         number: state.number,
+        total_data:state.total_data,
 
     }
 }
@@ -164,6 +165,7 @@ class ProjectlistClass extends React.Component {
     render() {
       var style = {marginRight:'5px' ,display:'block'};
       var products = this.props.products;
+      var total_data = this.props.total_data;
 
       return (
         <ul className="project_list_ul">
@@ -203,7 +205,7 @@ class ProjectlistClass extends React.Component {
 
           <div className="project_money">
             <p>统计</p>
-            <p>共计 ： 1000.00 元</p>
+            <p>共计 ： {total_data.total_prices} 元</p>
           </div>
         </ul>
       );
