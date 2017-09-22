@@ -1,5 +1,85 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+import { Provider, connect } from 'react-redux'
+import { createStore } from 'redux'
+
+var cart_id = "";
+
+function product(state, action) {
+  switch (action.type) {
+  case 'PRODUCT_CART':
+    {
+      $.ajax({
+         url: "/find_person_cart",
+         dataType: 'json',
+         type: 'GET',
+         success: function(data) {
+           if (data.success) {
+             store.dispatch({ type: 'GET_DATA', data: data});
+           }else {
+           }
+         }.bind(this),
+         error: function(xhr, status, err) {
+         }.bind(this)
+      });
+
+      return state;
+    }
+  case 'GET_DATA':
+  {
+    var data = action.data;
+    return {items:data.rows,products:data.products,number:state.number};
+  }
+  case 'NUMBER_PLUS':
+  {
+    var number = state.number+action.addValue;
+    if (number < 0) {
+      number = 0;
+    }
+    return {items:state.items,products:state.products,number:number};
+  }
+  case 'NUMBER_STAR':
+  {
+    var number = action.Value;
+    return {items:state.items,products:state.products,number:number};
+  }
+  case 'DELECT_PRODUCT':
+  {
+    var cart_id = action.cart_id
+    $.ajax({
+       url: "/delete_shopping_carts",
+       dataType: 'json',
+       type: 'POST',
+       data:{'id':cart_id},
+       success: function(data) {
+         if (data.success) {
+           store.dispatch({ type: 'GET_DATA', data: data});
+         }else {
+         }
+       }.bind(this),
+       error: function(xhr, status, err) {
+       }.bind(this)
+    });
+
+    return state;
+  }
+
+  default:
+    return state
+  }
+}
+
+let store = createStore(product,{items:[],products:{},number:1});
+
+const mapStateToProps = (state) => {
+    return {
+        items: state.items,
+        products: state.products,
+        number: state.number,
+
+    }
+}
+
 
 class IoIo extends React.Component {
     constructor(props) {
@@ -21,7 +101,7 @@ class IoIo extends React.Component {
     }
 };
 
-class Projectlist extends React.Component {
+class ProjectlistClass extends React.Component {
     constructor(props) {
       super(props);
       this.handleMinus = this.handleMinus.bind(this);
@@ -31,21 +111,12 @@ class Projectlist extends React.Component {
       this.handleBuy = this.handleBuy.bind(this);
       this.handleDelect = this.handleDelect.bind(this);
       this.handleHide = this.handleHide.bind(this);
-      // 初始化一个空对象
-      this.state = {project_list:[],number:1};
+      this.changeNumber = this.changeNumber.bind(this);
+      this.handleDelectYes = this.handleDelectYes.bind(this);
+      this.state={number:0};
     }
     componentDidMount() {
-      var list = [{img:'images/img1.jpg' ,name:'这个名字够不够长你说，不够长我还可以加，加到你满意为止' ,price:'100.00'},
-                  {img:'images/img2.jpg' ,name:'来一个短一点的' ,price:'100.00'},
-                  {img:'images/img3.jpg' ,name:'汉堡' ,price:'999.00'},
-                  {img:'images/img4.jpg' ,name:'猪肉' ,price:'888.00'},
-                  {img:'images/img5.jpg' ,name:'葡萄' ,price:'777.00'},
-                  {img:'images/img6.jpg' ,name:'连衣裙' ,price:'666.00'}];
-      this.setState({project_list:list});
-      var number = this.state.number;
-      var num = $('#number').val();
-      $('#number').val(num);
-      this.setState({number:num});
+      store.dispatch({ type: 'PRODUCT_CART'});
 
       $('.background').show();
       $('.project_money').show();
@@ -53,30 +124,19 @@ class Projectlist extends React.Component {
     }
     handleBuy(e){
       var num = $('.position_absolute2 span').html();
-      $('#number').val(num);
+      store.dispatch({ type: 'NUMBER_STAR',Value:parseInt(num)});
       $('.background').show();
       $('.projecrt_number').show();
     }
     handleMinus(e){
-      var number = this.state.number;
-      var num = $('#number').val();
-      if(num>1){
-        num--;
-        $('#number').val(num);
-        this.setState({number:num});
-      }else {
-        $('#number').val('1');
-        this.setState({number:1});
-      }
+      store.dispatch({ type: 'NUMBER_PLUS',addValue:-1});
     }
     handlePlus(e){
-      var number = this.state.number;
-      var num = $('#number').val();
-        num++;
-        $('#number').val(num);
-        this.setState({number:num});
+      store.dispatch({ type: 'NUMBER_PLUS',addValue:1});
     }
+    changeNumber(e) {
 
+    }
     handleSure(e){
       $('.background').hide();
       $('.projecrt_number').hide();
@@ -91,27 +151,34 @@ class Projectlist extends React.Component {
       $('.background').hide();
       $('.delect_order').hide();
     }
-    handleDelect(e){
+    handleDelect(id){
       $('.delect_order').show();
       $('.background').show();
+      cart_id = id;
     }
-
+    handleDelectYes(e){
+      store.dispatch({ type: 'DELECT_PRODUCT',cart_id:cart_id});
+      $('.background').hide();
+      $('.delect_order').hide();
+    }
     render() {
       var style = {marginRight:'5px' ,display:'block'};
+      var products = this.props.products;
+
       return (
         <ul className="project_list_ul">
-          {this.state.project_list.map((item,index) => (
+          {this.props.items.map((item,index) => (
             <li key={index}>
               <div className="weui-cells">
                 <div className="weui-cell font_style position_relative">
-                    <div className="weui-cell__hd project_list_img_wrap"><img src={item.img} alt="" style={style}/></div>
+                    <div className="weui-cell__hd project_list_img_wrap"><img src={products[item.product_id].img.location} alt="" style={style}/></div>
                     <div className="weui-cell__bd product_name">
-                        <p className="product_name_infor">{item.name}</p>
-                        <p className="product_price"><span>￥</span>{item.price}</p>
+                        <p className="product_name_infor">{products[item.product_id].product_name}</p>
+                        <p className="product_price"><span>￥</span>{products[item.product_id].product_sale_price}</p>
                     </div>
                     <div className="weui-cell__ft position_absolute" onClick={this.handleBuy}><i className="fa fa-pencil"></i></div>
-                    <div className="weui-cell__ft position_absolute1" onClick={this.handleDelect}><i className="fa fa-trash-o"></i></div>
-                    <div className="weui-cell__ft position_absolute2"><span>11</span> 件</div>
+                    <div className="weui-cell__ft position_absolute1" onClick={this.handleDelect.bind(this,item.id)}><i className="fa fa-trash-o"></i></div>
+                    <div className="weui-cell__ft position_absolute2"><span>{item.total_items}</span> 件</div>
                 </div>
               </div>
 
@@ -123,7 +190,7 @@ class Projectlist extends React.Component {
           <div className="projecrt_number">
             <div className="projecrt_number_in">
               <p onClick={this.handleMinus}><i className="fa fa-minus"></i></p>
-              <p><span className="input_out"><input type="number" placeholder="1" id="number"/></span></p>
+              <p><span className="input_out"><input type="number" placeholder="1" id="number" value={this.props.number} onChange={this.changeNumber}/></span></p>
               <p onClick={this.handlePlus}><i className="fa fa-plus"></i></p>
               <button className="sure" onClick={this.handleSure}>确定</button>
             </div>
@@ -131,7 +198,7 @@ class Projectlist extends React.Component {
 
           <div className="delect_order">
             <p className="yes_or_no">是否确认删除该商品？</p>
-            <p className="delect_order_button"><span className="no">删除</span><span className="yes" onClick={this.handleHide}>不删除</span></p>
+            <p className="delect_order_button"><span className="no"  onClick={this.handleDelectYes}>删除</span><span className="yes" onClick={this.handleHide}>不删除</span></p>
           </div>
 
           <div className="project_money">
@@ -220,8 +287,10 @@ class Home extends React.Component {
       );
     }
 };
-
+const Projectlist = connect(mapStateToProps)(ProjectlistClass);
 ReactDOM.render(
-  <IoIo/>,
+  <Provider store={store}>
+  <IoIo/>
+  </Provider>,
   document.getElementById("product_cart")
 );
