@@ -22,6 +22,17 @@ var host = "http://211.149.248.241:18002/";
 
 var nav = function(server) {
     return {
+        //查询商品
+        find_properties_by_product: function(product_id,cb) {
+            var url = host + "find_properties_by_product?product_id="+product_id;
+            uu_request.get(url, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,JSON.parse(body));
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
         //查询商品图片
         get_product_pictures: function(product_id,cb) {
             var url = host + "get_product_pictures?product_id="+product_id;

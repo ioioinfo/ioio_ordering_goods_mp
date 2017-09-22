@@ -22,6 +22,50 @@ var host = "http://211.149.248.241:18010/";
 
 var nav = function(server) {
     return {
+        //更新订单状态
+        update_online_status: function(data,cb) {
+            var url = host + "update_online_status";
+            uu_request.request(url, data, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,body);
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
+        //删除订单
+        delete_online: function(data,cb) {
+            var url = host + "delete_online";
+            uu_request.request(url, data, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,body);
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
+        //person_id查询
+        search_online_by_personid: function(person_id,cb) {
+            var url = host + "search_online_by_personid?person_id="+person_id;
+            uu_request.get(url, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,JSON.parse(body));
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
+        //id查询
+        search_online_by_id: function(id,cb) {
+            var url = host + "search_online_by_id?id="+id;
+            uu_request.get(url, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,JSON.parse(body));
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
         //查询订单列表
         get_online_orders: function(params,cb) {
             var url = host + "get_online_orders?params="+params;
@@ -33,7 +77,17 @@ var nav = function(server) {
                 }
             });
         },
-
+        //保存订单
+        save_online_orders: function(data,cb) {
+            var url = host + "save_online_orders";
+            uu_request.request(url, data, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,body);
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
 
     };
 };

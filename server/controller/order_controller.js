@@ -54,6 +54,114 @@ exports.register = function(server, options, next) {
                 });
             },
         },
+        //保存订单
+        {
+            method: 'POST',
+            path: '/save_online_orders',
+            handler: function(request, reply) {
+                var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
+                var total_data = request.payload.total_data;
+				var shopping_carts = request.payload.shopping_carts;
+				if (!person_id || !total_data || !shopping_carts) {
+					return reply({"success":false,"message":"params wrong","service_info":service_info});
+				}
+                var data = {
+                    "person_id":person_id,
+                    "total_data":total_data,
+                    "shopping_carts":shopping_carts
+                };
+
+                api.save_online_orders(data,function(err,rows){
+                    if (!err) {
+                        return reply({"success":true});
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
+        //id查询
+        {
+            method: 'GET',
+            path: '/search_online_by_id',
+            handler: function(request, reply) {
+                var id = request.query.id;
+                if (!id) {
+                    return reply({"success":false,"message":"id null","service_info":service_info});
+                }
+                api.search_online_by_id(id,function(err,rows){
+                    if (!err) {
+                        return reply({"success":true,"rows":rows.rows});
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
+        //person_id查询
+        {
+            method: 'GET',
+            path: '/search_online_by_personid',
+            handler: function(request, reply) {
+                var person_id = request.query.person_id;
+				if (!person_id) {
+					return reply({"success":false,"message":"person_id null","service_info":service_info});
+				}
+                api.search_online_by_personid(person_id,function(err,rows){
+                    if (!err) {
+                        return reply({"success":true,"rows":rows.rows});
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
+        //删除订单
+        {
+            method: 'POST',
+            path: '/delete_online',
+            handler: function(request, reply) {
+                var id = request.payload.id;
+				if (!id) {
+                    return reply({"success":false,"message":"id null","service_info":service_info});
+                }
+                var data = {
+                    "id":id
+                };
+
+                api.delete_online(data,function(err,rows){
+                    if (!err) {
+                        return reply({"success":true});
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
+        //更新订单状态
+        {
+            method: 'POST',
+            path: '/update_online_status',
+            handler: function(request, reply) {
+                var id = request.payload.id;
+				var order_status = request.payload.order_status;
+				if (!id ||!order_status) {
+					return reply({"success":false,"message":"params null","service_info":service_info});
+				}
+                var data = {
+                    "id":id,
+                    "order_status":order_status
+                };
+
+                api.update_online_status(data,function(err,rows){
+                    if (!err) {
+                        return reply({"success":true});
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
 
 
     ]);

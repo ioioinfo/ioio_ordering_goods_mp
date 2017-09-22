@@ -62,20 +62,42 @@ exports.register = function(server, options, next) {
                 if (!product_id) {
                     return reply({"success":false,"message":"product_id is null"});
                 }
+                //行业属性
+                var industry_properties = industry["properties"];
+                var ep =  eventproxy.create("pictures", product, property, function(pictures, product, property){
+                    product.pictures = pictures;
+                    
+                    return reply({"product":product,"industry_properties":industry_properties,"property":property});
+                });
                 api.get_product(product_id,function(err,rows){
                     if (!err) {
                         var product = rows.rows[0];
-                        api.get_product_pictures(product_id,function(err,rows){
-                            if (!err) {
-                                return reply({"success":true,"row":product,"pictures":rows.rows});
-                            }else {
-                                return reply({"success":false,"message":rows.message});
-                            }
-                        });
+                        ep.emit("product", product);
                     }else {
-                        return reply({"success":false,"message":rows.message});
+                        ep.emit("product", {});
                     }
                 });
+                api.get_product_pictures(product_id,function(err,rows){
+                    if (!err) {
+                        var pictures = rows.rows;
+                        ep.emit("pictures", pictures);
+                    }else {
+                        ep.emit("pictures", []);
+                    }
+                });
+                api.find_properties_by_product(product_id,function(err,rows){
+                    if (!err) {
+                        var properties = result.properties;
+                        var property = {};
+                        for (var i = 0; i < properties.length; i++) {
+                            property[properties[i].name] = properties[i];
+                        }
+                        ep.emit("property", property);
+                    }else {
+                        ep.emit("property", {});
+                    }
+                });
+
             },
         },
 
