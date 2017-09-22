@@ -12,7 +12,7 @@
  │                                                              │
  └──────────────────────────────────────────────────────────────┘
 */
-
+﻿var industries = require('../utils/industries.js');
 var _ = require('lodash');
 var r = require('request');
 var moment = require('moment');
@@ -62,11 +62,18 @@ exports.register = function(server, options, next) {
                 if (!product_id) {
                     return reply({"success":false,"message":"product_id is null"});
                 }
-                //行业属性
-                var industry_properties = industry["properties"];
-                var ep =  eventproxy.create("pictures", product, property, function(pictures, product, property){
+                var ep =  eventproxy.create("pictures", "product", "property", function(pictures, product, property){
                     product.pictures = pictures;
-                    
+                    var industry_id = product.industry_id;
+                    var industry = industries[industry_id];
+                    if (!industry) {
+                        return reply({"success":false,"message":"行业不存在"});
+                    }
+                    var stock_options = {"region_id":"1"};
+                    var page_name = industry["view_name"];
+                    //行业属性
+                    var industry_properties = industry["properties"];
+
                     return reply({"product":product,"industry_properties":industry_properties,"property":property});
                 });
                 api.get_product(product_id,function(err,rows){
@@ -87,7 +94,7 @@ exports.register = function(server, options, next) {
                 });
                 api.find_properties_by_product(product_id,function(err,rows){
                     if (!err) {
-                        var properties = result.properties;
+                        var properties = rows.properties;
                         var property = {};
                         for (var i = 0; i < properties.length; i++) {
                             property[properties[i].name] = properties[i];
