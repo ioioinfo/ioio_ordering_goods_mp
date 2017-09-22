@@ -37,10 +37,12 @@ var nav = function(server) {
         },
         //删除购物车
         delete_shopping_carts: function(ids, cb) {
-            var url = host + "delete_shopping_carts?ids="+ids;
-            uu_request.get(url, function(err, response, body) {
-                if (!err && response.statusCode === 200) {
-                    cb(err,JSON.parse(body));
+            var url = host + "delete_shopping_carts";
+            var data = {ids:ids};
+            
+            uu_request.do_post_method(url, data, function(err, body) {
+                if (!err) {
+                    cb(err,body);
                 } else {
                     cb(true,{message:"网络错误"});
                 }

@@ -49,7 +49,7 @@ exports.register = function(server, options, next) {
                 });
             },
         },
-        //删除购物车
+        //删除购物车商品
         {
             method: 'POST',
             path: '/delete_shopping_carts',
