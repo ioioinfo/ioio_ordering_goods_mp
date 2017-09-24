@@ -1,14 +1,52 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+import { Provider, connect } from 'react-redux'
+import { createStore } from 'redux'
+
+
+function product(state, action) {
+  switch (action.type) {
+  case 'PRODUCT_CART':
+    {
+      $.ajax({
+         url: "/search_ol_orders_infos?order_ids="+order_ids,
+         dataType: 'json',
+         type: 'GET',
+         success: function(data) {
+           if (data.success) {
+             store.dispatch({ type: 'GET_DATA', data: data});
+           }else {
+           }
+         }.bind(this),
+         error: function(xhr, status, err) {
+         }.bind(this)
+      });
+
+      return state;
+    }
+  case 'GET_DATA':
+  {
+    var data = action.data;
+    return {items:data.rows[0].details,products:data.products};
+  }
+
+  default:
+    return state
+  }
+}
+
+let store = createStore(product,{items:[],products:{}});
+
+const mapStateToProps = (state) => {
+    return {
+        items: state.items,
+        products: state.products,
+
+    }
+}
+
 
 class IoIo extends React.Component {
-    constructor(props) {
-      super(props);
-      // 初始化一个空对象
-      this.state = {};
-    }
-    componentDidMount() {
-    }
     render() {
       return (
         <div className="project_list_wrap">
@@ -20,38 +58,32 @@ class IoIo extends React.Component {
     }
 };
 
-class Projectlist extends React.Component {
+class ProjectlistClass extends React.Component {
     constructor(props) {
       super(props);
-      // 初始化一个空对象
-      this.state = {project_list:[]};
+      this.state={number:0};
     }
     componentDidMount() {
-      var list = [{img:'images/img1.jpg' ,name:'这个名字够不够长你说，不够长我还可以加，加到你满意为止' ,price:'100.00'},
-                  {img:'images/img2.jpg' ,name:'来一个短一点的' ,price:'100.00'},
-                  {img:'images/img3.jpg' ,name:'汉堡' ,price:'999.00'},
-                  {img:'images/img4.jpg' ,name:'猪肉' ,price:'888.00'},
-                  {img:'images/img5.jpg' ,name:'葡萄' ,price:'777.00'},
-                  {img:'images/img6.jpg' ,name:'连衣裙' ,price:'666.00'}];
-      this.setState({project_list:list});
-
+      store.dispatch({ type: 'PRODUCT_CART'});
     }
-
 
     render() {
       var style = {marginRight:'5px' ,display:'block'};
+      var products = this.props.products;
+      var total_data = this.props.total_data;
+
       return (
         <ul className="project_list_ul">
-          {this.state.project_list.map((item,index) => (
+          {this.props.items.map((item,index) => (
             <li key={index}>
               <div className="weui-cells">
                 <div className="weui-cell font_style position_relative">
-                    <div className="weui-cell__hd project_list_img_wrap"><img src={item.img} alt="" style={style}/></div>
+                    <div className="weui-cell__hd project_list_img_wrap"><img src={products[item.product_id].img.location} alt="" style={style}/></div>
                     <div className="weui-cell__bd product_name">
-                        <p className="product_name_infor">{item.name}</p>
-                        <p className="product_price"><span>￥</span>{item.price}</p>
+                        <p className="product_name_infor">{products[item.product_id].product_name}</p>
+                        <p className="product_price"><span>￥</span>{products[item.product_id].product_sale_price}</p>
                     </div>
-                    <div className="weui-cell__ft position_absolute2"><span>11</span> 件</div>
+                    <div className="weui-cell__ft position_absolute2"><span id={'number_'+item.product_id}>{item.number}</span> 件</div>
                 </div>
               </div>
 
@@ -59,11 +91,11 @@ class Projectlist extends React.Component {
 
             ))
           }
+
         </ul>
       );
     }
 };
-
 
 // 返回顶部
 class Top extends React.Component {
@@ -124,8 +156,10 @@ class Home extends React.Component {
       );
     }
 };
-
+const Projectlist = connect(mapStateToProps)(ProjectlistClass);
 ReactDOM.render(
-  <IoIo/>,
+  <Provider store={store}>
+  <IoIo/>
+  </Provider>,
   document.getElementById("order_detail")
 );

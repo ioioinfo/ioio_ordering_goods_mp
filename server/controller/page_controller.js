@@ -174,7 +174,8 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/order_detail',
             handler: function(request, reply) {
-              return reply.view("order_detail");
+                var order_id = request.query.order_id;
+              return reply.view("order_detail",{order_id:order_id});
             }
         },
 
