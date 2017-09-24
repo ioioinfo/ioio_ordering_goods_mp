@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 240);
+/******/ 	return __webpack_require__(__webpack_require__.s = 241);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -24738,7 +24738,8 @@ function symbolObservablePonyfill(root) {
 /* 237 */,
 /* 238 */,
 /* 239 */,
-/* 240 */
+/* 240 */,
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24793,6 +24794,11 @@ function product(state, action) {
         }
         return { items: state.items, products: state.products, total_data: state.total_data, number: number };
       }
+    case 'NUMBER_CHANGE':
+      {
+        var number = action.value;
+        return { items: state.items, products: state.products, total_data: state.total_data, number: number };
+      }
     case 'NUMBER_STAR':
       {
         var number = action.Value;
@@ -24806,6 +24812,25 @@ function product(state, action) {
           dataType: 'json',
           type: 'POST',
           data: { 'id': cart_id },
+          success: function (data) {
+            if (data.success) {
+              store.dispatch({ type: 'GET_DATA', data: data });
+            } else {}
+          }.bind(this),
+          error: function (xhr, status, err) {}.bind(this)
+        });
+
+        return state;
+      }
+    case 'UPDATA_NUMBER':
+      {
+        var cart_id = action.cart_id;
+        var number = state.number;
+        $.ajax({
+          url: "/update_cart_number",
+          dataType: 'json',
+          type: 'POST',
+          data: { 'id': cart_id, 'num': number },
           success: function (data) {
             if (data.success) {
               store.dispatch({ type: 'GET_DATA', data: data });
@@ -24881,7 +24906,7 @@ var ProjectlistClass = function (_React$Component2) {
     _this2.handlePlus = _this2.handlePlus.bind(_this2);
     _this2.handleSure = _this2.handleSure.bind(_this2);
     _this2.handleBack = _this2.handleBack.bind(_this2);
-    _this2.handleBuy = _this2.handleBuy.bind(_this2);
+    _this2.handleNumber = _this2.handleNumber.bind(_this2);
     _this2.handleDelect = _this2.handleDelect.bind(_this2);
     _this2.handleHide = _this2.handleHide.bind(_this2);
     _this2.changeNumber = _this2.changeNumber.bind(_this2);
@@ -24900,10 +24925,11 @@ var ProjectlistClass = function (_React$Component2) {
       $('.project_money').attr('id', 'animation');
     }
   }, {
-    key: 'handleBuy',
-    value: function handleBuy(e) {
-      var num = $('.position_absolute2 span').html();
+    key: 'handleNumber',
+    value: function handleNumber(id, product_id) {
+      var num = $('#number_' + product_id).html();
       store.dispatch({ type: 'NUMBER_STAR', Value: parseInt(num) });
+      cart_id = id;
       $('.background').show();
       $('.projecrt_number').show();
     }
@@ -24919,10 +24945,13 @@ var ProjectlistClass = function (_React$Component2) {
     }
   }, {
     key: 'changeNumber',
-    value: function changeNumber(e) {}
+    value: function changeNumber() {
+      store.dispatch({ type: 'NUMBER_CHANGE', value: $('#number').val() });
+    }
   }, {
     key: 'handleSure',
     value: function handleSure(e) {
+      store.dispatch({ type: 'UPDATA_NUMBER', cart_id: cart_id });
       $('.background').hide();
       $('.projecrt_number').hide();
     }
@@ -25002,20 +25031,20 @@ var ProjectlistClass = function (_React$Component2) {
                 ),
                 React.createElement(
                   'div',
-                  { className: 'weui-cell__ft position_absolute', onClick: _this3.handleBuy },
-                  React.createElement('i', { className: 'fa fa-pencil' })
+                  { className: 'weui-cell__ft position_absolute' },
+                  React.createElement('i', { className: 'fa fa-pencil', onClick: _this3.handleNumber.bind(_this3, item.id, item.product_id) })
                 ),
                 React.createElement(
                   'div',
-                  { className: 'weui-cell__ft position_absolute1', onClick: _this3.handleDelect.bind(_this3, item.id) },
-                  React.createElement('i', { className: 'fa fa-trash-o' })
+                  { className: 'weui-cell__ft position_absolute1' },
+                  React.createElement('i', { className: 'fa fa-trash-o', onClick: _this3.handleDelect.bind(_this3, item.id) })
                 ),
                 React.createElement(
                   'div',
                   { className: 'weui-cell__ft position_absolute2' },
                   React.createElement(
                     'span',
-                    null,
+                    { id: 'number_' + item.product_id },
                     item.total_items
                   ),
                   ' \u4EF6'

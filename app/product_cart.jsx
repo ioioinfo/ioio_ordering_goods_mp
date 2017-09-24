@@ -38,6 +38,11 @@ function product(state, action) {
     }
     return {items:state.items,products:state.products,total_data:state.total_data,number:number};
   }
+  case 'NUMBER_CHANGE':
+  {
+    var number = action.value;
+    return {items:state.items,products:state.products,total_data:state.total_data,number:number};
+  }
   case 'NUMBER_STAR':
   {
     var number = action.Value;
@@ -51,6 +56,27 @@ function product(state, action) {
        dataType: 'json',
        type: 'POST',
        data:{'id':cart_id},
+       success: function(data) {
+         if (data.success) {
+           store.dispatch({ type: 'GET_DATA', data: data});
+         }else {
+         }
+       }.bind(this),
+       error: function(xhr, status, err) {
+       }.bind(this)
+    });
+
+    return state;
+  }
+  case 'UPDATA_NUMBER':
+  {
+    var cart_id = action.cart_id;
+    var number = state.number;
+    $.ajax({
+       url: "/update_cart_number",
+       dataType: 'json',
+       type: 'POST',
+       data:{'id':cart_id,'num':number},
        success: function(data) {
          if (data.success) {
            store.dispatch({ type: 'GET_DATA', data: data});
@@ -109,7 +135,7 @@ class ProjectlistClass extends React.Component {
       this.handlePlus = this.handlePlus.bind(this);
       this.handleSure = this.handleSure.bind(this);
       this.handleBack = this.handleBack.bind(this);
-      this.handleBuy = this.handleBuy.bind(this);
+      this.handleNumber = this.handleNumber.bind(this);
       this.handleDelect = this.handleDelect.bind(this);
       this.handleHide = this.handleHide.bind(this);
       this.changeNumber = this.changeNumber.bind(this);
@@ -123,9 +149,10 @@ class ProjectlistClass extends React.Component {
       $('.project_money').show();
       $('.project_money').attr('id','animation');
     }
-    handleBuy(e){
-      var num = $('.position_absolute2 span').html();
+    handleNumber(id,product_id){
+      var num = $('#number_'+product_id).html();
       store.dispatch({ type: 'NUMBER_STAR',Value:parseInt(num)});
+      cart_id = id;
       $('.background').show();
       $('.projecrt_number').show();
     }
@@ -135,12 +162,14 @@ class ProjectlistClass extends React.Component {
     handlePlus(e){
       store.dispatch({ type: 'NUMBER_PLUS',addValue:1});
     }
-    changeNumber(e) {
-
+    changeNumber() {
+      store.dispatch({ type: 'NUMBER_CHANGE',value:$('#number').val()});
     }
     handleSure(e){
+      store.dispatch({ type: 'UPDATA_NUMBER',cart_id:cart_id});
       $('.background').hide();
       $('.projecrt_number').hide();
+
     }
     handleBack(e){
       $('.background').hide();
@@ -178,9 +207,9 @@ class ProjectlistClass extends React.Component {
                         <p className="product_name_infor">{products[item.product_id].product_name}</p>
                         <p className="product_price"><span>￥</span>{products[item.product_id].product_sale_price}</p>
                     </div>
-                    <div className="weui-cell__ft position_absolute" onClick={this.handleBuy}><i className="fa fa-pencil"></i></div>
-                    <div className="weui-cell__ft position_absolute1" onClick={this.handleDelect.bind(this,item.id)}><i className="fa fa-trash-o"></i></div>
-                    <div className="weui-cell__ft position_absolute2"><span>{item.total_items}</span> 件</div>
+                    <div className="weui-cell__ft position_absolute"><i className="fa fa-pencil" onClick={this.handleNumber.bind(this,item.id,item.product_id)}></i></div>
+                    <div className="weui-cell__ft position_absolute1"><i className="fa fa-trash-o" onClick={this.handleDelect.bind(this,item.id)}></i></div>
+                    <div className="weui-cell__ft position_absolute2"><span id={'number_'+item.product_id}>{item.total_items}</span> 件</div>
                 </div>
               </div>
 

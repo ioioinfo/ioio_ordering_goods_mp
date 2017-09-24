@@ -90,17 +90,19 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/index',
             handler: function(request, reply) {
-                page_get_openid(request,function(openid) {
-                    if (!openid) {
-                        return reply("获取用户信息失败");
-                    }
-                    var cookie = request.state.cookie;
-                    if (!cookie) {
-                        cookie = {};
-                    }
-                    cookie[sys_option.cookie_key] = openid;
-                    return reply.view("index").state('cookie', cookie, sys_option.cookie_options);;
-                });
+                // page_get_openid(request,function(openid) {
+                //     if (!openid) {
+                //         return reply("获取用户信息失败");
+                //     }
+                //     var cookie = request.state.cookie;
+                //     if (!cookie) {
+                //         cookie = {};
+                //     }
+                //     cookie[sys_option.cookie_key] = openid;
+                //     return reply.view("index").state('cookie', cookie, sys_option.cookie_options);;
+                // });
+
+                 return reply.view("index");
             },
         },
 
@@ -279,6 +281,14 @@ exports.register = function(server, options, next) {
             }
         },
 
+        //商品添加
+        {
+            method: 'GET',
+            path: '/admin_add_product',
+            handler: function(request, reply) {
+              return reply.view("admin_add_product");
+            }
+        },
 
 
 

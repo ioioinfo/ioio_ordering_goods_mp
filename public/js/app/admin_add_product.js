@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 236);
+/******/ 	return __webpack_require__(__webpack_require__.s = 227);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -22382,7 +22382,107 @@ module.exports = traverseAllChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 183 */,
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var React = __webpack_require__(49);
+
+var Nav = function (_React$Component) {
+  _inherits(Nav, _React$Component);
+
+  function Nav(props) {
+    _classCallCheck(this, Nav);
+
+    // 初始化一个空对象
+    var _this = _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
+
+    _this.state = { items: [] };
+    return _this;
+  }
+
+  _createClass(Nav, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "/", icon_class: "icon-th" }] }, { name: "用户列表", code: "02", href: "admin_user_list", icon_class: "icon-home", child: [{ name: "用户列表", href: "/", icon_class: "icon-th" }] }, { name: "商品列表", code: "03", href: "admin_product_list", icon_class: "icon-home", child: [{ name: "商品列表", href: "/", icon_class: "icon-th" }] }, { name: "商品图片", code: "04", href: "admin_product_img", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单列表", code: "05", href: "admin_order_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单详情", code: "06", href: "admin_order_detail", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单商品详情", code: "07", href: "admin_order_product_detail", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }];
+      this.setState({ items: rows });
+      unicorn();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var nav = [];
+      this.state.items.map(function (item, index) {
+        var c = "submenu";
+        if (item.code == selected) {
+          c = "submenu active";
+        }
+        nav.push(React.createElement(
+          "li",
+          { className: c, key: index },
+          React.createElement(
+            "a",
+            { href: item.href },
+            React.createElement("i", { className: "icon " + item.icon_class }),
+            " ",
+            React.createElement(
+              "span",
+              null,
+              item.name
+            )
+          ),
+          React.createElement(
+            "ul",
+            null,
+            item.child.map(function (item, index) {
+              return React.createElement(
+                "li",
+                { key: index },
+                React.createElement(
+                  "a",
+                  { href: item.href },
+                  item.name
+                )
+              );
+            })
+          )
+        ));
+      });
+
+      return React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "div",
+          { id: "sidebar" },
+          React.createElement(
+            "ul",
+            null,
+            nav
+          )
+        )
+      );
+    }
+  }]);
+
+  return Nav;
+}(React.Component);
+
+;
+
+module.exports = Nav;
+
+/***/ }),
 /* 184 */,
 /* 185 */,
 /* 186 */,
@@ -22426,16 +22526,7 @@ module.exports = traverseAllChildren;
 /* 224 */,
 /* 225 */,
 /* 226 */,
-/* 227 */,
-/* 228 */,
-/* 229 */,
-/* 230 */,
-/* 231 */,
-/* 232 */,
-/* 233 */,
-/* 234 */,
-/* 235 */,
-/* 236 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22451,158 +22542,462 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var React = __webpack_require__(49);
 var ReactDOM = __webpack_require__(82);
+var Nav = __webpack_require__(183);
 
-var IoIo = function (_React$Component) {
-  _inherits(IoIo, _React$Component);
+// 框架
 
-  function IoIo(props) {
-    _classCallCheck(this, IoIo);
+var Wrap = function (_React$Component) {
+    _inherits(Wrap, _React$Component);
 
-    // 初始化一个空对象
-    var _this = _possibleConstructorReturn(this, (IoIo.__proto__ || Object.getPrototypeOf(IoIo)).call(this, props));
+    function Wrap() {
+        _classCallCheck(this, Wrap);
 
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.state = {};
-    return _this;
-  }
-
-  _createClass(IoIo, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-  }, {
-    key: 'handleSubmit',
-    value: function handleSubmit(e) {
-      var data_email = $('#data_email').val();
-      var data_password = $('#data_password').val();
-      if (!data_email) {
-        $('#data_email').addClass('loding_border');
-        $('.error_message').css('display', 'block');
-        $('.error_message').attr('id', 'animation1');
-        return;
-      } else if (!data_password) {
-
-        $('#data_email').removeClass('loding_border');
-        $('.error_message').css('display', 'none');
-        $('.error_message').removeAttr('id', 'animation1');
-
-        $('#data_password').addClass('loding_border');
-        $('.error_message1').css('display', 'block');
-        $('.error_message1').attr('id', 'animation1');
-        return;
-      }
-
-      if ($('#loadingToast').css('display') != 'none') return;
-      $('#loadingToast').fadeIn(100);
-      setTimeout(function () {
-        $('#loadingToast').fadeOut(100);
-      }, 2000);
-
-      $('#data_password').removeClass('loding_border');
-      $('.error_message1').css('display', 'none');
-      $('.error_message1').removeAttr('id', 'animation1');
+        return _possibleConstructorReturn(this, (Wrap.__proto__ || Object.getPrototypeOf(Wrap)).apply(this, arguments));
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      var style = { display: 'none' };
-      return React.createElement(
-        'div',
-        { className: 'loding_wrap' },
-        React.createElement(
-          'div',
-          { className: 'loding_com_namewrap', id: 'animation' },
-          React.createElement(
-            'div',
-            { className: 'loding_com_name' },
-            React.createElement(
-              'span',
-              null,
-              '\u4F51\u4F51\u79D1\u6280'
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'loding_middle' },
-          React.createElement(
-            'div',
-            { className: 'loding_middle_next' },
-            React.createElement(
-              'div',
-              { className: 'login-form-title' },
-              React.createElement(
-                'span',
-                { className: 'login-form-project' },
-                '\u79C1\u4EBA\u8BA2\u8D27'
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'loding_middle_email_wrap' },
-              React.createElement('input', { className: 'loding_middle_email_input', placeholder: '\u624B\u673A\u53F7', type: 'email', name: 'data[email]', id: 'data_email' }),
-              React.createElement('label', { className: 'loding_middle_email_name' }),
-              React.createElement(
-                'span',
-                { className: 'error_message' },
-                '\u8BF7\u91CD\u65B0\u8F93\u5165\u7528\u6237\u540D',
-                React.createElement('i', { className: 'ico error-buble' })
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'loding_middle_password_wrap' },
-              React.createElement('input', { className: 'loding_middle_password_input', placeholder: 'Password', type: '\u5BC6\u7801', name: 'data[password]', id: 'data_password' }),
-              React.createElement('label', { className: 'loding_middle_password_name' }),
-              React.createElement(
-                'span',
-                { className: 'error_message1' },
-                '\u8BF7\u91CD\u65B0\u8F93\u5165\u5BC6\u7801',
-                React.createElement('i', { className: 'ico error-buble' })
-              )
-            ),
-            React.createElement('input', { type: 'submit', name: 'commit', value: '\u767B \u5F55', className: 'loding_middle_submit', onClick: this.handleSubmit })
-          )
-        ),
-        React.createElement(
-          'div',
-          { id: 'loadingToast', style: style },
-          React.createElement('div', { className: 'weui-mask_transparent' }),
-          React.createElement(
-            'div',
-            { className: 'weui-toast' },
-            React.createElement('i', { className: 'weui-loading weui-icon_toast' }),
-            React.createElement(
-              'p',
-              { className: 'weui-toast__content' },
-              '\u767B\u5F55\u52A0\u8F7D\u4E2D'
-            )
-          )
-        ),
-        React.createElement(
-          'p',
-          { className: 'login_bottom' },
-          React.createElement(
-            'a',
-            { href: 'signup' },
-            '\u6CE8\u518C'
-          ),
-          '|',
-          React.createElement(
-            'a',
-            null,
-            '\u5FD8\u8BB0\u5BC6\u7801\uFF1F'
-          )
-        )
-      );
-    }
-  }]);
 
-  return IoIo;
+    _createClass(Wrap, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                { className: 'HomePage_wrap' },
+                React.createElement(Head, null),
+                React.createElement(Nav, null),
+                React.createElement(Infor, null)
+            );
+        }
+    }]);
+
+    return Wrap;
 }(React.Component);
 
 ;
 
-ReactDOM.render(React.createElement(IoIo, null), document.getElementById("loding"));
+var Head = function (_React$Component2) {
+    _inherits(Head, _React$Component2);
+
+    function Head() {
+        _classCallCheck(this, Head);
+
+        return _possibleConstructorReturn(this, (Head.__proto__ || Object.getPrototypeOf(Head)).apply(this, arguments));
+    }
+
+    _createClass(Head, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'div',
+                    { id: 'header' },
+                    React.createElement(
+                        'h1',
+                        null,
+                        React.createElement(
+                            'a',
+                            { href: '#' },
+                            '\u5728\u7EBF\u8BA2\u8D27\u540E\u53F0'
+                        )
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    { id: 'search' },
+                    React.createElement('input', { type: 'text', placeholder: '\u641C\u7D22...' }),
+                    React.createElement(
+                        'button',
+                        { type: 'submit', className: 'tip-right', title: 'Search' },
+                        React.createElement('i', { className: 'icon-search icon-white' })
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    { id: 'user-nav', className: 'navbar navbar-inverse' },
+                    React.createElement(
+                        'ul',
+                        { className: 'nav btn-group' },
+                        React.createElement(
+                            'li',
+                            { className: 'btn btn-inverse' },
+                            React.createElement(
+                                'a',
+                                { title: '', href: '#' },
+                                React.createElement('i', { className: 'icon icon-user' }),
+                                React.createElement(
+                                    'span',
+                                    { className: 'text' },
+                                    'Profile'
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            'li',
+                            { className: 'btn btn-inverse dropdown', id: 'menu-messages' },
+                            React.createElement(
+                                'a',
+                                { href: '#', 'data-toggle': 'dropdown', 'data-target': '#menu-messages', className: 'dropdown-toggle' },
+                                React.createElement('i', { className: 'icon icon-envelope' }),
+                                React.createElement(
+                                    'span',
+                                    { className: 'text' },
+                                    'Messages'
+                                ),
+                                React.createElement(
+                                    'span',
+                                    { className: 'label label-important' },
+                                    '5'
+                                ),
+                                React.createElement('b', { className: 'caret' })
+                            ),
+                            React.createElement(
+                                'ul',
+                                { className: 'dropdown-menu' },
+                                React.createElement(
+                                    'li',
+                                    null,
+                                    React.createElement(
+                                        'a',
+                                        { className: 'sAdd', title: '', href: '#' },
+                                        'new message'
+                                    )
+                                ),
+                                React.createElement(
+                                    'li',
+                                    null,
+                                    React.createElement(
+                                        'a',
+                                        { className: 'sInbox', title: '', href: '#' },
+                                        'inbox'
+                                    )
+                                ),
+                                React.createElement(
+                                    'li',
+                                    null,
+                                    React.createElement(
+                                        'a',
+                                        { className: 'sOutbox', title: '', href: '#' },
+                                        'outbox'
+                                    )
+                                ),
+                                React.createElement(
+                                    'li',
+                                    null,
+                                    React.createElement(
+                                        'a',
+                                        { className: 'sTrash', title: '', href: '#' },
+                                        'trash'
+                                    )
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            'li',
+                            { className: 'btn btn-inverse' },
+                            React.createElement(
+                                'a',
+                                { title: '', href: '#' },
+                                React.createElement('i', { className: 'icon icon-cog' }),
+                                ' ',
+                                React.createElement(
+                                    'span',
+                                    { className: 'text' },
+                                    'Settings'
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            'li',
+                            { className: 'btn btn-inverse' },
+                            React.createElement(
+                                'a',
+                                { title: '', href: '#' },
+                                React.createElement('i', { className: 'icon icon-share-alt' }),
+                                React.createElement(
+                                    'span',
+                                    { className: 'text' },
+                                    'Logout'
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Head;
+}(React.Component);
+
+;
+
+var Infor = function (_React$Component3) {
+    _inherits(Infor, _React$Component3);
+
+    function Infor(props) {
+        _classCallCheck(this, Infor);
+
+        return _possibleConstructorReturn(this, (Infor.__proto__ || Object.getPrototypeOf(Infor)).call(this, props));
+        // 初始化一个空对象
+    }
+
+    _createClass(Infor, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {}
+    }, {
+        key: 'render',
+        value: function render() {
+            var style = { backgroundColor: '#555555', borderColor: '#aaaaaa' };
+            var style1 = { backgroundColor: '#8399b0' };
+            var style2 = { backgroundColor: '#2D2F57' };
+            var style3 = { backgroundColor: '#673232' };
+            var style4 = { backgroundImage: " url('img/demo/red-green.png')", backgroundRepeat: "no-repeat" };
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'div',
+                    { id: 'style-switcher' },
+                    React.createElement('i', { className: 'icon-arrow-left icon-white' }),
+                    React.createElement(
+                        'span',
+                        null,
+                        'Style:'
+                    ),
+                    React.createElement('a', { href: '#grey', style: style }),
+                    React.createElement('a', { href: '#light-blue', style: style1 }),
+                    React.createElement('a', { href: '#blue', style: style2 }),
+                    React.createElement('a', { href: '#red', style: style3 }),
+                    React.createElement('a', { href: '#red-green', style: style4 })
+                ),
+                React.createElement(
+                    'div',
+                    { id: 'content' },
+                    React.createElement(
+                        'div',
+                        { id: 'content-header' },
+                        React.createElement(
+                            'h1',
+                            null,
+                            '\u6DFB\u52A0\u5546\u54C1'
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'btn-group' },
+                            React.createElement(
+                                'a',
+                                { className: 'btn btn-large tip-bottom', title: 'Manage Files' },
+                                React.createElement('i', { className: 'icon-file' })
+                            ),
+                            React.createElement(
+                                'a',
+                                { className: 'btn btn-large tip-bottom', title: 'Manage Users' },
+                                React.createElement('i', { className: 'icon-user' })
+                            ),
+                            React.createElement(
+                                'a',
+                                { className: 'btn btn-large tip-bottom', title: 'Manage Comments' },
+                                React.createElement('i', { className: 'icon-comment' }),
+                                React.createElement(
+                                    'span',
+                                    { className: 'label label-important' },
+                                    '5'
+                                )
+                            ),
+                            React.createElement(
+                                'a',
+                                { className: 'btn btn-large tip-bottom', title: 'Manage Orders' },
+                                React.createElement('i', { className: 'icon-shopping-cart' })
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { id: 'breadcrumb' },
+                        React.createElement(
+                            'a',
+                            { href: '#', title: 'Go to Home', className: 'tip-bottom' },
+                            React.createElement('i', { className: 'icon-tint' }),
+                            ' \u9996\u9875'
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'container-fluid' },
+                        React.createElement(ImgWrap, null)
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Infor;
+}(React.Component);
+
+;
+// 图片
+
+var ImgWrap = function (_React$Component4) {
+    _inherits(ImgWrap, _React$Component4);
+
+    function ImgWrap(props) {
+        _classCallCheck(this, ImgWrap);
+
+        return _possibleConstructorReturn(this, (ImgWrap.__proto__ || Object.getPrototypeOf(ImgWrap)).call(this, props));
+    }
+
+    _createClass(ImgWrap, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {}
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                { className: 'row-fluid' },
+                React.createElement(
+                    'div',
+                    { className: 'span12' },
+                    React.createElement(
+                        'div',
+                        { className: 'widget-box' },
+                        React.createElement(
+                            'div',
+                            { className: 'widget-title' },
+                            React.createElement(
+                                'span',
+                                { className: 'icon' },
+                                React.createElement('i', { className: 'icon-picture' })
+                            ),
+                            React.createElement(
+                                'h5',
+                                null,
+                                '\u6DFB\u52A0\u5546\u54C1'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'widget-content nopadding' },
+                            React.createElement(
+                                'form',
+                                { className: 'form-horizontal', method: 'post', action: '#', name: 'basic_validate', id: 'basic_validate', novalidate: 'novalidate' },
+                                React.createElement(
+                                    'div',
+                                    { className: 'control-group' },
+                                    React.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        '\u5546\u54C1\u540D\u79F0'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'controls' },
+                                        React.createElement('input', { type: 'text', name: 'required', id: 'required' })
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'control-group' },
+                                    React.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        '\u4EA7\u5730'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'controls' },
+                                        React.createElement('input', { type: 'text', name: 'email', id: 'email' })
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'control-group' },
+                                    React.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        '\u4EF7\u683C(\u5143)'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'controls' },
+                                        React.createElement('input', { type: 'password', name: 'date', id: 'date' })
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'control-group' },
+                                    React.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        '\u54C1\u724C'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'controls' },
+                                        React.createElement('input', { type: 'password', name: 'url', id: 'url' })
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'control-group' },
+                                    React.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        '\u4FDD\u8D28\u671F'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'controls' },
+                                        React.createElement('input', { type: 'password', name: 'url', id: 'url' })
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'control-group' },
+                                    React.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        '\u89C4\u683C'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'controls' },
+                                        React.createElement('input', { type: 'password', name: 'url', id: 'url' })
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'control-group' },
+                                    React.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        '\u5176\u4ED6'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'controls' },
+                                        React.createElement('input', { type: 'password', name: 'url', id: 'url' })
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'form-actions' },
+                                    React.createElement('input', { type: 'submit', value: '\u786E\u8BA4', className: 'btn btn-primary' })
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return ImgWrap;
+}(React.Component);
+
+;
+// 返回到页面
+ReactDOM.render(React.createElement(Wrap, null), document.getElementById("admin_add_product"));
 
 /***/ })
 /******/ ]);

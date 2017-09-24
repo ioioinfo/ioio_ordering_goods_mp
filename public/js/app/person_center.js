@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 239);
+/******/ 	return __webpack_require__(__webpack_require__.s = 240);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -22438,7 +22438,8 @@ module.exports = traverseAllChildren;
 /* 236 */,
 /* 237 */,
 /* 238 */,
-/* 239 */
+/* 239 */,
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22529,7 +22530,7 @@ var IoIo = function (_React$Component) {
           { className: 'weui-tabbar' },
           React.createElement(
             'a',
-            { href: 'javascript:;', className: 'weui-tabbar__item' },
+            { href: 'index', className: 'weui-tabbar__item' },
             React.createElement(
               'span',
               { className: 'weui-tabbar__icon' },
@@ -22543,7 +22544,7 @@ var IoIo = function (_React$Component) {
           ),
           React.createElement(
             'a',
-            { href: 'javascript:;', className: 'weui-tabbar__item' },
+            { href: 'product_cart', className: 'weui-tabbar__item' },
             React.createElement(
               'span',
               { className: 'weui-tabbar__icon' },
@@ -22557,7 +22558,7 @@ var IoIo = function (_React$Component) {
           ),
           React.createElement(
             'a',
-            { href: 'javascript:;', className: 'weui-tabbar__item' },
+            { href: 'product_sort', className: 'weui-tabbar__item' },
             React.createElement(
               'span',
               { className: 'weui-tabbar__icon' },
@@ -22571,7 +22572,7 @@ var IoIo = function (_React$Component) {
           ),
           React.createElement(
             'a',
-            { href: 'javascript:;', className: 'weui-tabbar__item weui-bar__item_on' },
+            { href: 'person_center', className: 'weui-tabbar__item weui-bar__item_on' },
             React.createElement(
               'span',
               { className: 'weui-tabbar__icon' },
