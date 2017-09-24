@@ -36,6 +36,46 @@
 .fa-pencil{
   color: #003366;
 }
+.submit_order{
+    width: 274px;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    right: 50%;
+    z-index: 9999;
+    background: #fff;
+    margin-left: -137px;
+    margin-right: -137px;
+    padding-bottom: 27px;
+    border-top: 5px solid #00a854;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    display: none;
+}
+.submit_order_title{
+    text-align: center;
+    font-size: 16px;
+    height: 37px;
+    line-height: 37px;
+    margin-top: 27px;
+}
+.submit_order_hand{
+    padding: 0 17px;
+    overflow: hidden;
+    margin-top: 37px;
+}
+.submit_order_hand span{
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+}
+.submit_order_hand span:last-child{
+    float: right;
+    color: #00a854;
+}
+.submit_order_hand span i{
+    color: #666;
+}
 .delect_order,.project_money{
   width: 274px;
   position: fixed;
@@ -82,7 +122,7 @@
   padding: 13px 24px;
   font-size: 16px;
 }
-#animation{
+.animation{
 -webkit-animation:bounceInDown 1s .2s ease both;
 -moz-animation:bounceInDown 1s .2s ease both;}
 @-webkit-keyframes bounceInDown{

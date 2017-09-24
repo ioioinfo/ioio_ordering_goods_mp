@@ -25,6 +25,7 @@ module.exports = {
         order_sure: './app/order_sure.jsx',
         order_detail: './app/order_detail.jsx',
         order_list: './app/order_list.jsx',
+        now_order: './app/now_order.jsx',
         search: './app/search.jsx',
         product_show: './app/product_show.jsx',
 
@@ -37,6 +38,7 @@ module.exports = {
         admin_order_detail: './app/admin_order_detail.jsx',
         admin_order_product_detail: './app/admin_order_product_detail.jsx',
         admin_add_product: './app/admin_add_product.jsx',
+        admin_product_online_list: './app/admin_product_online_list.jsx',
     },
     output: {
         path: __dirname,

@@ -20,20 +20,25 @@
     <div id="admin_order_list"></div>
     <script type="text/javascript">
     var selected = '05';
-      //表头
-      var tt = [{name:'id',title:'编号',sort:false}
-              ,{name:'time',title:'时间',sort:false}
-              ,{name:'money',title:'金额',sort:false}
-              ,{name:'option',title:'操作',type:'view',sort:false}];
+    //表头
+    var tt = [{name:'order_id',title:'订单编号',sort:false}
+    ,{name:'created_at_text',title:'时间',sort:false}
+    ,{name:'total_number',title:'数量',sort:false}
+    ,{name:'actual_price',title:'金额',sort:false}
+    ,{name:'operation',title:'操作',type:"operation"}];
 
-
-      function getTableData(params,cb) {
-          params.everyNum = 50;
-          var allNum = 0;
-          var list = [{id:"1",time:"2017-9-10", money:"1222"},
-                      {id:"2",time:"2017-9-20", money:"1333"},];
-          cb({tabthitems:tt,tabtritems:list,allNum:allNum,everyNum:params.everyNum});
-      };
+    function getTableData(params,cb) {
+        params.everyNum = 50;
+        var allNum = 0;
+        $.get("/get_online_orders",{params:JSON.stringify(params)},function(data){
+            if (data.success) {
+                allNum = data.num;
+                cb({tabthitems:tt,tabtritems:data.rows,allNum:allNum,everyNum:params.everyNum});
+            }else {
+                alert(data.message);
+            }
+        });
+    };
     </script>
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <script src="js/bootstrap2.min.js"></script>

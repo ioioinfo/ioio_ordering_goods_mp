@@ -89,6 +89,37 @@ function product(state, action) {
 
     return state;
   }
+  case 'SAVE_PRODUCT':
+  {
+    var products = state.items;
+    var shopping_carts = [];
+    var product = {};
+    var total_data = state.total_data;
+
+    for (var i = 0; i < products.length; i++) {
+        product = {'id':products[i].id,'product_id':products[i].product_id,'total_items':products[i].total_items,
+                    'per_price':products[i].per_price,'total_prices':products[i].total_prices,
+                    'cart_code':products[i].cart_code,'is_selected':products[i].is_selected};
+        shopping_carts.push(product);
+    }
+    var total_data = {'total_prices':total_data.total_prices,'total_items':total_data.total_items,total_weight:total_data.total_weight};
+    $.ajax({
+       url: "/save_online_orders",
+       dataType: 'json',
+       type: 'POST',
+       data:{'shopping_carts':JSON.stringify(shopping_carts),'total_data':JSON.stringify(total_data)},
+       success: function(data) {
+         if (data.success) {
+             location.href = 'now_order?order_id='+data.order_id;
+         }else {
+           alert('提交失败');
+         }
+       }.bind(this),
+       error: function(xhr, status, err) {
+       }.bind(this)
+    });
+    return state;
+  }
 
   default:
     return state
@@ -140,6 +171,8 @@ class ProjectlistClass extends React.Component {
       this.handleHide = this.handleHide.bind(this);
       this.changeNumber = this.changeNumber.bind(this);
       this.handleDelectYes = this.handleDelectYes.bind(this);
+      this.handleGo = this.handleGo.bind(this);
+      this.handleReturn = this.handleReturn.bind(this);
       this.state={number:0};
     }
     componentDidMount() {
@@ -147,7 +180,7 @@ class ProjectlistClass extends React.Component {
 
       $('.background').show();
       $('.project_money').show();
-      $('.project_money').attr('id','animation');
+      $('.project_money').addClass('animation');
     }
     handleNumber(id,product_id){
       var num = $('#number_'+product_id).html();
@@ -176,6 +209,7 @@ class ProjectlistClass extends React.Component {
       $('.projecrt_number').hide();
       $('.delect_order').hide();
       $('.project_money').hide();
+      $('.submit_order').hide();
     }
     handleHide(e){
       $('.background').hide();
@@ -190,6 +224,15 @@ class ProjectlistClass extends React.Component {
       store.dispatch({ type: 'DELECT_PRODUCT',cart_id:cart_id});
       $('.background').hide();
       $('.delect_order').hide();
+    }
+    handleGo(e){
+      store.dispatch({ type: 'SAVE_PRODUCT'});
+      $('.background').hide();
+      $('.submit_order').hide();
+    }
+    handleReturn(e){
+     $('.background').hide();
+     $('.submit_order').hide();
     }
     render() {
       var style = {marginRight:'5px' ,display:'block'};
@@ -236,6 +279,11 @@ class ProjectlistClass extends React.Component {
             <p>统计</p>
             <p>共计 ： {total_data.total_prices} 元</p>
           </div>
+
+          <div className="submit_order">
+            <p className="submit_order_title">确认提交订单？</p>
+            <p className="submit_order_hand"><span onClick={this.handleReturn}><i className="fa fa-arrow-left"></i></span><span onClick={this.handleGo}>确定</span></p>
+          </div>
         </ul>
       );
     }
@@ -245,15 +293,17 @@ class ProjectlistClass extends React.Component {
 class ProjectButton extends React.Component {
     constructor(props) {
       super(props);
-      // 初始化一个空对象
-      this.state = {};
+      this.handleSave=this.handleSave.bind(this);
     }
-    componentDidMount() {
+    handleSave(e) {
+        $('.background').show();
+        $('.submit_order').show();
+        $('.submit_order').addClass('animation');
     }
     render() {
       return (
         <div className="project_list_button">
-          <p>去提交</p>
+          <p onClick={this.handleSave}>去提交</p>
         </div>
       );
     }

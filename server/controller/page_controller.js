@@ -169,7 +169,7 @@ exports.register = function(server, options, next) {
             }
         },
 
-        //订单详情
+        //历史订单详情
         {
             method: 'GET',
             path: '/order_detail',
@@ -202,6 +202,15 @@ exports.register = function(server, options, next) {
             path: '/product_show',
             handler: function(request, reply) {
               return reply.view("product_show");
+            }
+        },
+
+        //订单详情
+        {
+            method: 'GET',
+            path: '/now_order',
+            handler: function(request, reply) {
+              return reply.view("now_order");
             }
         },
 
@@ -290,6 +299,14 @@ exports.register = function(server, options, next) {
             }
         },
 
+        //在线订单列表
+        {
+            method: 'GET',
+            path: '/admin_product_online_list',
+            handler: function(request, reply) {
+              return reply.view("admin_product_online_list");
+            }
+        },
 
 
     ]);

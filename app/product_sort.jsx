@@ -1,11 +1,67 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+import { Provider, connect } from 'react-redux'
+import { createStore } from 'redux'
+
+function product(state, action) {
+  switch (action.type) {
+        case 'PRODUCT_SORT':
+        {
+          $.ajax({
+             url: "/search_sorts",
+             dataType: 'json',
+             type: 'GET',
+             success: function(data) {
+               if (data.success) {
+                 store.dispatch({ type: 'GET_DATA', data: data});
+               }else {
+               }
+             }.bind(this),
+             error: function(xhr, status, err) {
+             }.bind(this)
+          });
+          return state;
+        }
+      case 'GET_DATA':
+      {
+        var data = action.data;
+        var navs = [];
+        for (var i = 0; i < data.rows.length; i++) {
+            var row = data.rows[i];
+            if (row.parent=='0') {
+                row.childs = [];
+                navs.push(row);
+
+                for (var j = 0; j < data.rows.length; j++) {
+                    var row1 = data.rows[j]
+                    var img = "images/img2.jpg";
+                    if (!row1.img_location) {
+                        row1.img_location = img;
+                    }
+                    if (row1.parent==row.id ) {
+                        row.childs.push(row1);
+                    }
+                }
+            }
+        }
+        return {navs:navs};
+      }
+      default:
+        return state
+  }
+}
+
+let store = createStore(product,{navs:[]});
+
+const mapStateToProps = (state) => {
+    return {
+        navs: state.navs
+    }
+}
 
 class IoIo extends React.Component {
     constructor(props) {
       super(props);
-      // 初始化一个空对象
-      this.state = {};
     }
     componentDidMount() {
     }
@@ -22,8 +78,6 @@ class IoIo extends React.Component {
 class Projectsearch extends React.Component {
     constructor(props) {
       super(props);
-      // 初始化一个空对象
-      this.state = {};
     }
     componentDidMount() {
     }
@@ -47,8 +101,6 @@ class Projectsearch extends React.Component {
 class ProjectBottom extends React.Component {
     constructor(props) {
       super(props);
-      // 初始化一个空对象
-      this.state = {};
     }
     componentDidMount() {
     }
@@ -62,15 +114,17 @@ class ProjectBottom extends React.Component {
     }
 };
 
-class ProjectsortNav extends React.Component {
+class ProjectsortNavClass extends React.Component {
     constructor(props) {
       super(props);
       this.handleClick=this.handleClick.bind(this);
-      // 初始化一个空对象
-      this.state = {};
     }
     componentDidMount() {
-      $('.project_sort_nav li:nth-child(1)').attr('id','nav_style');
+        store.dispatch({ type: 'PRODUCT_SORT'});
+
+    }
+    componentDidUpdate(){
+        $('.project_sort_nav_infor_0').attr('id','nav_style');
     }
     handleClick(id){
       $('.project_sort_infor ul').hide();
@@ -82,24 +136,18 @@ class ProjectsortNav extends React.Component {
     render() {
       return (
         <ul className="project_sort_nav">
-          <li className="project_sort_nav_infor project_sort_nav_infor_1" onClick={this.handleClick.bind(this,1)}>蔬菜</li>
-          <li className="project_sort_nav_infor project_sort_nav_infor_2" onClick={this.handleClick.bind(this,2)}>水果</li>
-          <li className="project_sort_nav_infor project_sort_nav_infor_3" onClick={this.handleClick.bind(this,3)}>肉禽蛋</li>
-          <li className="project_sort_nav_infor project_sort_nav_infor_4" onClick={this.handleClick.bind(this,4)}>水产海鲜</li>
-          <li className="project_sort_nav_infor project_sort_nav_infor_5" onClick={this.handleClick.bind(this,5)}>乳饮西点</li>
-          <li className="project_sort_nav_infor project_sort_nav_infor_6" onClick={this.handleClick.bind(this,6)}>点心速食</li>
-          <li className="project_sort_nav_infor project_sort_nav_infor_7" onClick={this.handleClick.bind(this,7)}>粮油副食</li>
-          <li className="project_sort_nav_infor project_sort_nav_infor_8" onClick={this.handleClick.bind(this,8)}>酒水饮料</li>
+            {this.props.navs.map((item,index) => (
+                <li key={index} className={"project_sort_nav_infor project_sort_nav_infor_"+index} onClick={this.handleClick.bind(this,index)}>{item.sort_name}</li>
+            ))
+          }
         </ul>
       );
     }
 };
 
-class ProjectsortInfor extends React.Component {
+class ProjectsortInforClass extends React.Component {
     constructor(props) {
       super(props);
-      // 初始化一个空对象
-      this.state = {};
     }
     componentDidMount() {
       $('.project_sort_infor ul').hide();
@@ -108,50 +156,30 @@ class ProjectsortInfor extends React.Component {
     render() {
       return (
         <div className="project_sort_infor">
+            {this.props.navs.map((item,index) => (
+                <ul key={index} className="project_sort_infor_ul" id={"project_sort_infor_ul_"+index}>
+                    {item.childs.map((item,index) => (
+                        <li key={index} className="project_sort_infor_li">
+                          <p className="project_sort_infor_li_img"><img src={item.img_location}/></p>
+                          <p className="project_sort_infor_li_name">{item.sort_name}</p>
+                        </li>
+                    ))
+                  }
+                </ul>
+            ))
+          }
 
-          <ul className="project_sort_infor_ul" id="project_sort_infor_ul_1">
-            <li className="project_sort_infor_li">
-              <p className="project_sort_infor_li_img"><img src="images/img2.jpg"/></p>
-              <p className="project_sort_infor_li_name">蔬菜</p>
-            </li>
-            <li className="project_sort_infor_li">
-              <p className="project_sort_infor_li_img"><img src="images/img2.jpg"/></p>
-              <p className="project_sort_infor_li_name">蔬菜</p>
-            </li>
-            <li className="project_sort_infor_li">
-              <p className="project_sort_infor_li_img"><img src="images/img2.jpg"/></p>
-              <p className="project_sort_infor_li_name">蔬菜</p>
-            </li>
-            <li className="project_sort_infor_li">
-              <p className="project_sort_infor_li_img"><img src="images/img2.jpg"/></p>
-              <p className="project_sort_infor_li_name">蔬菜</p>
-            </li>
-          </ul>
-          <ul className="project_sort_infor_ul" id="project_sort_infor_ul_2">
-            <li className="project_sort_infor_li">
-              <p className="project_sort_infor_li_img"><img src="images/img3.jpg"/></p>
-              <p className="project_sort_infor_li_name">蔬菜</p>
-            </li>
-            <li className="project_sort_infor_li">
-              <p className="project_sort_infor_li_img"><img src="images/img3.jpg"/></p>
-              <p className="project_sort_infor_li_name">蔬菜</p>
-            </li>
-            <li className="project_sort_infor_li">
-              <p className="project_sort_infor_li_img"><img src="images/img3.jpg"/></p>
-              <p className="project_sort_infor_li_name">蔬菜</p>
-            </li>
-            <li className="project_sort_infor_li">
-              <p className="project_sort_infor_li_img"><img src="images/img3.jpg"/></p>
-              <p className="project_sort_infor_li_name">蔬菜</p>
-            </li>
-          </ul>
         </div>
       );
     }
 };
 
+const ProjectsortNav = connect(mapStateToProps)(ProjectsortNavClass);
+const ProjectsortInfor = connect(mapStateToProps)(ProjectsortInforClass);
 
 ReactDOM.render(
-  <IoIo/>,
+    <Provider store={store}>
+    <IoIo/>
+    </Provider>,
   document.getElementById("product_sort")
 );

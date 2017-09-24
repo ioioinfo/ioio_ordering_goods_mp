@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 241);
+/******/ 	return __webpack_require__(__webpack_require__.s = 243);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -24739,7 +24739,9 @@ function symbolObservablePonyfill(root) {
 /* 238 */,
 /* 239 */,
 /* 240 */,
-/* 241 */
+/* 241 */,
+/* 242 */,
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24841,6 +24843,36 @@ function product(state, action) {
 
         return state;
       }
+    case 'SAVE_PRODUCT':
+      {
+        var products = state.items;
+        var shopping_carts = [];
+        var product = {};
+        var total_data = state.total_data;
+
+        for (var i = 0; i < products.length; i++) {
+          product = { 'id': products[i].id, 'product_id': products[i].product_id, 'total_items': products[i].total_items,
+            'per_price': products[i].per_price, 'total_prices': products[i].total_prices,
+            'cart_code': products[i].cart_code, 'is_selected': products[i].is_selected };
+          shopping_carts.push(product);
+        }
+        var total_data = { 'total_prices': total_data.total_prices, 'total_items': total_data.total_items, total_weight: total_data.total_weight };
+        $.ajax({
+          url: "/save_online_orders",
+          dataType: 'json',
+          type: 'POST',
+          data: { 'shopping_carts': JSON.stringify(shopping_carts), 'total_data': JSON.stringify(total_data) },
+          success: function (data) {
+            if (data.success) {
+              location.href = 'now_order?order_id=' + data.order_id;
+            } else {
+              alert('提交失败');
+            }
+          }.bind(this),
+          error: function (xhr, status, err) {}.bind(this)
+        });
+        return state;
+      }
 
     default:
       return state;
@@ -24911,6 +24943,8 @@ var ProjectlistClass = function (_React$Component2) {
     _this2.handleHide = _this2.handleHide.bind(_this2);
     _this2.changeNumber = _this2.changeNumber.bind(_this2);
     _this2.handleDelectYes = _this2.handleDelectYes.bind(_this2);
+    _this2.handleGo = _this2.handleGo.bind(_this2);
+    _this2.handleReturn = _this2.handleReturn.bind(_this2);
     _this2.state = { number: 0 };
     return _this2;
   }
@@ -24922,7 +24956,7 @@ var ProjectlistClass = function (_React$Component2) {
 
       $('.background').show();
       $('.project_money').show();
-      $('.project_money').attr('id', 'animation');
+      $('.project_money').addClass('animation');
     }
   }, {
     key: 'handleNumber',
@@ -24962,6 +24996,7 @@ var ProjectlistClass = function (_React$Component2) {
       $('.projecrt_number').hide();
       $('.delect_order').hide();
       $('.project_money').hide();
+      $('.submit_order').hide();
     }
   }, {
     key: 'handleHide',
@@ -24982,6 +25017,19 @@ var ProjectlistClass = function (_React$Component2) {
       store.dispatch({ type: 'DELECT_PRODUCT', cart_id: cart_id });
       $('.background').hide();
       $('.delect_order').hide();
+    }
+  }, {
+    key: 'handleGo',
+    value: function handleGo(e) {
+      store.dispatch({ type: 'SAVE_PRODUCT' });
+      $('.background').hide();
+      $('.submit_order').hide();
+    }
+  }, {
+    key: 'handleReturn',
+    value: function handleReturn(e) {
+      $('.background').hide();
+      $('.submit_order').hide();
     }
   }, {
     key: 'render',
@@ -25124,6 +25172,29 @@ var ProjectlistClass = function (_React$Component2) {
             total_data.total_prices,
             ' \u5143'
           )
+        ),
+        React.createElement(
+          'div',
+          { className: 'submit_order' },
+          React.createElement(
+            'p',
+            { className: 'submit_order_title' },
+            '\u786E\u8BA4\u63D0\u4EA4\u8BA2\u5355\uFF1F'
+          ),
+          React.createElement(
+            'p',
+            { className: 'submit_order_hand' },
+            React.createElement(
+              'span',
+              { onClick: this.handleReturn },
+              React.createElement('i', { className: 'fa fa-arrow-left' })
+            ),
+            React.createElement(
+              'span',
+              { onClick: this.handleGo },
+              '\u786E\u5B9A'
+            )
+          )
         )
       );
     }
@@ -25140,16 +25211,19 @@ var ProjectButton = function (_React$Component3) {
   function ProjectButton(props) {
     _classCallCheck(this, ProjectButton);
 
-    // 初始化一个空对象
     var _this4 = _possibleConstructorReturn(this, (ProjectButton.__proto__ || Object.getPrototypeOf(ProjectButton)).call(this, props));
 
-    _this4.state = {};
+    _this4.handleSave = _this4.handleSave.bind(_this4);
     return _this4;
   }
 
   _createClass(ProjectButton, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
+    key: 'handleSave',
+    value: function handleSave(e) {
+      $('.background').show();
+      $('.submit_order').show();
+      $('.submit_order').addClass('animation');
+    }
   }, {
     key: 'render',
     value: function render() {
@@ -25158,7 +25232,7 @@ var ProjectButton = function (_React$Component3) {
         { className: 'project_list_button' },
         React.createElement(
           'p',
-          null,
+          { onClick: this.handleSave },
           '\u53BB\u63D0\u4EA4'
         )
       );

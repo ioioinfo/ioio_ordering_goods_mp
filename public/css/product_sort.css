@@ -17,7 +17,7 @@ body,html{
 }
 .project_sort_nav{
   float: left;
-  width: 24%;
+  width: 27%;
   background: #fff;
   border-right: 1px solid #f7f7f7;
   box-sizing: border-box;
@@ -35,7 +35,7 @@ body,html{
 }
 .project_sort_infor{
   position: relative;
-  width: 76%;
+  width: 73%;
   float: left;
 }
 .project_sort_infor_ul{
