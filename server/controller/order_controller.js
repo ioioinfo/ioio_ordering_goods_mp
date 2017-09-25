@@ -73,7 +73,8 @@ exports.register = function(server, options, next) {
 
                 api.save_online_orders(data,function(err,rows){
                     if (!err) {
-                        return reply({"success":true});
+                        console.log("rows:"+JSON.stringify(rows));
+                        return reply({"success":true,"order_id":rows.order_id});
                     }else {
                         return reply({"success":false,"message":rows.message});
                     }
@@ -103,10 +104,7 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/search_online_by_personid',
             handler: function(request, reply) {
-                var person_id = request.query.person_id;
-				if (!person_id) {
-					return reply({"success":false,"message":"person_id null","service_info":service_info});
-				}
+                var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
                 api.search_online_by_personid(person_id,function(err,rows){
                     if (!err) {
                         return reply({"success":true,"rows":rows.rows});
@@ -162,6 +160,25 @@ exports.register = function(server, options, next) {
                 });
             },
         },
+        //明细
+        {
+            method: 'GET',
+            path: '/search_ol_orders_infos',
+            handler: function(request, reply) {
+                var order_ids = request.query.order_ids;
+				if (!order_ids) {
+					return reply({"success":false,"message":"order_ids null","service_info":service_info});
+				}
+                api.search_ol_orders_infos(order_ids,function(err,rows){
+                    if (!err) {
+                        return reply({"success":true,"rows":rows.rows,"products":rows.products});
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
+
 
 
     ]);
