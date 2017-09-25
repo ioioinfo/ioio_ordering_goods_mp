@@ -182,7 +182,7 @@ exports.register = function(server, options, next) {
                 var data = {"product_ids":JSON.stringify(product_ids)};
                 get_cached_skus(data,function(err,row){
                     if (!err) {
-                        var sku_id = row.row[product_id].[0].sku_id;
+                        var sku_id = row.row[product_id][0].sku_id;
                         var data = {
                             "person_id" : person_id,
                             "product_id" : product_id,
