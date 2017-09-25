@@ -22,6 +22,17 @@ var host = "http://211.149.248.241:18010/";
 
 var nav = function(server) {
     return {
+        //明细
+        search_ol_orders_infos: function(order_ids,cb) {
+            var url = host + "search_ol_orders_infos?order_ids="+order_ids;
+            uu_request.get(url, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,JSON.parse(body));
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
         //更新订单状态
         update_online_status: function(data,cb) {
             var url = host + "update_online_status";
