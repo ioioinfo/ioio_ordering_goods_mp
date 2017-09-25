@@ -32,6 +32,17 @@ exports.register = function(server, options, next) {
     var things = server.plugins.services.things;
     var base = server.plugins.services.base;
 
+    var get_cookie_person = function(request){
+    	var person_id;
+    	if (request.state && request.state.cookie) {
+    		state = request.state.cookie;
+    		if (state.person_id) {
+    			person_id = state.person_id;
+    		}
+    	}
+    	return person_id;
+    };
+
     server.route([
         //查询商品列表
         {
@@ -60,6 +71,10 @@ exports.register = function(server, options, next) {
             path: '/save_online_orders',
             handler: function(request, reply) {
                 var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
+                // var person_id = get_cookie_person(request);
+				// if (!person_id) {
+				// 	return reply.redirect("/login");
+				// }
                 var total_data = request.payload.total_data;
 				var shopping_carts = request.payload.shopping_carts;
 				if (!person_id || !total_data || !shopping_carts) {
@@ -105,6 +120,10 @@ exports.register = function(server, options, next) {
             path: '/search_online_by_personid',
             handler: function(request, reply) {
                 var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
+                // var person_id = get_cookie_person(request);
+				// if (!person_id) {
+				// 	return reply.redirect("/login");
+				// }
                 api.search_online_by_personid(person_id,function(err,rows){
                     if (!err) {
                         return reply({"success":true,"rows":rows.rows});
@@ -178,7 +197,29 @@ exports.register = function(server, options, next) {
                 });
             },
         },
-
+        //查询订单根据person_id,status
+        {
+            method: 'GET',
+            path: '/search_online_by_status',
+            handler: function(request, reply) {
+                var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
+                // var person_id = get_cookie_person(request);
+				// if (!person_id) {
+				// 	return reply.redirect("/login");
+				// }
+                var status = request.query.status;
+                if (!status) {
+                    return reply({"success":false,"message":"status null","service_info":service_info});
+                }
+                api.search_online_by_status(person_id,status, function(err,rows){
+                    if (!err) {
+                        return reply({"success":true,"orders":rows.orders,"details":rows.details,"products":rows.products});
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
 
 
     ]);
