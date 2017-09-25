@@ -8,13 +8,17 @@ function product(state, action) {
   switch (action.type) {
   case 'PRODUCT_LIST':
     {
+        var q = action.q;
+        if (!q) {
+            q = "";
+        }
       $.ajax({
-         url: "/search_products",
+         url: "/search_products?sort_id="+sort_id +"&q=" +q,
          dataType: 'json',
          type: 'GET',
          success: function(data) {
            if(data.success){
-             store.dispatch({ type: 'GET_DATA', data: data.rows});
+             store.dispatch({ type: 'GET_DATA', data: data.products});
            }else {
              store.dispatch({ type: 'GET_DATA', data: []});
            }
@@ -27,7 +31,7 @@ function product(state, action) {
     }
   case 'GET_DATA':
   {
-    return {project_list:action.data,number:state.number};
+    return {project_list:action.data ,number:state.number ,q:action.q};
   }
   case 'NUMBER_PLUS':
   {
@@ -35,30 +39,25 @@ function product(state, action) {
     if (number < 0) {
       number = 0;
     }
-    return {project_list:state.project_list,number:number};
+    return {project_list:state.project_list,number:number ,q:state.q};
   }
+
   default:
     return state
   }
 }
 
-let store = createStore(product,{project_list:[],number:1});
+let store = createStore(product,{project_list:[],number:1 , q:""});
 
 const mapStateToProps = (state) => {
     return {
         project_list: state.project_list,
-        number: state.number
+        number: state.number,
+        q: state.q,
     }
 }
 
 class IoIo extends React.Component {
-    constructor(props) {
-      super(props);
-      // 初始化一个空对象
-      this.state = {};
-    }
-    componentDidMount() {
-    }
     render() {
       return (
         <div className="project_list_wrap">
@@ -74,10 +73,14 @@ class IoIo extends React.Component {
 class Projectsearch extends React.Component {
     constructor(props) {
       super(props);
-      // 初始化一个空对象
-      this.state = {};
+      this.handleSearch=this.handleSearch.bind(this);
     }
     componentDidMount() {
+        $("#searchInput").val(q);
+    }
+    handleSearch(e) {
+        var q = $('#searchInput').val();
+        store.dispatch({ type: 'PRODUCT_LIST' , q:q});
     }
     render() {
       return (
@@ -86,10 +89,10 @@ class Projectsearch extends React.Component {
                 <form className="weui-search-bar__form">
                     <div className="weui-search-bar__box">
                         <i className="weui-icon-search"></i>
-                        <input type="search" className="weui-search-bar__input" id="searchInput" placeholder="搜索" required=""/>
+                        <input type="search" className="weui-search-bar__input" id="searchInput" required=""/>
                     </div>
                 </form>
-                <a href="javascript:" className="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+                <a className="weui-search-bar__cancel-btn" id="searchCancel" onClick={this.handleSearch}>搜索</a>
             </div>
         </div>
       );
@@ -106,7 +109,7 @@ class ProjectlistClass extends React.Component {
       this.handleBuy = this.handleBuy.bind(this);
     }
     componentDidMount() {
-      store.dispatch({ type: 'PRODUCT_LIST'});
+      store.dispatch({ type: 'PRODUCT_LIST',q:q});
     }
     handleBuy(e){
       $('.background').show();
@@ -178,7 +181,7 @@ class ProjectButton extends React.Component {
     render() {
       return (
         <div className="project_list_button">
-          <p>去提交</p>
+          <p>购物车</p>
         </div>
       );
     }

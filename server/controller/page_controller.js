@@ -129,7 +129,9 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/product_list',
             handler: function(request, reply) {
-              return reply.view("product_list");
+              var sort_id = request.query.sort_id;
+              var q = request.query.q;
+              return reply.view("product_list" , {sort_id:sort_id ,q:q});
             }
         },
 

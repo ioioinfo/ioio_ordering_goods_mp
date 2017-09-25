@@ -78,8 +78,11 @@ class IoIo extends React.Component {
 class Projectsearch extends React.Component {
     constructor(props) {
       super(props);
+      this.handleSearch=this.handleSearch.bind(this);
     }
-    componentDidMount() {
+    handleSearch(e) {
+        var q = $('#searchInput').val();
+        location.href = "product_list?q=" +q;
     }
     render() {
       return (
@@ -88,10 +91,10 @@ class Projectsearch extends React.Component {
                 <form className="weui-search-bar__form">
                     <div className="weui-search-bar__box">
                         <i className="weui-icon-search"></i>
-                        <input type="search" className="weui-search-bar__input" id="searchInput" placeholder="搜索" required=""/>
+                        <input type="search" className="weui-search-bar__input" id="searchInput" required=""/>
                     </div>
                 </form>
-                <a href="javascript:" className="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+                <a className="weui-search-bar__cancel-btn" id="searchCancel"  onClick={this.handleSearch}>搜索</a>
             </div>
         </div>
       );
@@ -148,10 +151,14 @@ class ProjectsortNavClass extends React.Component {
 class ProjectsortInforClass extends React.Component {
     constructor(props) {
       super(props);
+      this.handleClick=this.handleClick.bind(this);
     }
     componentDidMount() {
       $('.project_sort_infor ul').hide();
       $('.project_sort_infor ul:nth-child(1)').show();
+    }
+    handleClick(id){
+        location.href="product_list?sort_id="+id;
     }
     render() {
       return (
@@ -159,7 +166,7 @@ class ProjectsortInforClass extends React.Component {
             {this.props.navs.map((item,index) => (
                 <ul key={index} className="project_sort_infor_ul" id={"project_sort_infor_ul_"+index}>
                     {item.childs.map((item,index) => (
-                        <li key={index} className="project_sort_infor_li">
+                        <li key={index} className="project_sort_infor_li" onClick={this.handleClick.bind(this,item.id)}>
                           <p className="project_sort_infor_li_img"><img src={item.img_location}/></p>
                           <p className="project_sort_infor_li_name">{item.sort_name}</p>
                         </li>
