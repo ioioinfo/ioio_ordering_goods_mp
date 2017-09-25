@@ -20,6 +20,44 @@ var eventproxy = require('eventproxy');
 const sys_option = require('../config/sys_option');
 const uu_request = require('../utils/uu_request');
 
+//get
+var do_get_method = function(url,cb){
+	uu_request.get(url, function(err, response, body){
+		if (!err && response.statusCode === 200) {
+			var content = JSON.parse(body);
+			do_result(false, content, cb);
+		} else {
+			cb(true, null);
+		}
+	});
+};
+//所有post调用接口方法
+var do_post_method = function(url,data,cb){
+	uu_request.request(url, data, function(err, response, body) {
+		if (!err && response.statusCode === 200) {
+			do_result(false, body, cb);
+		} else {
+			cb(true,null);
+		}
+	});
+};
+//处理结果
+var do_result = function(err,result,cb){
+	if (!err) {
+		if (result.success) {
+			cb(false,result);
+		}else {
+			cb(true,result);
+		}
+	}else {
+		cb(true,null);
+	}
+};
+//sku_id
+var get_cached_skus = function(data, cb){
+	var url = "http://211.149.248.241:12001/get_cached_skus_by_product_ids";
+	do_post_method(url,data,cb);
+};
 
 exports.register = function(server, options, next) {
     var service_info = sys_option.desc;
@@ -136,26 +174,33 @@ exports.register = function(server, options, next) {
 				var product_num = request.payload.num;
 				var product_id = request.payload.product_id;
 				var product_price = request.payload.product_price;
-				var sku_id = request.payload.sku_id;
-
-				if (!product_num || !product_id || !sku_id || !product_price) {
+                if (!product_num || !product_id || !product_price) {
 					return reply({"success":false,"message":"param null"});
 				}
-                var data = {
-                    "person_id" : person_id,
-                    "product_id" : product_id,
-                    "product_num" : product_num,
-                    "product_price" : product_price,
-                    "sku_id" : sku_id
-                };
-                api.search_shopping_cart(data,function(err,result){
+                var product_ids = [];
+                product_ids.push(product_id);
+                var data = {"product_ids":JSON.stringify(product_ids)};
+                get_cached_skus(data,function(err,row){
                     if (!err) {
-                        return reply({"success":true,"all_items":result.all_items});
+                        var sku_id = row.row[product_id].[0].sku_id;
+                        var data = {
+                            "person_id" : person_id,
+                            "product_id" : product_id,
+                            "product_num" : product_num,
+                            "product_price" : product_price,
+                            "sku_id" : sku_id
+                        };
+                        api.search_shopping_cart(data,function(err,result){
+                            if (!err) {
+                                return reply({"success":true,"all_items":result.all_items});
+                            }else {
+                                return reply({"success":false,"message":err});
+                            }
+                        });
                     }else {
-                        return reply({"success":false,"message":err});
+                        return reply({"success":false,"row":row.message});
                     }
                 });
-
 			}
 		},
 
