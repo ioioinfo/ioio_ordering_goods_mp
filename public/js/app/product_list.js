@@ -24763,6 +24763,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var React = __webpack_require__(49);
 var ReactDOM = __webpack_require__(82);
 
+var product_id = "";
+var product_sale_price = "";
+var sku_id = "";
 function product(state, action) {
   switch (action.type) {
     case 'PRODUCT_LIST':
@@ -24791,6 +24794,11 @@ function product(state, action) {
       {
         return { project_list: action.data, number: state.number, q: action.q };
       }
+    case 'NUMBER_CHANGE':
+      {
+        var number = action.value;
+        return { project_list: state.project_list, number: number, q: state.q };
+      }
     case 'NUMBER_PLUS':
       {
         var number = state.number + action.addValue;
@@ -24798,6 +24806,31 @@ function product(state, action) {
           number = 0;
         }
         return { project_list: state.project_list, number: number, q: state.q };
+      }
+    case 'PRODUCT_BUY':
+      {
+
+        var number = state.number;
+        var product_id = action.product_id;
+        var product_price = action.product_sale_price;
+        var sku_id = action.sku_id;
+
+        $.ajax({
+          url: "/add_shopping_cart",
+          dataType: 'json',
+          type: 'POST',
+          data: { "product_num": number, "product_id": product_id, "product_price": product_price, "sku_id": sku_id },
+          success: function success(data) {
+            if (data.success) {
+              alert("添加成功");
+            } else {
+              alert("添加失败");
+            }
+          },
+          error: function error(xhr, status, err) {}
+        });
+
+        return state;
       }
 
     default:
@@ -24924,7 +24957,13 @@ var ProjectlistClass = function (_React$Component3) {
     }
   }, {
     key: 'handleBuy',
-    value: function handleBuy(e) {
+    value: function handleBuy(sku_id, id, product_sale_price2, s) {
+      var s = s;
+
+      sku_id = sku_id;
+      product_id = id;
+      product_sale_price = product_sale_price2;
+
       $('.background').show();
       $('.projecrt_number').show();
     }
@@ -24940,10 +24979,13 @@ var ProjectlistClass = function (_React$Component3) {
     }
   }, {
     key: 'changeNumber',
-    value: function changeNumber(e) {}
+    value: function changeNumber(e) {
+      store.dispatch({ type: 'NUMBER_CHANGE', value: $('#number').val() });
+    }
   }, {
     key: 'handleSure',
     value: function handleSure(e) {
+      store.dispatch({ type: 'PRODUCT_BUY', sku_id: 1, product_id: product_id, product_sale_price: product_sale_price });
       $('.background').hide();
       $('.projecrt_number').hide();
     }
@@ -24998,7 +25040,7 @@ var ProjectlistClass = function (_React$Component3) {
                 ),
                 React.createElement(
                   'div',
-                  { className: 'weui-cell__ft position_absolute', onClick: _this4.handleBuy },
+                  { className: 'weui-cell__ft position_absolute', onClick: _this4.handleBuy.bind(_this4, item.sku_id, item.id, item.product_sale_price, '001') },
                   React.createElement('i', { className: 'fa fa-shopping-basket' })
                 )
               )

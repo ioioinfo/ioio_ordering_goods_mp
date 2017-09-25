@@ -4,6 +4,9 @@ var ReactDOM = require('react-dom');
 import { Provider, connect } from 'react-redux'
 import { createStore } from 'redux'
 
+var product_id = "";
+var product_sale_price  = "";
+var sku_id  = "";
 function product(state, action) {
   switch (action.type) {
   case 'PRODUCT_LIST':
@@ -33,6 +36,11 @@ function product(state, action) {
   {
     return {project_list:action.data ,number:state.number ,q:action.q};
   }
+  case 'NUMBER_CHANGE':
+  {
+    var number = action.value;
+    return {project_list:state.project_list,number:number ,q:state.q};
+  }
   case 'NUMBER_PLUS':
   {
     var number = state.number+action.addValue;
@@ -41,6 +49,32 @@ function product(state, action) {
     }
     return {project_list:state.project_list,number:number ,q:state.q};
   }
+  case 'PRODUCT_BUY':
+    {
+
+        var number = state.number;
+        var product_id = action.product_id;
+        var product_price = action.product_sale_price;
+        var sku_id = action.sku_id;
+
+      $.ajax({
+         url: "/add_shopping_cart",
+         dataType: 'json',
+         type: 'POST',
+         data:{"product_num":number,"product_id":product_id,"product_price":product_price,"sku_id":sku_id},
+         success: function(data) {
+           if(data.success){
+             alert("添加成功");
+           }else {
+             alert("添加失败");
+           }
+         },
+         error: function(xhr, status, err) {
+         }
+      });
+
+      return state;
+    }
 
   default:
     return state
@@ -111,7 +145,13 @@ class ProjectlistClass extends React.Component {
     componentDidMount() {
       store.dispatch({ type: 'PRODUCT_LIST',q:q});
     }
-    handleBuy(e){
+    handleBuy(sku_id,id,product_sale_price2,s){
+      var s = s;
+
+      sku_id = sku_id;
+      product_id = id;
+      product_sale_price = product_sale_price2;
+
       $('.background').show();
       $('.projecrt_number').show();
     }
@@ -123,12 +163,13 @@ class ProjectlistClass extends React.Component {
     }
 
     changeNumber(e) {
-
+        store.dispatch({ type: 'NUMBER_CHANGE',value:$('#number').val()});
     }
 
     handleSure(e){
-      $('.background').hide();
-      $('.projecrt_number').hide();
+        store.dispatch({ type: 'PRODUCT_BUY',sku_id:1,product_id:product_id,product_sale_price:product_sale_price});
+        $('.background').hide();
+        $('.projecrt_number').hide();
     }
     handleBack(e){
       $('.background').hide();
@@ -147,7 +188,7 @@ class ProjectlistClass extends React.Component {
                         <p className="product_name_infor">{item.product_name}</p>
                         <p className="product_price"><span>￥</span>{item.product_sale_price}</p>
                     </div>
-                    <div className="weui-cell__ft position_absolute" onClick={this.handleBuy}><i className="fa fa-shopping-basket"></i></div>
+                    <div className="weui-cell__ft position_absolute" onClick={this.handleBuy.bind(this,item.sku_id,item.id,item.product_sale_price,'001')}><i className="fa fa-shopping-basket"></i></div>
                 </div>
               </div>
             </li>

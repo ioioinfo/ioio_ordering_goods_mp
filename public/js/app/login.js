@@ -22463,14 +22463,10 @@ var IoIo = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (IoIo.__proto__ || Object.getPrototypeOf(IoIo)).call(this, props));
 
     _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.state = {};
     return _this;
   }
 
   _createClass(IoIo, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-  }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
       var data_email = $('#data_email').val();
@@ -22491,16 +22487,30 @@ var IoIo = function (_React$Component) {
         $('.error_message1').attr('id', 'animation1');
         return;
       }
+      $.ajax({
+        url: "/do_login",
+        dataType: 'json',
+        type: 'POST',
+        data: { "username": data_email, "password": data_password },
+        success: function (data) {
+          if (data.success) {
+            if ($('#loadingToast').css('display') != 'none') return;
 
-      if ($('#loadingToast').css('display') != 'none') return;
-      $('#loadingToast').fadeIn(100);
-      setTimeout(function () {
-        $('#loadingToast').fadeOut(100);
-      }, 2000);
+            $('#loadingToast').fadeIn(100);
+            setTimeout(function () {
+              $('#loadingToast').fadeOut(100);
+            }, 2000);
 
-      $('#data_password').removeClass('loding_border');
-      $('.error_message1').css('display', 'none');
-      $('.error_message1').removeAttr('id', 'animation1');
+            $('#data_password').removeClass('loding_border');
+            $('.error_message1').css('display', 'none');
+            $('.error_message1').removeAttr('id', 'animation1');
+            location.href = "person_center";
+          } else {
+            alert(data.message);
+          }
+        }.bind(this),
+        error: function (xhr, status, err) {}.bind(this)
+      });
     }
   }, {
     key: 'render',
