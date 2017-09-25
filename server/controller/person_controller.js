@@ -90,7 +90,10 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/find_person_info',
             handler: function(request, reply) {
-                var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
+				var person_id = get_cookie_person(request);
+				if (!person_id) {
+					return reply.redirect("/login");
+				}
                 find_person_info(person_id,function(err,row){
                     if (!err) {
 
@@ -110,7 +113,10 @@ exports.register = function(server, options, next) {
 				data.username = request.payload.username;
 				data.password = request.payload.password;
 				data.org_code = "ioio";
-
+				data.platform_code = "online_order";
+				if (!data.username||!data.password) {
+					return reply({"success":false,"message":"username or password null"});
+				}
 				do_login(data, function(err,content){
 					if (!err) {
 						if (!content.success) {
@@ -123,7 +129,7 @@ exports.register = function(server, options, next) {
 
 						var state = login_set_cookie(request,person_id);
 
-						return reply({"success":true,"service_info":service_info}).state('cookie', state, {ttl:1000*365*24*60*60*1000});
+						return reply({"success":true}).state('cookie', state, {ttl:1000*365*24*60*60*1000});
 					} else {
 						return reply({"success":false,"message":content.message});
 					}

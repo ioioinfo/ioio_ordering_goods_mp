@@ -48,7 +48,6 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/find_person_cart',
             handler: function(request, reply) {
-                var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
                 var person_id = get_cookie_person(request);
 				if (!person_id) {
 					return reply.redirect("/login");
@@ -68,7 +67,6 @@ exports.register = function(server, options, next) {
             method: 'POST',
             path: '/delete_shopping_carts',
             handler: function(request, reply) {
-                var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
                 var person_id = get_cookie_person(request);
 				if (!person_id) {
 					return reply.redirect("/login");
@@ -98,7 +96,6 @@ exports.register = function(server, options, next) {
             method: 'POST',
             path: '/update_cart_number',
             handler: function(request, reply) {
-                var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
                 var person_id = get_cookie_person(request);
 				if (!person_id) {
 					return reply.redirect("/login");
@@ -127,7 +124,40 @@ exports.register = function(server, options, next) {
                 });
             },
         },
+        //购物车添加商品
+		{
+			method: 'POST',
+			path: '/add_shopping_cart',
+			handler: function(request, reply){
+                var person_id = get_cookie_person(request);
+                if (!person_id) {
+                    return reply.redirect("/login");
+                }
+				var product_num = request.payload.num;
+				var product_id = request.payload.product_id;
+				var product_price = request.payload.product_price;
+				var sku_id = request.payload.sku_id;
 
+				if (!product_num || !product_id || !sku_id || !product_price) {
+					return reply({"success":false,"message":"param null"});
+				}
+                var data = {
+                    "person_id" : person_id,
+                    "product_id" : product_id,
+                    "product_num" : product_num,
+                    "product_price" : product_price,
+                    "sku_id" : sku_id
+                };
+                api.search_shopping_cart(data,function(err,result){
+                    if (!err) {
+                        return reply({"success":true,"all_items":result.all_items});
+                    }else {
+                        return reply({"success":false,"message":err});
+                    }
+                });
+
+			}
+		},
 
     ]);
 

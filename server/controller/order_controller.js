@@ -70,7 +70,6 @@ exports.register = function(server, options, next) {
             method: 'POST',
             path: '/save_online_orders',
             handler: function(request, reply) {
-                var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
                 var person_id = get_cookie_person(request);
 				if (!person_id) {
 					return reply.redirect("/login");
@@ -119,7 +118,6 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/search_online_by_personid',
             handler: function(request, reply) {
-                var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
                 var person_id = get_cookie_person(request);
 				if (!person_id) {
 					return reply.redirect("/login");
@@ -202,7 +200,6 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/search_online_by_status',
             handler: function(request, reply) {
-                var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
                 var person_id = get_cookie_person(request);
 				if (!person_id) {
 					return reply.redirect("/login");

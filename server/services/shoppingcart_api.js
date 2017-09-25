@@ -22,6 +22,17 @@ var host = "http://211.149.248.241:18015/";
 
 var nav = function(server) {
     return {
+        //新增购物车
+        search_shopping_cart: function(data, cb) {
+            var url = host + "search_shopping_cart";
+            uu_request.do_post_method(url, data, function(err, body) {
+                if (!err) {
+                    cb(err,body);
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
         //更新购物车商品数量
         update_cart_number: function(ids,num, cb) {
             var url = host + "update_cart_number";
@@ -39,7 +50,7 @@ var nav = function(server) {
         delete_shopping_carts: function(ids, cb) {
             var url = host + "delete_shopping_carts";
             var data = {ids:ids};
-            
+
             uu_request.do_post_method(url, data, function(err, body) {
                 if (!err) {
                     cb(err,body);
