@@ -59,6 +59,17 @@ exports.register = function(server, options, next) {
     var api = server.plugins.services["4s_api"];
     var notify = server.plugins.services.notify;
 
+	var login_set_cookie = function(request,person_id){
+		var state;
+		if (request.state && request.state.cookie) {
+			state = request.state.cookie;
+			state.person_id = person_id;
+		}else {
+			state = {person_id:person_id};
+		}
+		return state;
+	};
+
     server.route([
         //个人信息
         {
@@ -76,7 +87,36 @@ exports.register = function(server, options, next) {
                 });
             },
         },
+		//登入
+		{
+			method: 'POST',
+			path: '/do_login',
+			handler: function(request, reply){
+				var data = {};
+				data.username = request.payload.username;
+				data.password = request.payload.password;
+				data.org_code = "ioio";
 
+				do_login(data, function(err,content){
+					if (!err) {
+						if (!content.success) {
+							return reply({"success":false,"message":"password wrong"});
+						}
+						var person_id = content.row.person_id;
+						if (!person_id) {
+							return reply({"success":false,"message":"no account"});
+						}
+
+						var state = login_set_cookie(request,person_id);
+
+						return reply({"success":true,"service_info":service_info}).state('cookie', state, {ttl:1000*365*24*60*60*1000});
+					} else {
+						return reply({"success":false,"message":content.message});
+					}
+				});
+
+			}
+		},
 
     ]);
 

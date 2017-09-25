@@ -25,6 +25,16 @@ exports.register = function(server, options, next) {
     var service_info = sys_option.desc;
     var platform_id = sys_option.platform_id;
 
+    var get_cookie_person = function(request){
+        var person_id;
+        if (request.state && request.state.cookie) {
+            state = request.state.cookie;
+            if (state.person_id) {
+                person_id = state.person_id;
+            }
+        }
+        return person_id;
+    };
 
     var api = server.plugins.services["shoppingcart_api"];
     var wx_api = server.plugins.services.wx_api;
@@ -39,6 +49,10 @@ exports.register = function(server, options, next) {
             path: '/find_person_cart',
             handler: function(request, reply) {
                 var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
+                // var person_id = get_cookie_person(request);
+				// if (!person_id) {
+				// 	return reply.redirect("/login");
+				// }
                 var cart_code = "";
                 api.sarch_cart_infos(person_id,cart_code,function(err,rows){
                     if (!err) {
@@ -55,6 +69,10 @@ exports.register = function(server, options, next) {
             path: '/delete_shopping_carts',
             handler: function(request, reply) {
                 var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
+                // var person_id = get_cookie_person(request);
+				// if (!person_id) {
+				// 	return reply.redirect("/login");
+				// }
                 var cart_code = "";
                 var id = request.payload.id;
                 var ids = [];
@@ -81,6 +99,10 @@ exports.register = function(server, options, next) {
             path: '/update_cart_number',
             handler: function(request, reply) {
                 var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
+                // var person_id = get_cookie_person(request);
+				// if (!person_id) {
+				// 	return reply.redirect("/login");
+				// }
                 var cart_code = "";
                 var id = request.payload.id;
                 var num = request.payload.num
