@@ -39,15 +39,30 @@ exports.register = function(server, options, next) {
             path: '/search_products',
             handler: function(request, reply) {
                 var search_object = {};
-                if (request.query.params) {
-                    search_object = request.query.params;
-                }else {
-                    search_object = JSON.stringify(search_object);
-                }
-                var data = {"search_object":search_object}
+                search_object.sort = request.query.sort;
+				search_object.q = request.query.q;
+				search_object.sort_id = request.query.sort_id;
+				search_object.is_new = request.query.is_new;
+				search_object.row_materials = request.query.row_materials;
+				search_object.size_name = request.query.size_name;
+				search_object.sort_ids = request.query.sort_ids;
+				search_object.num = request.query.num;
+				search_object.lastest = request.query.lastest;
+				search_object.price1 = request.query.price1;
+				search_object.price2 = request.query.price2;
+                var data = {"search_object":JSON.stringify(search_object)};
                 api.search_products(data,function(err,rows){
                     if (!err) {
-                        return reply({"success":true,"rows":rows.rows});
+                        if (rows.success) {
+                            if (rows.rows.length == 0) {
+    							return reply({"products":[],"search_object":JSON.stringify(search_object)});
+    						}
+                            var industry_id = rows.rows[0].industry_id;
+
+                            return reply({"success":true,"products":rows.rows,"search_object":JSON.stringify(search_object)});
+                        }else {
+                            return reply({"success":false,"message":rows.message});
+                        }
                     }else {
                         return reply({"success":false,"message":rows.message});
                     }
