@@ -31,7 +31,6 @@ class IoIo extends React.Component {
               <p>待收货</p>
             </div>
             <div className="person_center_order_infor person_center_order_right">
-              <p>11</p>
               <p>历史订单</p>
             </div>
           </div>

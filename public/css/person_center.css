@@ -86,4 +86,9 @@ html,body{
 }
 .person_center_order_infor p:last-child{
   color: #dcdcdc;
+
+}
+.person_center_order_right p{
+    height: 80px;
+    line-height: 80px;
 }

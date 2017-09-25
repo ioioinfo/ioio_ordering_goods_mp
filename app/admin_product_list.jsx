@@ -281,10 +281,10 @@ var Nav = require('Nav');
                 delete_row(this.props.item[this.props.thitem.name]);
             }
             render() {
-                if (this.props.thitem.type == "edit_delete") {
+                if (this.props.thitem.type == "operation") {
 
                   return (<td>
-                      <button type="button" className="btn btn-primary btn-xs button_margin_left" onClick={this.handleEdit}>查看</button>
+                      <button type="button" className="btn btn-primary btn-mini" onClick={this.handleEdit}>查看</button>
                       </td>);
                 } else {
                     return (<td>{this.props.item[this.props.thitem.name]}</td>);

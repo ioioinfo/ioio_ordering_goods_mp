@@ -283,8 +283,7 @@ var Nav = require('Nav');
             if (this.props.thitem.type == "view") {
 
               return (<td>
-                  <button type="button" className="btn btn-primary btn-xs button_margin_left" onClick={this.handleEdit}>详情</button>
-                  <button type="button" className="btn btn-primary btn-xs button_margin_left" onClick={this.handleEdit}>图片</button>
+                  <button type="button" className="btn btn-primary btn-mini" onClick={this.handleEdit}>详情</button>  <button type="button" className="btn btn-info btn-mini" onClick={this.handleEdit}>图片</button>
                   </td>);
             } else {
                 return (<td>{this.props.item[this.props.thitem.name]}</td>);

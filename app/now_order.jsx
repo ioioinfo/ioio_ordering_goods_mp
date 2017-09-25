@@ -1,48 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-import { Provider, connect } from 'react-redux'
-import { createStore } from 'redux'
-
-function product(state, action) {
-    switch (action.type) {
-        case 'PRODUCT_ORDER':
-          {
-            $.ajax({
-               url: "/search_online_by_id",
-               dataType: 'json',
-               type: 'GET',
-               data:{'id':id}
-               success: function(data) {
-                 if (data.success) {
-                   store.dispatch({ type: 'GET_DATA', data: data});
-                 }else {
-                 }
-               }.bind(this),
-               error: function(xhr, status, err) {
-               }.bind(this)
-            });
-
-            return state;
-          }
-        case 'GET_DATA':
-        {
-          var data = action.data;
-          return {product_list:data.product_list};
-        }
-    }
-    default:
-      return state
-    }
-}
-
-let store = createStore(product,{product_list:[]});
-const mapStateToProps = (state) => {
-    return {
-        product_list: state.product_list,
-
-    }
-}
 class IoIo extends React.Component {
     constructor(props) {
       super(props);

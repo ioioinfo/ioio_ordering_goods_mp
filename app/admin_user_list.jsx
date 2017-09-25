@@ -272,13 +272,9 @@ var Nav = require('Nav');
             constructor(props) {
                 super(props);
                 this.handleEdit=this.handleEdit.bind(this);
-                this.handleDelete=this.handleDelete.bind(this);
             }
             handleEdit(e){
                 edit_row(this.props.item[this.props.thitem.name]);
-            }
-            handleDelete(e){
-                delete_row(this.props.item[this.props.thitem.name]);
             }
             render() {
                 if (this.props.thitem.type == "edit_delete") {
