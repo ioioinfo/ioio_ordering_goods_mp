@@ -178,7 +178,25 @@ exports.register = function(server, options, next) {
                 });
             },
         },
-
+        //查询订单根据person_id,status
+        {
+            method: 'GET',
+            path: '/search_online_by_status',
+            handler: function(request, reply) {
+                var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
+                var status = request.query.status;
+                if (!status) {
+                    return reply({"success":false,"message":"status null","service_info":service_info});
+                }
+                api.search_online_by_status(person_id,status, function(err,rows){
+                    if (!err) {
+                        return reply({"success":true,"orders":rows.orders,"details":rows.details,"products":rows.products});
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
 
 
     ]);
