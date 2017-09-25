@@ -62,8 +62,9 @@ exports.register = function(server, options, next) {
                 if (!product_id) {
                     return reply({"success":false,"message":"product_id is null"});
                 }
-                var ep =  eventproxy.create("pictures", "product", "property", function(pictures, product, property){
+                var ep =  eventproxy.create("pictures", "product", "property", "product_details", function(pictures, product, property,product_details){
                     product.pictures = pictures;
+                    product.product_details = product_details;
                     var industry_id = product.industry_id;
                     var industry = industries[industry_id];
                     if (!industry) {
@@ -102,6 +103,14 @@ exports.register = function(server, options, next) {
                         ep.emit("property", property);
                     }else {
                         ep.emit("property", {});
+                    }
+                });
+                api.find_product_details(product_id, function(err, content){
+                    if (!err) {
+                        var  product_details = content.row;
+                        ep.emit("product_details", product_details);
+                    }else {
+                        ep.emit("product_details", []);
                     }
                 });
 
