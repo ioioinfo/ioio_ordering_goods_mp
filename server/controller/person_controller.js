@@ -32,6 +32,16 @@ var do_get_method = function(url,cb){
 		}
 	});
 };
+//所有post调用接口方法
+var do_post_method = function(url,data,cb){
+	uu_request.request(url, data, function(err, response, body) {
+		if (!err && response.statusCode === 200) {
+			do_result(false, body, cb);
+		} else {
+			cb(true,null);
+		}
+	});
+};
 //处理结果
 var do_result = function(err,result,cb){
 	if (!err) {
@@ -50,7 +60,11 @@ var find_person_info = function(person_id, cb){
     url = url + person_id + "&scope_code=" +org_code;
     do_get_method(url,cb);
 };
-
+//登入账号验证
+var do_login = function(data, cb){
+	var url = "http://139.196.148.40:18666/user/login_check";
+	do_post_method(url,data,cb);
+};
 
 exports.register = function(server, options, next) {
     var byd_api = server.plugins.services.byd_api;
