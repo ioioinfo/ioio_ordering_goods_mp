@@ -20,7 +20,6 @@ var eventproxy = require('eventproxy');
 const sys_option = require('../config/sys_option');
 const uu_request = require('../utils/uu_request');
 
-
 exports.register = function(server, options, next) {
     var service_info = sys_option.desc;
     var platform_id = sys_option.platform_id;
@@ -116,7 +115,46 @@ exports.register = function(server, options, next) {
 
             },
         },
+        //查询商品属性,图片
+        {
+            method: 'GET',
+            path: '/search_product_detail',
+            handler: function(request, reply){
+                var product_id = request.query.product_id;
+                if (!product_id) {
+                    return reply({"success":false,"message":"params null","service_info":service_info});
+                }
 
+                var ep =  eventproxy.create("pictures","properties","product",
+                    function(pictures,properties,product){
+                        return reply({"success":true,"message":"ok","pictures":pictures,"properties":properties,"product":product,"service_info":service_info});
+                });
+
+                api.find_pictures_byId(product_id,function(err,rows){
+                    if (!err) {
+                        ep.emit("pictures", rows.rows);
+                    }else {
+                        ep.emit("pictures", []);
+                    }
+                });
+
+                api.find_properties_by_product(product_id,function(err,row){
+                    if (!err) {
+                        ep.emit("properties", row.properties);
+                    }else {
+                        ep.emit("properties", []);
+                    }
+                });
+
+                api.find_product_info(product_id,function(err,row){
+                    if (!err) {
+                        ep.emit("product", row.row);
+                    }else {
+                        ep.emit("product", {});
+                    }
+                });
+            }
+        },
 
 
     ]);
