@@ -7,9 +7,9 @@ var Nav = require('Nav');
       render() {
           return (
             <div className="HomePage_wrap">
-            <Head/>
-            <Nav/>
-            <Infor/>
+                <Head/>
+                <Nav/>
+                <Infor/>
             </div>
           );
       }
@@ -92,7 +92,7 @@ var Nav = require('Nav');
 
               <div id="content">
                 <div id="content-header">
-                  <h1>商品查看</h1>
+                  <h1>添加客户</h1>
                   <div className="btn-group">
                     <a className="btn btn-large tip-bottom" title="Manage Files"><i className="icon-file"></i></a>
                     <a className="btn btn-large tip-bottom" title="Manage Users"><i className="icon-user"></i></a>
@@ -133,7 +133,7 @@ var Nav = require('Nav');
                     <span className="icon">
                       <i className="icon-align-justify"></i>
                     </span>
-                    <h5>Rest of elements...</h5>
+                    <h5>添加客户</h5>
                   </div>
                   <div className="widget-content nopadding">
                     <form action="#" method="get" className="form-horizontal">

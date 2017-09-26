@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>订单列表</title>
+    <title>历史订单列表</title>
     <link rel="stylesheet" href="css/bootstrap2.min.css" />
-		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
     <link rel="stylesheet" href="css/jquery-ui.css" />
-		<link rel="stylesheet" href="css/uniform.css" />
-		<link rel="stylesheet" href="css/select2.css" />
-		<link rel="stylesheet" href="css/unicorn.main.css" />
-		<link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
+    <link rel="stylesheet" href="css/uniform.css" />
+    <link rel="stylesheet" href="css/select2.css" />
+    <link rel="stylesheet" href="css/unicorn.main.css" />
+    <link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
     <link rel="stylesheet" href="css/dashboard.css">
 
     <link rel="stylesheet" href="css/mermaid.css">
@@ -22,6 +22,7 @@
     var selected = '05';
     //表头
     var tt = [{name:'order_id',title:'订单编号',sort:false}
+    ,{name:'nickname',title:'下单人',sort:false}
     ,{name:'created_at_text',title:'时间',sort:false}
     ,{name:'total_number',title:'数量',sort:false}
     ,{name:'actual_price',title:'金额',sort:false}
@@ -30,6 +31,8 @@
     function getTableData(params,cb) {
         params.everyNum = 50;
         var allNum = 0;
+        var items = {"order_status":["6","7"]};
+        params.items = items;
         $.get("/get_online_orders",{params:JSON.stringify(params)},function(data){
             if (data.success) {
                 allNum = data.num;

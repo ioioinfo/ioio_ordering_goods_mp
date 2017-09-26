@@ -23,3 +23,9 @@ td:last-child{
 td .btn{
   padding: 0 3px;
 }
+button a{
+    color: #fff;
+}
+button a:hover{
+    color: #fff;
+}

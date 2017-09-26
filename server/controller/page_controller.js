@@ -280,7 +280,8 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/admin_order_detail',
             handler: function(request, reply) {
-              return reply.view("admin_order_detail");
+              var order_id = request.query.order_id;
+              return reply.view("admin_order_detail",{order_id:order_id});
             }
         },
 

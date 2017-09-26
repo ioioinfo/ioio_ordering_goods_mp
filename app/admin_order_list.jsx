@@ -168,36 +168,36 @@ var Nav = require('Nav');
             }
             render() {
                 return (
-                  <div className="container-fluid">
-            				<div className="row-fluid">
-            					<div className="span12">
-            						<div className="widget-box">
-            							<div className="widget-title">
-            								<span className="icon">
-            									<i className="icon-th"></i>
-            								</span>
-            								<h5>订单列表</h5>
-            							</div>
-            							<div className="widget-content nopadding">
-                            <table className="table table-bordered table-striped table-hover">
-                              <thead>
-                                <tr>
-                                {this.props.tabthitems.map((item,index) => (
-                                    <Th  key={index}  item={item} sort={this.props.sort} onSort={this.props.onSort} />))
-                                }
-                              </tr>
-                              </thead>
-                              <tbody>
-                                {this.props.tabtritems.map((item,index )=> (
-                                    <Tr  key={index}  item={item} tabthitems={this.props.tabthitems} />))
-                                }
-                              </tbody>
-                            </table>
-            							</div>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
+                    <div className="container-fluid">
+                        <div className="row-fluid">
+                            <div className="span12">
+                                <div className="widget-box">
+                                    <div className="widget-title">
+                                        <span className="icon">
+                                        <i className="icon-th"></i>
+                                        </span>
+                                        <h5>订单列表</h5>
+                                    </div>
+                                    <div className="widget-content nopadding">
+                                        <table className="table table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                {this.props.tabthitems.map((item,index) => (
+                                                <Th  key={index}  item={item} sort={this.props.sort} onSort={this.props.onSort} />))
+                                                }
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.props.tabtritems.map((item,index )=> (
+                                                <Tr  key={index}  item={item} tabthitems={this.props.tabthitems} />))
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 );
             }
         };
@@ -271,20 +271,13 @@ var Nav = require('Nav');
         class Td extends React.Component {
             constructor(props) {
                 super(props);
-                this.handleEdit=this.handleEdit.bind(this);
-                this.handleDelete=this.handleDelete.bind(this);
-            }
-            handleEdit(e){
-                edit_row(this.props.item[this.props.thitem.name]);
-            }
-            handleDelete(e){
-                delete_row(this.props.item[this.props.thitem.name]);
             }
             render() {
                 if (this.props.thitem.type == "operation") {
 
-                  return (<td>
-                      <button type="button" className="btn btn-primary btn-mini" onClick={this.handleEdit}>查看</button>
+                  return (
+                      <td>
+                            <button type="button" className="btn btn-primary btn-mini"><a href={'admin_order_detail?order_id='+this.props.item.order_id}>查看</a></button>
                       </td>);
                 } else {
                     return (<td>{this.props.item[this.props.thitem.name]}</td>);
