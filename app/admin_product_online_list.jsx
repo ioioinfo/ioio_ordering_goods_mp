@@ -269,22 +269,11 @@ var Nav = require('Nav');
             }
         };
         class Td extends React.Component {
-            constructor(props) {
-                super(props);
-                this.handleEdit=this.handleEdit.bind(this);
-                this.handleDelete=this.handleDelete.bind(this);
-            }
-            handleEdit(e){
-                edit_row(this.props.item[this.props.thitem.name]);
-            }
-            handleDelete(e){
-                delete_row(this.props.item[this.props.thitem.name]);
-            }
             render() {
-                if (this.props.thitem.type == "edit_delete") {
-
-                  return (<td>
-                      <button type="button" className="btn btn-primary btn-xs button_margin_left" onClick={this.handleEdit}>查看</button>
+                if (this.props.thitem.type == "operation") {
+                  return (
+                      <td>
+                            <button type="button" className="btn btn-primary btn-mini"><a href={'admin_order_detail?order_id='+this.props.item.order_id}>查看</a></button>
                       </td>);
                 } else {
                     return (<td>{this.props.item[this.props.thitem.name]}</td>);

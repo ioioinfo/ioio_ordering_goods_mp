@@ -22450,10 +22450,9 @@ var IoIo = function (_React$Component) {
     function IoIo(props) {
         _classCallCheck(this, IoIo);
 
-        // 初始化一个空对象
         var _this = _possibleConstructorReturn(this, (IoIo.__proto__ || Object.getPrototypeOf(IoIo)).call(this, props));
 
-        _this.state = {};
+        _this.handleClick = _this.handleClick.bind(_this);
         return _this;
     }
 
@@ -22461,6 +22460,34 @@ var IoIo = function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             adminLogin();
+        }
+    }, {
+        key: 'handleClick',
+        value: function handleClick(e) {
+            var user_name = $('#user_name').val();
+            var password = $('#password').val();
+            if (!user_name) {
+                alert('请输入用户名');
+                return;
+            }
+            if (!password) {
+                alert('请输入密码');
+                return;
+            }
+            $.ajax({
+                url: "/do_login_admin",
+                dataType: 'json',
+                type: 'POST',
+                data: { "username": user_name, "password": password },
+                success: function (data) {
+                    if (data.success) {
+                        location.href = "admin_product_list";
+                    } else {
+                        alert(data.message);
+                    }
+                }.bind(this),
+                error: function (xhr, status, err) {}.bind(this)
+            });
         }
     }, {
         key: 'render',
@@ -22477,8 +22504,8 @@ var IoIo = function (_React$Component) {
                     'div',
                     { id: 'loginbox' },
                     React.createElement(
-                        'form',
-                        { id: 'loginform', className: 'form-vertical', action: 'index.html' },
+                        'div',
+                        { id: 'loginform', className: 'form-vertical' },
                         React.createElement(
                             'p',
                             null,
@@ -22498,7 +22525,7 @@ var IoIo = function (_React$Component) {
                                         { className: 'add-on' },
                                         React.createElement('i', { className: 'icon-user' })
                                     ),
-                                    React.createElement('input', { type: 'text', placeholder: '\u7528\u6237\u540D' })
+                                    React.createElement('input', { type: 'text', placeholder: '\u7528\u6237\u540D', id: 'user_name' })
                                 )
                             )
                         ),
@@ -22516,7 +22543,7 @@ var IoIo = function (_React$Component) {
                                         { className: 'add-on' },
                                         React.createElement('i', { className: 'icon-lock' })
                                     ),
-                                    React.createElement('input', { type: 'password', placeholder: '\u5BC6\u7801' })
+                                    React.createElement('input', { type: 'password', placeholder: '\u5BC6\u7801', id: 'password' })
                                 )
                             )
                         ),
@@ -22534,13 +22561,13 @@ var IoIo = function (_React$Component) {
                             ),
                             React.createElement(
                                 'span',
-                                { className: 'pull-right' },
+                                { className: 'pull-right', onClick: this.handleClick },
                                 React.createElement('input', { type: 'submit', className: 'btn btn-inverse', value: '\u767B\u5F55' })
                             )
                         )
                     ),
                     React.createElement(
-                        'form',
+                        'div',
                         { id: 'recoverform', action: '#', className: 'form-vertical' },
                         React.createElement(
                             'p',

@@ -31,8 +31,7 @@
     function getTableData(params,cb) {
         params.everyNum = 50;
         var allNum = 0;
-        var items = {"order_status":["6","7"]};
-        params.items = items;
+        params.order_status = ["6","7"];
         $.get("/get_online_orders",{params:JSON.stringify(params)},function(data){
             if (data.success) {
                 allNum = data.num;

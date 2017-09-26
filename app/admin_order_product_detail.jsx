@@ -2,6 +2,49 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Nav = require('Nav');
 
+import { Provider, connect } from 'react-redux'
+import { createStore } from 'redux'
+
+function product(state, action) {
+  switch (action.type) {
+  case 'PRODUCT_DETAIL':
+    {
+      $.ajax({
+         url: "/search_product_detail?product_id="+product_id,
+         dataType: 'json',
+         type: 'GET',
+         success: function(data) {
+           if (data.success) {
+             store.dispatch({ type: 'GET_DATA', data: data});
+           }else {
+           }
+         }.bind(this),
+         error: function(xhr, status, err) {
+         }.bind(this)
+      });
+
+      return state;
+    }
+  case 'GET_DATA':
+  {
+    var data = action.data;
+    return {product:data.product};
+  }
+
+  default:
+    return state
+  }
+}
+
+let store = createStore(product,{product:{}});
+
+const mapStateToProps = (state) => {
+    return {
+        product: state.product,
+
+    }
+}
+
     // 框架
     class Wrap extends React.Component {
       render() {
@@ -66,12 +109,6 @@ var Nav = require('Nav');
     };
 
     class Infor extends React.Component {
-      constructor(props) {
-          super(props);
-          // 初始化一个空对象
-      }
-      componentDidMount() {
-      }
       render() {
         var style = {backgroundColor:'#555555',borderColor:'#aaaaaa'};
         var style1 = {backgroundColor:'#8399b0'};
@@ -113,63 +150,66 @@ var Nav = require('Nav');
       }
     };
     // 图片
-    class ImgWrap extends React.Component {
+    class ImgWrapClass extends React.Component {
       constructor(props) {
           super(props);
       }
       componentDidMount() {
-
+          store.dispatch({ type: 'PRODUCT_DETAIL'});
       }
       render() {
           return (
             <div className="row-fluid">
-    					<div className="span12">
-    						<div className="widget-box">
-    							<div className="widget-title">
-    								<span className="icon">
-    									<i className="icon-picture"></i>
-    								</span>
-    								<h5>商品详情</h5>
-    							</div>
-    							<div className="widget-content">
-    								<div className="invoice-content">
-                    <div className="invoice-head">
-                      <div className="invoice-meta">
-                        <span className="invoice-number">日期 ：2017-9-22 </span>
-                      </div>
-                      <h5>萝卜</h5>
-                      <div className="invoice-to">
-                        <ul>
-                          <li>
-                          <span><strong>详情：</strong></span>
-                          <span></span>
-                          <span>生产日期：2017-9-22</span>
-                          <span>产地：澳大利亚</span>
-                          <span>材质：XXX</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="invoice-from">
-                        <ul>
-                          <li>
-                          <span><strong>统计：</strong></span>
-                          <span>共：20 件</span>
-                          <span>金额：30000.00 元</span>
-                          </li>
-                        </ul>
-                      </div>
+                <div className="span12">
+                    <div className="widget-box">
+                        <div className="widget-title">
+                            <span className="icon">
+                                <i className="icon-picture"></i>
+                            </span>
+                            <h5>商品详情</h5>
+                        </div>
+                        <div className="widget-content">
+                            <div className="invoice-content">
+                                <div className="invoice-head">
+                                    <div className="invoice-meta">
+                                    <span className="invoice-number">日期 ：{this.props.product.update_at_text} </span>
+                                    </div>
+                                    <h5>{this.props.product.product_name}</h5>
+                                    <div className="invoice-to">
+                                        <ul>
+                                            <li>
+                                                <span><strong>详情：</strong></span>
+                                                <span></span>
+                                                <span>生产日期：{this.props.product.time_to_market}</span>
+                                                <span>颜色：{this.props.product.color}</span>
+                                                <span>品牌：{this.props.product.product_brand}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="invoice-from">
+                                        <ul>
+                                            <li>
+                                                <span><strong>价格：</strong></span>
+                                                <span>市场价：{this.props.product.product_marketing_price} 元</span>
+                                                <span>实际售价：{this.props.product.product_sale_price} 元</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    </div>
-    							</div>
-    						</div>
-    					</div>
-	          </div>
+                </div>
+            </div>
           );
       }
     };
+
+const ImgWrap = connect(mapStateToProps)(ImgWrapClass);
 // 返回到页面
 ReactDOM.render(
-    <Wrap/>,
+    <Provider store={store}>
+    <Wrap/>
+    </Provider>,
     document.getElementById("admin_order_product_detail")
 );

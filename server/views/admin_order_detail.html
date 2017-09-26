@@ -41,7 +41,7 @@
                   for (var i = 0; i < details.length; i++) {
                       var product_id = details[i].product_id
                       items.push({product_name:products[product_id].product_name,number:details[i].number,
-                                price:details[i].price,total_price:details[i].total_price})
+                                price:details[i].price,product_id:details[i].product_id,total_price:details[i].total_price})
                   }
                   cb({tabthitems:tt,tabtritems:items,allNum:allNum,everyNum:params.everyNum});
               }else {

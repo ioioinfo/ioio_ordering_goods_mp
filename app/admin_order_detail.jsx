@@ -268,22 +268,14 @@ var Nav = require('Nav');
         }
     };
     class Td extends React.Component {
-        constructor(props) {
-            super(props);
-            this.handleEdit=this.handleEdit.bind(this);
-            this.handleDelete=this.handleDelete.bind(this);
-        }
-        handleEdit(e){
-            edit_row(this.props.item[this.props.thitem.name]);
-        }
-        handleDelete(e){
-            delete_row(this.props.item[this.props.thitem.name]);
-        }
+
         render() {
             if (this.props.thitem.type == "view") {
 
               return (<td>
-                  <button type="button" className="btn btn-primary btn-mini" onClick={this.handleEdit}>详情</button>  <button type="button" className="btn btn-info btn-mini" onClick={this.handleEdit}>图片</button>
+                  <button type="button" className="btn btn-primary btn-mini"><a href={"admin_order_product_detail?product_id="+this.props.item.product_id}>详情</a></button>
+                    &nbsp;
+                  <button type="button" className="btn btn-info btn-mini"><a href={"admin_product_img?product_id="+this.props.item.product_id}>图片</a></button>
                   </td>);
             } else {
                 return (<td>{this.props.item[this.props.thitem.name]}</td>);
