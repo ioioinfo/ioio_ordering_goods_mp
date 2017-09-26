@@ -171,7 +171,7 @@ exports.register = function(server, options, next) {
                 if (!person_id) {
                     return reply.redirect("/login");
                 }
-				var product_num = request.payload.num;
+				var product_num = request.payload.product_num;
 				var product_id = request.payload.product_id;
 				var product_price = request.payload.product_price;
                 if (!product_num || !product_id || !product_price) {
