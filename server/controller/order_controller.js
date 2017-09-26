@@ -19,8 +19,41 @@ var moment = require('moment');
 var eventproxy = require('eventproxy');
 const sys_option = require('../config/sys_option');
 const uu_request = require('../utils/uu_request');
+var org_code = "ioio";
 
-
+//get
+var do_get_method = function(url,cb){
+	uu_request.get(url, function(err, response, body){
+		if (!err && response.statusCode === 200) {
+			var content = JSON.parse(body);
+			do_result(false, content, cb);
+		} else {
+			cb(true, null);
+		}
+	});
+};
+//所有post调用接口方法
+var do_post_method = function(url,data,cb){
+	uu_request.request(url, data, function(err, response, body) {
+		if (!err && response.statusCode === 200) {
+			do_result(false, body, cb);
+		} else {
+			cb(true,null);
+		}
+	});
+};
+//处理结果
+var do_result = function(err,result,cb){
+	if (!err) {
+		if (result.success) {
+			cb(false,result);
+		}else {
+			cb(true,result);
+		}
+	}else {
+		cb(true,null);
+	}
+};
 exports.register = function(server, options, next) {
     var service_info = sys_option.desc;
     var platform_id = sys_option.platform_id;
@@ -42,7 +75,12 @@ exports.register = function(server, options, next) {
     	}
     	return person_id;
     };
-
+    //根据personids找昵称
+	var list_by_ids = function(ids, cb){
+		var url = "http://139.196.148.40:18003/person/list_by_ids?ids=";
+		url = url + ids + "&scope_code=" +org_code;
+		do_get_method(url,cb);
+	};
     server.route([
         //查询商品列表
         {
@@ -58,7 +96,32 @@ exports.register = function(server, options, next) {
 
                 api.get_online_orders(params,function(err,rows){
                     if (!err) {
-                        return reply({"success":true,"rows":rows.rows});
+                        var ids = [];
+                        for (var i = 0; i < rows.rows.length; i++) {
+                            var order = rows.rows[i];
+                            ids.push(order.person_id);
+                        }
+                        ids = JSON.stringify(ids);
+                        var orders = rows.rows;
+                        var num = rows.num;
+                        list_by_ids(ids,function(err,rows){
+                            if (!err) {
+                                var person_map = {};
+                                for (var i = 0; i < rows.rows.length; i++) {
+                                    var person = rows.rows[i];
+                                    person_map[person.person_id] = person;
+                                }
+                                for (var i = 0; i < orders.length; i++) {
+                                    var order = orders[i];
+                                    if (person_map[order.person_id]) {
+                                        order.nickname = person_map[order.person_id].person_name;
+                                    }
+                                }
+                                return reply({"success":true,"rows":orders,"num":num});
+                            }else {
+                                return reply({"success":false,"message":rows.message});
+                            }
+                        });
                     }else {
                         return reply({"success":false,"message":rows.message});
                     }

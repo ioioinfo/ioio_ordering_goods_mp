@@ -84,6 +84,17 @@ exports.register = function(server, options, next) {
 		return state;
 	};
 
+	var get_cookie_person = function(request){
+		var person_id;
+		if (request.state && request.state.cookie) {
+			state = request.state.cookie;
+			if (state.person_id) {
+				person_id = state.person_id;
+			}
+		}
+		return person_id;
+	};
+
     server.route([
         //个人信息
         {
@@ -137,6 +148,40 @@ exports.register = function(server, options, next) {
 
 			}
 		},
+		//后台登入
+		{
+			method: 'POST',
+			path: '/do_login_admin',
+			handler: function(request, reply){
+				var data = {};
+				data.username = request.payload.username;
+				data.password = request.payload.password;
+				data.org_code = "ioio";
+				data.platform_code = "online_admin";
+				if (!data.username||!data.password) {
+					return reply({"success":false,"message":"username or password null"});
+				}
+				do_login(data, function(err,content){
+					if (!err) {
+						if (!content.success) {
+							return reply({"success":false,"message":"password wrong"});
+						}
+						var person_id = content.row.person_id;
+						if (!person_id) {
+							return reply({"success":false,"message":"no account"});
+						}
+
+						var state = login_set_cookie(request,person_id);
+
+						return reply({"success":true}).state('cookie', state, {ttl:1000*365*24*60*60*1000});
+					} else {
+						return reply({"success":false,"message":content.message});
+					}
+				});
+
+			}
+		},
+
 
     ]);
 
