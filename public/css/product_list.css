@@ -107,6 +107,12 @@ body{
   font-weight: 400;
   text-align: center;
 }
+.project_list_button p a{
+    display: block;
+    color: #fff;
+    height: 64px;
+    line-height: 64px;
+}
 
 .background{
   position: fixed;
