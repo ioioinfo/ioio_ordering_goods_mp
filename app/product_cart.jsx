@@ -109,6 +109,7 @@ function product(state, action) {
        type: 'POST',
        data:{'shopping_carts':JSON.stringify(shopping_carts),'total_data':JSON.stringify(total_data)},
        success: function(data) {
+
          if (data.success) {
              location.href = 'now_order?order_id='+data.order_id;
          }else {

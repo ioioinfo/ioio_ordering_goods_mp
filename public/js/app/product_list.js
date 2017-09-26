@@ -24826,7 +24826,7 @@ function product(state, action) {
               $('#loadingToast').fadeIn(100);
               setTimeout(function () {
                 $('#loadingToast').fadeOut(100);
-              }, 2000);
+              }, 500);
             } else {
               alert("添加失败");
             }

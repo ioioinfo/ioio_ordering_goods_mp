@@ -213,7 +213,8 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/now_order',
             handler: function(request, reply) {
-              return reply.view("now_order");
+                var order_id = request.query.order_id;
+                return reply.view("now_order",{order_id:order_id});
             }
         },
 
@@ -243,7 +244,7 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/admin_product_img',
             handler: function(request, reply) {
-                var product_id = request.query.product_id;
+              var product_id = request.query.product_id;
               return reply.view("admin_product_img",{product_id:product_id});
             }
         },
