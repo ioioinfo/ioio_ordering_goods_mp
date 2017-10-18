@@ -23731,12 +23731,14 @@ function product(state, action) {
       }
     case 'GET_DATA':
       {
-        var data = action.data;
+        var data = action.data.product;
+
         var imgs = [];
         for (var i = 0; i < data.pictures.length; i++) {
           imgs.push({ "id": i, "img": data.pictures[i].location, "href": "#" });
         }
-        return { item: data.row, number: state.number, imgs: imgs };
+        console.log(JSON.stringify(imgs));
+        return { item: data, number: state.number, imgs: imgs };
       }
     case 'NUMBER_PLUS':
       {
@@ -23775,8 +23777,6 @@ var IoIo = function (_React$Component) {
     _this.handleBack = _this.handleBack.bind(_this);
     _this.handleBuy = _this.handleBuy.bind(_this);
     _this.changeNumber = _this.changeNumber.bind(_this);
-
-    _this.state = { item: {}, imgs: [], number: 1 };
     return _this;
   }
 
@@ -23820,6 +23820,7 @@ var IoIo = function (_React$Component) {
     key: 'render',
     value: function render() {
       var lunbo = React.createElement('div', null);
+
       if (this.props.imgs.length > 0) {
         lunbo = React.createElement(Lunbo, { items: this.props.imgs });
       }

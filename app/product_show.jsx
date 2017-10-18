@@ -28,12 +28,15 @@ function product(state, action) {
     }
   case 'GET_DATA':
   {
-    var data = action.data;
+    var data = action.data.product;
+
     var imgs = [];
     for (var i = 0; i < data.pictures.length; i++) {
       imgs.push({"id":i,"img":data.pictures[i].location,"href":"#"});
+
     }
-    return {item:data.row,number:state.number,imgs:imgs};
+    console.log(JSON.stringify(imgs));
+    return {item:data,number:state.number,imgs:imgs};
   }
   case 'NUMBER_PLUS':
   {
@@ -68,8 +71,6 @@ class IoIo extends React.Component {
       this.handleBack = this.handleBack.bind(this);
       this.handleBuy = this.handleBuy.bind(this);
       this.changeNumber = this.changeNumber.bind(this);
-
-      this.state={item:{},imgs:[],number:1};
     }
     componentDidMount() {
       store.dispatch({ type: 'PRODUCT_SHOW'});
@@ -99,6 +100,7 @@ class IoIo extends React.Component {
   }
     render() {
       var lunbo = (<div></div>);
+
       if (this.props.imgs.length > 0) {
         lunbo = <Lunbo items={this.props.imgs}/>;
       }
