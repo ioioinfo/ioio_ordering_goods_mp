@@ -35,7 +35,6 @@ function product(state, action) {
       imgs.push({"id":i,"img":data.pictures[i].location,"href":"#"});
 
     }
-    console.log(JSON.stringify(imgs));
     return {item:data,number:state.number,imgs:imgs};
   }
   case 'NUMBER_PLUS':
