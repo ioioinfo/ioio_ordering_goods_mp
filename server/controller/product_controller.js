@@ -74,7 +74,7 @@ exports.register = function(server, options, next) {
                     //行业属性
                     var industry_properties = industry["properties"];
 
-                    return reply({"product":product,"industry_properties":industry_properties,"property":property});
+                    return reply({"success":true,"message":"ok","product":product,"industry_properties":industry_properties,"property":property});
                 });
                 api.get_product(product_id,function(err,rows){
                     if (!err) {
