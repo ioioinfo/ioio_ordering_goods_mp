@@ -291,7 +291,7 @@ class ProjectlistClass extends React.Component {
 };
 
 
-class ProjectButton extends React.Component {
+class ProjectButtonClass extends React.Component {
     constructor(props) {
       super(props);
       this.handleSave=this.handleSave.bind(this);
@@ -302,9 +302,14 @@ class ProjectButton extends React.Component {
         $('.submit_order').addClass('animation');
     }
     render() {
+        var total_data = this.props.total_data;
+        var items = "";
+        if (total_data) {
+            items = total_data.total_items;
+        }
       return (
         <div className="project_list_button">
-          <p onClick={this.handleSave}>去提交</p>
+          <p onClick={this.handleSave}>去提交(共{items}件)</p>
         </div>
       );
     }
@@ -370,6 +375,7 @@ class Home extends React.Component {
     }
 };
 const Projectlist = connect(mapStateToProps)(ProjectlistClass);
+const ProjectButton = connect(mapStateToProps)(ProjectButtonClass);
 ReactDOM.render(
   <Provider store={store}>
   <IoIo/>
