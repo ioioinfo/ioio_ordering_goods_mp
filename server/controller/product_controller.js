@@ -83,7 +83,7 @@ exports.register = function(server, options, next) {
                 }
                 api.get_products_list(params,function(err,rows){
                     if (!err) {
-                        return reply({"success":true,"rows":rows.rows});
+                        return reply({"success":true,"rows":rows.rows,"num":rows.num});
                     }else {
                         return reply({"success":false,"message":rows.message});
                     }
