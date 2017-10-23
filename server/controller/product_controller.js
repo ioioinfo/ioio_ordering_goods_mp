@@ -74,6 +74,17 @@ exports.register = function(server, options, next) {
                     //行业属性
                     var industry_properties = industry["properties"];
 
+                    var product_ids = [];
+                    product_ids.push(product_id);
+                    var data = {"product_ids":JSON.stringify(product_ids)};
+                    get_cached_skus(data,function(err,row){
+                        if (!err) {
+                            var sku_id = row.row[product_id][0].sku_id;
+                            return reply({"success":true,"message":"ok","product":product,"industry_properties":industry_properties,"property":property,"sku_id":sku_id});
+                        }else {
+                            return reply({"success":false,"row":row.message});
+                        }
+                    });
                     return reply({"success":true,"message":"ok","product":product,"industry_properties":industry_properties,"property":property});
                 });
                 api.get_product(product_id,function(err,rows){
