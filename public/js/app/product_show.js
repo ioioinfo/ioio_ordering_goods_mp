@@ -23718,7 +23718,7 @@ function product(state, action) {
           url: "/get_product",
           dataType: 'json',
           type: 'GET',
-          data: { 'product_id': '00001311_A19' },
+          data: { 'product_id': product_id },
           success: function (data) {
             if (data.success) {
               store.dispatch({ type: 'GET_DATA', data: data });
@@ -23747,6 +23747,40 @@ function product(state, action) {
         }
         return { item: state.item, number: number, imgs: state.imgs };
       }
+    case 'NUMBER_CHANGE':
+      {
+        var number = action.value;
+        return { item: state.item, number: number, imgs: state.imgs };
+      }
+    case 'PRODUCT_BUY':
+      {
+
+        var number = state.number;
+        var product_price = action.product_sale_price;
+        var sku_id = action.sku_id;
+        $.ajax({
+          url: "/add_shopping_cart",
+          dataType: 'json',
+          type: 'POST',
+          data: { "product_num": number, "product_id": product_id, "product_price": product_price, "sku_id": sku_id },
+          success: function success(data) {
+            if (data.success) {
+              if ($('#loadingToast').css('display') != 'none') return;
+
+              $('#loadingToast').fadeIn(100);
+              setTimeout(function () {
+                $('#loadingToast').fadeOut(100);
+              }, 500);
+            } else {
+              alert("添加失败");
+            }
+          },
+          error: function error(xhr, status, err) {}
+        });
+
+        return state;
+      }
+
     default:
       return state;
   }
@@ -23783,6 +23817,7 @@ var IoIo = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       store.dispatch({ type: 'PRODUCT_SHOW' });
+      $("#num").html("1");
     }
   }, {
     key: 'handleBuy',
@@ -23802,10 +23837,15 @@ var IoIo = function (_React$Component) {
     }
   }, {
     key: 'changeNumber',
-    value: function changeNumber(e) {}
+    value: function changeNumber(e) {
+      store.dispatch({ type: 'NUMBER_CHANGE', value: $('#number').val() });
+    }
   }, {
     key: 'handleSure',
-    value: function handleSure(e) {
+    value: function handleSure(product_sale_price, sku_ids) {
+      store.dispatch({ type: 'PRODUCT_BUY', product_sale_price: product_sale_price, sku_id: sku_ids });
+      var num = $("#number").val();
+      $("#num").html(num);
       $('.background').hide();
       $('.projecrt_number').hide();
     }
@@ -23823,6 +23863,7 @@ var IoIo = function (_React$Component) {
       if (this.props.imgs.length > 0) {
         lunbo = React.createElement(Lunbo, { items: this.props.imgs });
       }
+      var style = { display: 'none' };
       return React.createElement(
         'div',
         { className: 'project_show_wrap' },
@@ -23907,6 +23948,17 @@ var IoIo = function (_React$Component) {
             'p',
             { onClick: this.handleBuy },
             '\u4E0B\u5355'
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'a',
+              { href: 'product_cart' },
+              '\u53BB\u8D2D\u7269\u8F66(',
+              React.createElement('span', { id: 'num' }),
+              ')'
+            )
           )
         ),
         React.createElement('div', { className: 'background', onClick: this.handleBack }),
@@ -23937,8 +23989,23 @@ var IoIo = function (_React$Component) {
             ),
             React.createElement(
               'button',
-              { className: 'sure', onClick: this.handleSure },
+              { className: 'sure', onClick: this.handleSure.bind(this, this.props.item.product_sale_price, this.props.item.sku_id) },
               '\u786E\u5B9A'
+            )
+          )
+        ),
+        React.createElement(
+          'div',
+          { id: 'loadingToast', style: style },
+          React.createElement('div', { className: 'weui-mask_transparent' }),
+          React.createElement(
+            'div',
+            { className: 'weui-toast' },
+            React.createElement('i', { className: 'weui-loading weui-icon_toast' }),
+            React.createElement(
+              'p',
+              { className: 'weui-toast__content' },
+              '\u6DFB\u52A0\u6210\u529F'
             )
           )
         )

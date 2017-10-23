@@ -23444,49 +23444,7 @@ function product(state, action) {
       }
     case 'GET_DATA':
       {
-        return { project_list: action.data, number: state.number, q: action.q };
-      }
-    case 'NUMBER_CHANGE':
-      {
-        var number = action.value;
-        return { project_list: state.project_list, number: number, q: state.q };
-      }
-    case 'NUMBER_PLUS':
-      {
-        var number = state.number + action.addValue;
-        if (number < 0) {
-          number = 0;
-        }
-        return { project_list: state.project_list, number: number, q: state.q };
-      }
-    case 'PRODUCT_BUY':
-      {
-
-        var number = state.number;
-        var product_id = action.product_id;
-        var product_price = action.product_sale_price;
-
-        $.ajax({
-          url: "/add_shopping_cart",
-          dataType: 'json',
-          type: 'POST',
-          data: { "product_num": number, "product_id": product_id, "product_price": product_price },
-          success: function success(data) {
-            if (data.success) {
-              if ($('#loadingToast').css('display') != 'none') return;
-
-              $('#loadingToast').fadeIn(100);
-              setTimeout(function () {
-                $('#loadingToast').fadeOut(100);
-              }, 500);
-            } else {
-              alert("添加失败");
-            }
-          },
-          error: function error(xhr, status, err) {}
-        });
-
-        return state;
+        return { project_list: action.data, q: action.q };
       }
 
     default:
@@ -23494,12 +23452,11 @@ function product(state, action) {
   }
 }
 
-var store = (0, _redux.createStore)(product, { project_list: [], number: 1, q: "" });
+var store = (0, _redux.createStore)(product, { project_list: [], q: "" });
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     project_list: state.project_list,
-    number: state.number,
     q: state.q
   };
 };
@@ -23523,22 +23480,7 @@ var IoIo = function (_React$Component) {
         React.createElement(Projectsearch, null),
         React.createElement(Projectlist, null),
         React.createElement(ProjectButton, null),
-        React.createElement(Top, null),
-        React.createElement(
-          'div',
-          { id: 'loadingToast', style: style },
-          React.createElement('div', { className: 'weui-mask_transparent' }),
-          React.createElement(
-            'div',
-            { className: 'weui-toast' },
-            React.createElement('i', { className: 'weui-loading weui-icon_toast' }),
-            React.createElement(
-              'p',
-              { className: 'weui-toast__content' },
-              '\u6DFB\u52A0\u6210\u529F'
-            )
-          )
-        )
+        React.createElement(Top, null)
       );
     }
   }]);
@@ -23611,15 +23553,7 @@ var ProjectlistClass = function (_React$Component3) {
   function ProjectlistClass(props) {
     _classCallCheck(this, ProjectlistClass);
 
-    var _this3 = _possibleConstructorReturn(this, (ProjectlistClass.__proto__ || Object.getPrototypeOf(ProjectlistClass)).call(this, props));
-
-    _this3.handleMinus = _this3.handleMinus.bind(_this3);
-    _this3.handlePlus = _this3.handlePlus.bind(_this3);
-    _this3.changeNumber = _this3.changeNumber.bind(_this3);
-    _this3.handleSure = _this3.handleSure.bind(_this3);
-    _this3.handleBack = _this3.handleBack.bind(_this3);
-    _this3.handleBuy = _this3.handleBuy.bind(_this3);
-    return _this3;
+    return _possibleConstructorReturn(this, (ProjectlistClass.__proto__ || Object.getPrototypeOf(ProjectlistClass)).call(this, props));
   }
 
   _createClass(ProjectlistClass, [{
@@ -23628,49 +23562,8 @@ var ProjectlistClass = function (_React$Component3) {
       store.dispatch({ type: 'PRODUCT_LIST', q: q });
     }
   }, {
-    key: 'handleBuy',
-    value: function handleBuy(id, product_sale_price2, ind) {
-      index = ind;
-      product_id = id;
-      product_sale_price = product_sale_price2;
-
-      $('.background').show();
-      $('.projecrt_number').show();
-    }
-  }, {
-    key: 'handleMinus',
-    value: function handleMinus(e) {
-      store.dispatch({ type: 'NUMBER_PLUS', addValue: -1 });
-    }
-  }, {
-    key: 'handlePlus',
-    value: function handlePlus(e) {
-      store.dispatch({ type: 'NUMBER_PLUS', addValue: 1 });
-    }
-  }, {
-    key: 'changeNumber',
-    value: function changeNumber(e) {
-      store.dispatch({ type: 'NUMBER_CHANGE', value: $('#number').val() });
-    }
-  }, {
-    key: 'handleSure',
-    value: function handleSure(e) {
-      store.dispatch({ type: 'PRODUCT_BUY', product_id: product_id, product_sale_price: product_sale_price });
-      $(".cart_style" + index).css("color", "red");
-      $('.background').hide();
-      $('.projecrt_number').hide();
-    }
-  }, {
-    key: 'handleBack',
-    value: function handleBack(e) {
-      $('.background').hide();
-      $('.projecrt_number').hide();
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
-
       var style = { marginRight: '5px', display: 'block' };
       return React.createElement(
         'ul',
@@ -23688,7 +23581,11 @@ var ProjectlistClass = function (_React$Component3) {
                 React.createElement(
                   'div',
                   { className: 'weui-cell__hd project_list_img_wrap' },
-                  React.createElement('img', { src: item.img.location, alt: '', style: style })
+                  React.createElement(
+                    'a',
+                    { href: "product_show?product_id=" + item.id },
+                    React.createElement('img', { src: item.img.location, alt: '', style: style })
+                  )
                 ),
                 React.createElement(
                   'div',
@@ -23708,49 +23605,11 @@ var ProjectlistClass = function (_React$Component3) {
                     ),
                     item.product_sale_price
                   )
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'weui-cell__ft position_absolute', onClick: _this4.handleBuy.bind(_this4, item.id, item.product_sale_price, index) },
-                  React.createElement('i', { className: "fa fa-shopping-basket cart_style" + index })
                 )
               )
             )
           );
-        }),
-        React.createElement('div', { className: 'background', onClick: this.handleBack }),
-        React.createElement(
-          'div',
-          { className: 'projecrt_number' },
-          React.createElement(
-            'div',
-            { className: 'projecrt_number_in' },
-            React.createElement(
-              'p',
-              { onClick: this.handleMinus },
-              React.createElement('i', { className: 'fa fa-minus' })
-            ),
-            React.createElement(
-              'p',
-              null,
-              React.createElement(
-                'span',
-                { className: 'input_out' },
-                React.createElement('input', { type: 'number', placeholder: '1', id: 'number', value: this.props.number, onChange: this.changeNumber })
-              )
-            ),
-            React.createElement(
-              'p',
-              { onClick: this.handlePlus },
-              React.createElement('i', { className: 'fa fa-plus' })
-            ),
-            React.createElement(
-              'button',
-              { className: 'sure', onClick: this.handleSure },
-              '\u786E\u5B9A'
-            )
-          )
-        )
+        })
       );
     }
   }]);
@@ -23767,16 +23626,13 @@ var ProjectButton = function (_React$Component4) {
     _classCallCheck(this, ProjectButton);
 
     // 初始化一个空对象
-    var _this5 = _possibleConstructorReturn(this, (ProjectButton.__proto__ || Object.getPrototypeOf(ProjectButton)).call(this, props));
+    var _this4 = _possibleConstructorReturn(this, (ProjectButton.__proto__ || Object.getPrototypeOf(ProjectButton)).call(this, props));
 
-    _this5.state = {};
-    return _this5;
+    _this4.state = {};
+    return _this4;
   }
 
   _createClass(ProjectButton, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-  }, {
     key: 'render',
     value: function render() {
       return React.createElement(
@@ -23808,10 +23664,10 @@ var Top = function (_React$Component5) {
   function Top(props) {
     _classCallCheck(this, Top);
 
-    var _this6 = _possibleConstructorReturn(this, (Top.__proto__ || Object.getPrototypeOf(Top)).call(this, props));
+    var _this5 = _possibleConstructorReturn(this, (Top.__proto__ || Object.getPrototypeOf(Top)).call(this, props));
 
-    _this6.handleClick = _this6.handleClick.bind(_this6);
-    return _this6;
+    _this5.handleClick = _this5.handleClick.bind(_this5);
+    return _this5;
   }
   // 点击返回顶部
 

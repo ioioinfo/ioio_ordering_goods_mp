@@ -204,7 +204,8 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/product_show',
             handler: function(request, reply) {
-              return reply.view("product_show");
+                var product_id = request.query.product_id;
+                return reply.view("product_show",{product_id:product_id});
             }
         },
 

@@ -11,6 +11,7 @@ body{
   font-size: 20px;
   font-weight: 300;
   margin-bottom: 20px;
+  min-height: 64px;
 }
 .product_price{
   font-size: 20px;
@@ -65,15 +66,29 @@ body{
   z-index: 999;
   background: #fff;
   border-top: 1px solid #dcdcdc;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
 }
 .project_list_button p{
-  height: 64px;
-  line-height: 64px;
-  background: red;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 400;
-  text-align: center;
+    width: 50%;
+    height: 64px;
+    line-height: 64px;
+    background: red;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+}
+.project_list_button p:last-child{
+    background: #FF9500;
+}
+.project_list_button p a{
+    color: #fff;
+    display: block;
+    width: 100%;
+    height: 64px;
+    line-height: 64px;
 }
 .background{
   position: fixed;
@@ -87,11 +102,11 @@ body{
 }
 .projecrt_number{
   position: fixed;
+  width: 80%;
   top: 40%;
-  left: 0;
+  left: 10%;
   right: 0;
   background: #fff;
-  border-radius: 20px;
   z-index: 9999;
   display: none;
 }
@@ -109,7 +124,7 @@ body{
   outline-style: none;
   height: 27px;
   line-height: 27px;
-
+  text-align: center;
   width: 100%;
 }
 .input_out{
@@ -122,20 +137,14 @@ body{
 }
 .projecrt_number_in{
   position: relative;
+  overflow: hidden;
 }
 .sure{
-  position: absolute;
-  top: 100px;
-  left: 50%;
-  right: 50%;
-  margin-left: -40px;
-  margin-right: -40px;
   z-index: 9999;
-  width: 80px;
+  width: 100%;
   text-align: center;
   height: 40px;
   line-height: 40px;
-  border-radius: 8px;
   background: #DE5145;
   border: none;
   color: #fff;

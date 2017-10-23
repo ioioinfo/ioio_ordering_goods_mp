@@ -13,7 +13,7 @@ function product(state, action) {
          url: "/get_product",
          dataType: 'json',
          type: 'GET',
-         data:{'product_id':'00001311_A19'},
+         data:{'product_id':product_id},
          success: function(data) {
            if (data.success) {
              store.dispatch({ type: 'GET_DATA', data: data});
@@ -45,6 +45,41 @@ function product(state, action) {
     }
     return {item:state.item,number:number,imgs:state.imgs};
   }
+  case 'NUMBER_CHANGE':
+  {
+    var number = action.value;
+    return {item:state.item,number:number ,imgs:state.imgs};
+  }
+  case 'PRODUCT_BUY':
+    {
+
+        var number = state.number;
+        var product_price = action.product_sale_price;
+        var sku_id = action.sku_id;
+      $.ajax({
+         url: "/add_shopping_cart",
+         dataType: 'json',
+         type: 'POST',
+         data:{"product_num":number,"product_id":product_id,"product_price":product_price,"sku_id":sku_id},
+         success: function(data) {
+           if(data.success){
+               if ($('#loadingToast').css('display') != 'none') return;
+
+               $('#loadingToast').fadeIn(100);
+               setTimeout(function () {
+                   $('#loadingToast').fadeOut(100);
+               }, 500);
+           }else {
+             alert("添加失败");
+           }
+         },
+         error: function(xhr, status, err) {
+         }
+      });
+
+      return state;
+    }
+
   default:
     return state
   }
@@ -73,6 +108,7 @@ class IoIo extends React.Component {
     }
     componentDidMount() {
       store.dispatch({ type: 'PRODUCT_SHOW'});
+      $("#num").html("1");
     }
 
     handleBuy(e){
@@ -86,9 +122,12 @@ class IoIo extends React.Component {
       store.dispatch({ type: 'NUMBER_PLUS',addValue:1});
     }
     changeNumber(e) {
-
+      store.dispatch({ type: 'NUMBER_CHANGE',value:$('#number').val()});
     }
-    handleSure(e){
+    handleSure(product_sale_price,sku_ids){
+      store.dispatch({ type: 'PRODUCT_BUY',product_sale_price:product_sale_price,sku_id:sku_ids});
+      var num = $("#number").val();
+      $("#num").html(num);
       $('.background').hide();
       $('.projecrt_number').hide();
     }
@@ -103,6 +142,7 @@ class IoIo extends React.Component {
       if (this.props.imgs.length > 0) {
         lunbo = <Lunbo items={this.props.imgs}/>;
       }
+      var style = {display:'none'};
       return (
         <div className="project_show_wrap">
           {lunbo}
@@ -124,6 +164,7 @@ class IoIo extends React.Component {
           </div>
           <div className="project_list_button">
             <p onClick={this.handleBuy}>下单</p>
+            <p><a href="product_cart">去购物车(<span id="num"></span>)</a></p>
           </div>
 
 
@@ -133,8 +174,16 @@ class IoIo extends React.Component {
               <p onClick={this.handleMinus}><i className="fa fa-minus"></i></p>
               <p><span className="input_out"><input type="number" placeholder="1" id="number" value={this.props.number} onChange={this.changeNumber}/></span></p>
               <p onClick={this.handlePlus}><i className="fa fa-plus"></i></p>
-              <button className="sure" onClick={this.handleSure}>确定</button>
+              <button className="sure" onClick={this.handleSure.bind(this,this.props.item.product_sale_price,this.props.item.sku_id)}>确定</button>
             </div>
+          </div>
+
+          <div id="loadingToast" style={style}>
+              <div className="weui-mask_transparent"></div>
+              <div className="weui-toast">
+                  <i className="weui-loading weui-icon_toast"></i>
+                  <p className="weui-toast__content">添加成功</p>
+              </div>
           </div>
         </div>
       );

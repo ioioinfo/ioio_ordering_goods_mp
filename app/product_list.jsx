@@ -33,63 +33,20 @@ function product(state, action) {
     }
   case 'GET_DATA':
   {
-    return {project_list:action.data ,number:state.number ,q:action.q};
+    return {project_list:action.data ,q:action.q};
   }
-  case 'NUMBER_CHANGE':
-  {
-    var number = action.value;
-    return {project_list:state.project_list,number:number ,q:state.q};
-  }
-  case 'NUMBER_PLUS':
-  {
-    var number = state.number+action.addValue;
-    if (number < 0) {
-      number = 0;
-    }
-    return {project_list:state.project_list,number:number ,q:state.q};
-  }
-  case 'PRODUCT_BUY':
-    {
 
-        var number = state.number;
-        var product_id = action.product_id;
-        var product_price = action.product_sale_price;
-
-      $.ajax({
-         url: "/add_shopping_cart",
-         dataType: 'json',
-         type: 'POST',
-         data:{"product_num":number,"product_id":product_id,"product_price":product_price},
-         success: function(data) {
-           if(data.success){
-               if ($('#loadingToast').css('display') != 'none') return;
-
-               $('#loadingToast').fadeIn(100);
-               setTimeout(function () {
-                   $('#loadingToast').fadeOut(100);
-               }, 500);
-           }else {
-             alert("添加失败");
-           }
-         },
-         error: function(xhr, status, err) {
-         }
-      });
-
-      return state;
-    }
 
   default:
     return state
   }
 }
 
-let store = createStore(product,{project_list:[],number:1 , q:""});
+let store = createStore(product,{project_list:[], q:""});
 
 const mapStateToProps = (state) => {
     return {
         project_list: state.project_list,
-        number: state.number,
         q: state.q,
     }
 }
@@ -103,13 +60,6 @@ class IoIo extends React.Component {
           <Projectlist/>
           <ProjectButton/>
           <Top/>
-          <div id="loadingToast" style={style}>
-              <div className="weui-mask_transparent"></div>
-              <div className="weui-toast">
-                  <i className="weui-loading weui-icon_toast"></i>
-                  <p className="weui-toast__content">添加成功</p>
-              </div>
-          </div>
         </div>
       );
     }
@@ -146,45 +96,11 @@ class Projectsearch extends React.Component {
 class ProjectlistClass extends React.Component {
     constructor(props) {
       super(props);
-      this.handleMinus = this.handleMinus.bind(this);
-      this.handlePlus = this.handlePlus.bind(this);
-      this.changeNumber = this.changeNumber.bind(this);
-      this.handleSure = this.handleSure.bind(this);
-      this.handleBack = this.handleBack.bind(this);
-      this.handleBuy = this.handleBuy.bind(this);
     }
     componentDidMount() {
       store.dispatch({ type: 'PRODUCT_LIST',q:q});
     }
-    handleBuy(id,product_sale_price2,ind){
-      index = ind;
-      product_id = id;
-      product_sale_price = product_sale_price2;
 
-      $('.background').show();
-      $('.projecrt_number').show();
-    }
-    handleMinus(e){
-      store.dispatch({ type: 'NUMBER_PLUS', addValue: -1});
-    }
-    handlePlus(e){
-      store.dispatch({ type: 'NUMBER_PLUS', addValue: 1});
-    }
-
-    changeNumber(e) {
-        store.dispatch({ type: 'NUMBER_CHANGE',value:$('#number').val()});
-    }
-
-    handleSure(e){
-        store.dispatch({ type: 'PRODUCT_BUY',product_id:product_id,product_sale_price:product_sale_price});
-        $(".cart_style"+index).css("color","red");
-        $('.background').hide();
-        $('.projecrt_number').hide();
-    }
-    handleBack(e){
-      $('.background').hide();
-      $('.projecrt_number').hide();
-  }
     render() {
       var style = {marginRight:'5px' ,display:'block'};
       return (
@@ -193,28 +109,17 @@ class ProjectlistClass extends React.Component {
             <li key={index}>
               <div className="weui-cells">
                 <div className="weui-cell font_style position_relative">
-                    <div className="weui-cell__hd project_list_img_wrap"><img src={item.img.location} alt="" style={style}/></div>
+                    <div className="weui-cell__hd project_list_img_wrap"><a href={"product_show?product_id="+item.id}><img src={item.img.location} alt="" style={style}/></a></div>
                     <div className="weui-cell__bd product_name">
                         <p className="product_name_infor">{item.product_name}</p>
                         <p className="product_price"><span>￥</span>{item.product_sale_price}</p>
                     </div>
-                    <div className="weui-cell__ft position_absolute" onClick={this.handleBuy.bind(this,item.id,item.product_sale_price,index)}><i className={"fa fa-shopping-basket cart_style" + index}></i></div>
                 </div>
               </div>
             </li>
 
             ))
           }
-          <div className="background" onClick={this.handleBack}></div>
-          <div className="projecrt_number">
-            <div className="projecrt_number_in">
-              <p onClick={this.handleMinus}><i className="fa fa-minus"></i></p>
-              <p><span className="input_out"><input type="number" placeholder="1" id="number" value={this.props.number} onChange={this.changeNumber}/></span></p>
-              <p onClick={this.handlePlus}><i className="fa fa-plus"></i></p>
-              <button className="sure" onClick={this.handleSure}>确定</button>
-            </div>
-          </div>
-
         </ul>
       );
     }
@@ -226,8 +131,6 @@ class ProjectButton extends React.Component {
       super(props);
       // 初始化一个空对象
       this.state = {};
-    }
-    componentDidMount() {
     }
     render() {
       return (
