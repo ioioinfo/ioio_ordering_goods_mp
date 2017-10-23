@@ -108,7 +108,7 @@ class IoIo extends React.Component {
     }
     componentDidMount() {
       store.dispatch({ type: 'PRODUCT_SHOW'});
-      $("#num").html("1");
+      $("#num").html("0");
     }
 
     handleBuy(e){
@@ -163,8 +163,8 @@ class IoIo extends React.Component {
             <img src="images/product_infor.jpg" />
           </div>
           <div className="project_list_button">
-            <p onClick={this.handleBuy}>下单</p>
-            <p><a href="product_cart">去购物车(<span id="num"></span>)</a></p>
+            <p onClick={this.handleBuy}>下单(<span id="num"></span>)</p>
+            <p><a href="product_cart">去购物车</a></p>
           </div>
 
 

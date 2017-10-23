@@ -23817,7 +23817,7 @@ var IoIo = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       store.dispatch({ type: 'PRODUCT_SHOW' });
-      $("#num").html("1");
+      $("#num").html("0");
     }
   }, {
     key: 'handleBuy',
@@ -23947,7 +23947,9 @@ var IoIo = function (_React$Component) {
           React.createElement(
             'p',
             { onClick: this.handleBuy },
-            '\u4E0B\u5355'
+            '\u4E0B\u5355(',
+            React.createElement('span', { id: 'num' }),
+            ')'
           ),
           React.createElement(
             'p',
@@ -23955,9 +23957,7 @@ var IoIo = function (_React$Component) {
             React.createElement(
               'a',
               { href: 'product_cart' },
-              '\u53BB\u8D2D\u7269\u8F66(',
-              React.createElement('span', { id: 'num' }),
-              ')'
+              '\u53BB\u8D2D\u7269\u8F66'
             )
           )
         ),
