@@ -164,6 +164,7 @@ class ImgWrapClass extends React.Component {
   render() {
     var style = {position:'relative' , height:'2251px' , width:'520px'};
     var style1 = {position:'absolute' , top:'0px' , left:'0px'};
+    var style2 = {overFlow:'auto'};
     var img = (<p>暂无图片</p>);
     if (this.props.imgs.length>0) {
         img = (<div className="gallery-masonry masonry">
@@ -195,7 +196,7 @@ class ImgWrapClass extends React.Component {
 						</span>
 						<h5>图片列表</h5>
 					</div>
-					<div className="widget-content">
+					<div className="widget-content" style={style2}>
 	                  {img}
 					</div>
 				</div>
