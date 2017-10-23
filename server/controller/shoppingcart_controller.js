@@ -174,33 +174,24 @@ exports.register = function(server, options, next) {
 				var product_num = request.payload.product_num;
 				var product_id = request.payload.product_id;
 				var product_price = request.payload.product_price;
-                if (!product_num || !product_id || !product_price) {
+				var sku_id = request.payload.sku_id;
+                if (!product_num || !product_id || !product_price || !sku_id) {
 					return reply({"success":false,"message":"param null"});
 				}
-                var product_ids = [];
-                product_ids.push(product_id);
-                var data = {"product_ids":JSON.stringify(product_ids)};
-                get_cached_skus(data,function(err,row){
-                    if (!err) {
-                        var sku_id = row.row[product_id][0].sku_id;
-                        var data = {
-                            "person_id" : person_id,
-                            "product_id" : product_id,
-                            "product_num" : product_num,
-                            "product_price" : product_price,
-                            "sku_id" : sku_id
-                        };
-                        api.search_shopping_cart(data,function(err,result){
-                            if (!err) {
-                                return reply({"success":true,"all_items":result.all_items});
-                            }else {
-                                return reply({"success":false,"message":err});
-                            }
-                        });
-                    }else {
-                        return reply({"success":false,"row":row.message});
-                    }
-                });
+				var data = {
+					"person_id" : person_id,
+					"product_id" : product_id,
+					"product_num" : product_num,
+					"product_price" : product_price,
+					"sku_id" : sku_id
+				};
+				api.search_shopping_cart(data,function(err,result){
+					if (!err) {
+						return reply({"success":true,"all_items":result.all_items});
+					}else {
+						return reply({"success":false,"message":err});
+					}
+				});
 			}
 		},
 
