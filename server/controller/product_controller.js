@@ -117,8 +117,8 @@ exports.register = function(server, options, next) {
                     var data = {"product_ids":JSON.stringify(product_ids)};
                     get_cached_skus(data,function(err,row){
                         if (!err) {
-                            var sku_id = row.row[product_id][0].sku_id;
-                            return reply({"success":true,"message":"ok","product":product,"industry_properties":industry_properties,"property":property,"sku_id":sku_id});
+                            product.sku_id = row.row[product_id][0].sku_id;
+                            return reply({"success":true,"message":"ok","product":product,"industry_properties":industry_properties,"property":property});
                         }else {
                             return reply({"success":false,"row":row.message});
                         }
