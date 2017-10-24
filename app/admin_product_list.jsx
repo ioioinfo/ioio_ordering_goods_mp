@@ -179,20 +179,20 @@ var Nav = require('Nav');
             								<h5>商品列表</h5>
             							</div>
             							<div className="widget-content nopadding">
-                            <table className="table table-bordered table-striped table-hover">
-                              <thead>
-                                <tr>
-                                {this.props.tabthitems.map((item,index) => (
-                                    <Th  key={index}  item={item} sort={this.props.sort} onSort={this.props.onSort} />))
-                                }
-                              </tr>
-                              </thead>
-                              <tbody>
-                                {this.props.tabtritems.map((item,index )=> (
-                                    <Tr  key={index}  item={item} tabthitems={this.props.tabthitems} />))
-                                }
-                              </tbody>
-                            </table>
+                                            <table className="table table-bordered table-striped table-hover">
+                                              <thead>
+                                                <tr>
+                                                {this.props.tabthitems.map((item,index) => (
+                                                    <Th  key={index}  item={item} sort={this.props.sort} onSort={this.props.onSort} />))
+                                                }
+                                              </tr>
+                                              </thead>
+                                              <tbody>
+                                                {this.props.tabtritems.map((item,index )=> (
+                                                    <Tr  key={index}  item={item} tabthitems={this.props.tabthitems} />))
+                                                }
+                                              </tbody>
+                                            </table>
             							</div>
             						</div>
             					</div>
