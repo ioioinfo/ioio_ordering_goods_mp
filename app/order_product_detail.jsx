@@ -2,14 +2,57 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Nav = require('Nav');
 
+import { Provider, connect } from 'react-redux'
+import { createStore } from 'redux'
+
+function product(state, action) {
+  switch (action.type) {
+  case 'PRODUCT_DETAIL':
+    {
+      $.ajax({
+         url: "/search_product_detail?product_id="+product_id,
+         dataType: 'json',
+         type: 'GET',
+         success: function(data) {
+           if (data.success) {
+             store.dispatch({ type: 'GET_DATA', data: data});
+           }else {
+           }
+         }.bind(this),
+         error: function(xhr, status, err) {
+         }.bind(this)
+      });
+
+      return state;
+    }
+  case 'GET_DATA':
+  {
+    var data = action.data;
+    return {product:data.product};
+  }
+
+  default:
+    return state
+  }
+}
+
+let store = createStore(product,{product:{}});
+
+const mapStateToProps = (state) => {
+    return {
+        product: state.product,
+
+    }
+}
+
     // 框架
     class Wrap extends React.Component {
       render() {
           return (
             <div className="HomePage_wrap">
-                <Head/>
-                <Nav/>
-                <Infor/>
+            <Head/>
+            <Nav/>
+            <Infor/>
             </div>
           );
       }
@@ -66,12 +109,6 @@ var Nav = require('Nav');
     };
 
     class Infor extends React.Component {
-      constructor(props) {
-          super(props);
-          // 初始化一个空对象
-      }
-      componentDidMount() {
-      }
       render() {
         var style = {backgroundColor:'#555555',borderColor:'#aaaaaa'};
         var style1 = {backgroundColor:'#8399b0'};
@@ -92,7 +129,7 @@ var Nav = require('Nav');
 
               <div id="content">
                 <div id="content-header">
-                  <h1>添加客户</h1>
+                  <h1>订单商品详情</h1>
                   <div className="btn-group">
                     <a className="btn btn-large tip-bottom" title="Manage Files"><i className="icon-file"></i></a>
                     <a className="btn btn-large tip-bottom" title="Manage Users"><i className="icon-user"></i></a>
@@ -104,7 +141,7 @@ var Nav = require('Nav');
                   <a href="#" title="Go to Home" className="tip-bottom"><i className="icon-home"></i> 首页</a>
                 </div>
                 <div className="container-fluid">
-                  <AddWrap/>
+                  <ImgWrap/>
                 </div>
 
               </div>
@@ -112,92 +149,67 @@ var Nav = require('Nav');
           );
       }
     };
-    // add
-    class AddWrap extends React.Component {
+    // 图片
+    class ImgWrapClass extends React.Component {
       constructor(props) {
           super(props);
-          // 初始化一个空对象
-          this.state={items:[]};
       }
       componentDidMount() {
-        selectTwo();
+          store.dispatch({ type: 'PRODUCT_DETAIL'});
       }
       render() {
-        var style = {display:'none' };
-        var style1 = {width:'1px'};
           return (
             <div className="row-fluid">
-              <div className="span12">
-                <div className="widget-box">
-                  <div className="widget-title">
-                    <span className="icon">
-                      <i className="icon-align-justify"></i>
-                    </span>
-                    <h5>添加客户</h5>
-                  </div>
-                  <div className="widget-content nopadding">
-                    <form action="#" method="get" className="form-horizontal">
-                      <div className="control-group">
-                        <label className="control-label">供应商</label>
-                        <div className="controls">
-                          <div className="select2-container" id="s2id_autogen1">
-
-                            <div className="select2-drop select2-with-searchbox select2-offscreen" style={style}>
-                             <div className="select2-search">
-                              <input type="text" autoComplete="off" className="select2-input" tabIndex="0"/>
-                             </div>
-                             <ul className="select2-results"></ul>
-                            </div>
-                          </div>
-                          <select style={style}>
-                            <option>供应商A</option>
-                            <option>供应商B</option>
-                            <option>供应商C</option>
-                            <option>供应商D</option>
-                            <option>供应商E</option>
-                            <option>供应商F</option>
-                          </select>
+                <div className="span12">
+                    <div className="widget-box">
+                        <div className="widget-title">
+                            <span className="icon">
+                                <i className="icon-picture"></i>
+                            </span>
+                            <h5>订单商品详情</h5>
                         </div>
-                      </div>
-
-
-
-                      <div className="control-group">
-                        <label className="control-label">门店</label>
-                        <div className="controls">
-                          <div className="select2-container" id="s2id_autogen1">
-
-                            <div className="select2-drop select2-with-searchbox select2-offscreen" style={style}>
-                             <div className="select2-search">
-                              <input type="text" autoComplete="off" className="select2-input" tabIndex="0"/>
-                             </div>
-                             <ul className="select2-results"></ul>
+                        <div className="widget-content">
+                            <div className="invoice-content">
+                                <div className="invoice-head">
+                                    <div className="invoice-meta">
+                                    <span className="invoice-number">日期 ：{this.props.product.update_at_text} </span>
+                                    </div>
+                                    <h5>{this.props.product.product_name}</h5>
+                                    <div className="invoice-to">
+                                        <ul>
+                                            <li>
+                                                <span><strong>详情：</strong></span>
+                                                <span></span>
+                                                <span>生产日期：{this.props.product.time_to_market}</span>
+                                                <span>颜色：{this.props.product.color}</span>
+                                                <span>品牌：{this.props.product.product_brand}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="invoice-from">
+                                        <ul>
+                                            <li>
+                                                <span><strong>价格：</strong></span>
+                                                <span>市场价：{this.props.product.product_marketing_price} 元</span>
+                                                <span>实际售价：{this.props.product.product_sale_price} 元</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                          <select style={style}>
-                            <option>门店A</option>
-                            <option>门店C</option>
-                            <option>门店B</option>
-                            <option>门店D</option>
-                            <option>门店E</option>
-                            <option>门店F</option>
-                          </select>
                         </div>
-                      </div>
-
-                      <div className="form-actions">
-    										<button type="submit" className="btn btn-primary">保 存</button>
-    									</div>
-                    </form>
-                  </div>
+                    </div>
                 </div>
-              </div>
-	          </div>
+            </div>
           );
       }
     };
+
+const ImgWrap = connect(mapStateToProps)(ImgWrapClass);
 // 返回到页面
 ReactDOM.render(
-    <Wrap/>,
-    document.getElementById("admin_add_custom")
+    <Provider store={store}>
+    <Wrap/>
+    </Provider>,
+    document.getElementById("order_product_detail")
 );

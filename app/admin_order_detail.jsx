@@ -93,7 +93,7 @@ var Nav = require('Nav');
 
               <div id="content">
                 <div id="content-header">
-                  <h1>订单列表</h1>
+                  <h1>在线订单商品列表</h1>
                   <div className="btn-group">
                     <a className="btn btn-large tip-bottom" title="Manage Files"><i className="icon-file"></i></a>
                     <a className="btn btn-large tip-bottom" title="Manage Users"><i className="icon-user"></i></a>
@@ -102,7 +102,7 @@ var Nav = require('Nav');
                   </div>
                 </div>
                 <div id="breadcrumb">
-                  <a href="#" title="Go to Home" className="tip-bottom"><i className="icon-tint"></i> XX</a>
+                  <a href="#" title="Go to Home" className="tip-bottom"><i className="icon-home"></i> 首页</a>
                 </div>
                 <div className="container-fluid">
                 <TableWrap/>
@@ -175,7 +175,7 @@ var Nav = require('Nav');
         								<span className="icon">
         									<i className="icon-th"></i>
         								</span>
-        								<h5>订单列表</h5>
+        								<h5>在线订单商品列表</h5>
         							</div>
         							<div className="widget-content nopadding">
                         <table className="table table-bordered table-striped table-hover">
@@ -273,7 +273,7 @@ var Nav = require('Nav');
             if (this.props.thitem.type == "view") {
 
               return (<td>
-                  <button type="button" className="btn btn-primary btn-mini"><a href={"admin_order_product_detail?product_id="+this.props.item.product_id}>详情</a></button>
+                  <button type="button" className="btn btn-primary btn-mini"><a href={"order_product_detail?product_id="+this.props.item.product_id}>详情</a></button>
                     &nbsp;
                   <button type="button" className="btn btn-info btn-mini"><a href={"admin_product_img?product_id="+this.props.item.product_id}>图片</a></button>
                   </td>);

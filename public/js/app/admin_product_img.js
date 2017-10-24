@@ -23421,7 +23421,7 @@ var Nav = function (_React$Component) {
   _createClass(Nav, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "/", icon_class: "icon-th" }] }, { name: "用户列表", code: "02", href: "admin_user_list", icon_class: "icon-home", child: [{ name: "用户列表", href: "/", icon_class: "icon-th" }] }, { name: "商品列表", code: "03", href: "admin_product_list", icon_class: "icon-home", child: [{ name: "商品列表", href: "/", icon_class: "icon-th" }] }, { name: "历史订单列表", code: "05", href: "admin_order_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "商品详情", code: "07", href: "admin_order_product_detail", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "在线订单列表", code: "08", href: "admin_product_online_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "添加商品", code: "09", href: "admin_add_product", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "添加客户", code: "10", href: "admin_add_custom", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }];
+      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "/", icon_class: "icon-th" }] }, { name: "用户列表", code: "02", href: "admin_user_list", icon_class: "icon-home", child: [{ name: "用户列表", href: "/", icon_class: "icon-th" }] }, { name: "商品列表", code: "03", href: "admin_product_list", icon_class: "icon-home", child: [{ name: "商品列表", href: "/", icon_class: "icon-th" }] }, { name: "历史订单列表", code: "05", href: "admin_order_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "商品详情", code: "07", href: "admin_order_product_detail", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "在线订单列表", code: "08", href: "admin_product_online_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "添加商品", code: "09", href: "admin_add_product", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "添加客户", code: "10", href: "admin_add_custom", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单商品详情", code: "11", href: "order_product_detail", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }];
       this.setState({ items: rows });
       unicorn();
     }
@@ -23549,6 +23549,7 @@ function product(state, action) {
       }
     case 'GET_DATA':
       {
+
         var data = action.data;
         return { imgs: data.pictures };
       }
@@ -23840,8 +23841,8 @@ var Infor = function (_React$Component3) {
             React.createElement(
               'a',
               { href: '#', title: 'Go to Home', className: 'tip-bottom' },
-              React.createElement('i', { className: 'icon-tint' }),
-              ' XX'
+              React.createElement('i', { className: 'icon-home' }),
+              ' \u9996\u9875'
             )
           ),
           React.createElement(
@@ -23886,10 +23887,10 @@ var ImgWrapClass = function (_React$Component4) {
         null,
         '\u6682\u65E0\u56FE\u7247'
       );
-      if (this.props.imgs.length > 0) {
+      if (this.props.imgs) {
         img = React.createElement(
           'div',
-          { className: 'gallery-masonry masonry' },
+          { className: 'gallery-masonry masonry overFlowAututo' },
           this.props.imgs.map(function (item, index) {
             return React.createElement(
               'div',
@@ -23915,6 +23916,12 @@ var ImgWrapClass = function (_React$Component4) {
               )
             );
           })
+        );
+      } else {
+        img = React.createElement(
+          'div',
+          null,
+          '\u6682\u65E0'
         );
       }
       return React.createElement(
@@ -23942,7 +23949,7 @@ var ImgWrapClass = function (_React$Component4) {
             ),
             React.createElement(
               'div',
-              { className: 'widget-content', style: style2 },
+              { className: 'widget-content' },
               img
             )
           )

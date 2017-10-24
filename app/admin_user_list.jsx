@@ -101,7 +101,7 @@ var Nav = require('Nav');
                   </div>
                 </div>
                 <div id="breadcrumb">
-                  <a href="#" title="Go to Home" className="tip-bottom"><i className="icon-tint"></i> XX</a>
+                  <a href="#" title="Go to Home" className="tip-bottom"><i className="icon-home"></i> 首页</a>
                 </div>
                 <div className="container-fluid">
                 <TableWrap/>

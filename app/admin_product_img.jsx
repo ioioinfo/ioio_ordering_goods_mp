@@ -27,6 +27,7 @@ function product(state, action) {
     }
   case 'GET_DATA':
   {
+
     var data = action.data;
     return {imgs:data.pictures};
   }
@@ -144,7 +145,7 @@ class Infor extends React.Component {
               </div>
             </div>
             <div id="breadcrumb">
-              <a href="#" title="Go to Home" className="tip-bottom"><i className="icon-tint"></i> XX</a>
+              <a href="#" title="Go to Home" className="tip-bottom"><i className="icon-home"></i> 首页</a>
             </div>
             <div className="container-fluid">
               <ImgWrap/>
@@ -166,8 +167,8 @@ class ImgWrapClass extends React.Component {
     var style1 = {position:'absolute' , top:'0px' , left:'0px'};
     var style2 = {overFlow:'auto'};
     var img = (<p>暂无图片</p>);
-    if (this.props.imgs.length>0) {
-        img = (<div className="gallery-masonry masonry">
+    if (this.props.imgs) {
+        img = (<div className="gallery-masonry masonry overFlowAututo">
             {this.props.imgs.map((item,index) => (
               <div key={index} className="item masonry-brick">
                 <a href="#" className="thumbnail">
@@ -185,6 +186,8 @@ class ImgWrapClass extends React.Component {
               ))
             }
           </div>);
+    }else {
+        img = (<div>暂无</div>);
     }
       return (
         <div className="row-fluid">
@@ -196,7 +199,7 @@ class ImgWrapClass extends React.Component {
 						</span>
 						<h5>图片列表</h5>
 					</div>
-					<div className="widget-content" style={style2}>
+					<div className="widget-content">
 	                  {img}
 					</div>
 				</div>

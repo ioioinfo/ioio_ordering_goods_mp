@@ -30,3 +30,6 @@ button a{
 button a:hover{
     color: #fff;
 }
+.overFlowAututo{
+    overflow: auto;
+}

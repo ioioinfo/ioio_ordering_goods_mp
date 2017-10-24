@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 92);
+/******/ 	return __webpack_require__(__webpack_require__.s = 95);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -23511,7 +23511,10 @@ module.exports = Nav;
 /* 89 */,
 /* 90 */,
 /* 91 */,
-/* 92 */
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23802,7 +23805,7 @@ var Infor = function (_React$Component3) {
             React.createElement(
               'h1',
               null,
-              '\u5546\u54C1\u8BE6\u60C5'
+              '\u8BA2\u5355\u5546\u54C1\u8BE6\u60C5'
             ),
             React.createElement(
               'div',
@@ -23840,7 +23843,7 @@ var Infor = function (_React$Component3) {
             React.createElement(
               'a',
               { href: '#', title: 'Go to Home', className: 'tip-bottom' },
-              React.createElement('i', { className: 'icon-tint' }),
+              React.createElement('i', { className: 'icon-home' }),
               ' \u9996\u9875'
             )
           ),
@@ -23897,7 +23900,7 @@ var ImgWrapClass = function (_React$Component4) {
               React.createElement(
                 'h5',
                 null,
-                '\u5546\u54C1\u8BE6\u60C5'
+                '\u8BA2\u5355\u5546\u54C1\u8BE6\u60C5'
               )
             ),
             React.createElement(
@@ -24020,7 +24023,7 @@ ReactDOM.render(React.createElement(
   _reactRedux.Provider,
   { store: store },
   React.createElement(Wrap, null)
-), document.getElementById("admin_order_product_detail"));
+), document.getElementById("order_product_detail"));
 
 /***/ })
 /******/ ]);

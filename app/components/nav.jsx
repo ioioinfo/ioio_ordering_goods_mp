@@ -15,6 +15,7 @@ class Nav extends React.Component {
             {name: "在线订单列表",code: "08", href:"admin_product_online_list", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
             {name: "添加商品",code: "09", href:"admin_add_product", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
             {name: "添加客户",code: "10", href:"admin_add_custom", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
+            {name: "订单商品详情",code: "11", href:"order_product_detail", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
           ];
   this.setState({items:rows});
   unicorn();

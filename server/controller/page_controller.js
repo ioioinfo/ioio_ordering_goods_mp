@@ -316,6 +316,16 @@ exports.register = function(server, options, next) {
             }
         },
 
+        //在线订单商品详情
+        {
+            method: 'GET',
+            path: '/order_product_detail',
+            handler: function(request, reply) {
+                var product_id = request.query.product_id;
+              return reply.view("order_product_detail",{product_id:product_id});
+            }
+        },
+
 
     ]);
 
