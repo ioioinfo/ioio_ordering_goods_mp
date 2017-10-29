@@ -229,6 +229,15 @@ exports.register = function(server, options, next) {
               return reply.view("admin_user_list");
             }
         },
+        //后台用户编辑
+        {
+            method: 'GET',
+            path: '/admin_user_edit',
+            handler: function(request, reply) {
+              return reply.view("admin_user_edit");
+            }
+        },
+
 
         //后台商品列表
         {
@@ -323,6 +332,56 @@ exports.register = function(server, options, next) {
             handler: function(request, reply) {
                 var product_id = request.query.product_id;
               return reply.view("order_product_detail",{product_id:product_id});
+            }
+        },
+
+        //在线订单商品分类列表
+        {
+            method: 'GET',
+            path: '/admin_product_sort_list',
+            handler: function(request, reply) {
+                var product_id = request.query.product_id;
+              return reply.view("admin_product_sort_list",{product_id:product_id});
+            }
+        },
+
+        //在线订单商家列表
+        {
+            method: 'GET',
+            path: '/admin_business_list',
+            handler: function(request, reply) {
+                var product_id = request.query.product_id;
+              return reply.view("admin_business_list",{product_id:product_id});
+            }
+        },
+
+        //在线订单添加商家
+        {
+            method: 'GET',
+            path: '/admin_add_business',
+            handler: function(request, reply) {
+                var product_id = request.query.product_id;
+              return reply.view("admin_add_business",{product_id:product_id});
+            }
+        },
+
+        //在线门店列表
+        {
+            method: 'GET',
+            path: '/admin_store_list',
+            handler: function(request, reply) {
+                var product_id = request.query.product_id;
+              return reply.view("admin_store_list",{product_id:product_id});
+            }
+        },
+
+        //在线门店详情
+        {
+            method: 'GET',
+            path: '/admin_store_view',
+            handler: function(request, reply) {
+                var product_id = request.query.product_id;
+              return reply.view("admin_store_view",{product_id:product_id});
             }
         },
 

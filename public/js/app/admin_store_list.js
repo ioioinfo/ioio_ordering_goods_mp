@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 91);
+/******/ 	return __webpack_require__(__webpack_require__.s = 99);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -21312,7 +21312,15 @@ module.exports = Nav;
 /* 88 */,
 /* 89 */,
 /* 90 */,
-/* 91 */
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21565,7 +21573,7 @@ var Infor = function (_React$Component3) {
                         React.createElement(
                             'h1',
                             null,
-                            '\u5386\u53F2\u8BA2\u5355\u5217\u8868'
+                            '\u95E8\u5E97\u5217\u8868'
                         ),
                         React.createElement(
                             'div',
@@ -21603,7 +21611,7 @@ var Infor = function (_React$Component3) {
                         React.createElement(
                             'a',
                             { href: '#', title: 'Go to Home', className: 'tip-bottom' },
-                            React.createElement('i', { className: 'icon-tint' }),
+                            React.createElement('i', { className: 'icon-home' }),
                             ' \u9996\u9875'
                         )
                     ),
@@ -21733,7 +21741,7 @@ var Table = function (_React$Component5) {
                                 React.createElement(
                                     'h5',
                                     null,
-                                    '\u5217\u8868\u8BE6\u60C5'
+                                    '\u95E8\u5E97\u5217\u8868'
                                 )
                             ),
                             React.createElement(
@@ -21889,10 +21897,10 @@ var Th = function (_React$Component7) {
 var Td = function (_React$Component8) {
     _inherits(Td, _React$Component8);
 
-    function Td(props) {
+    function Td() {
         _classCallCheck(this, Td);
 
-        return _possibleConstructorReturn(this, (Td.__proto__ || Object.getPrototypeOf(Td)).call(this, props));
+        return _possibleConstructorReturn(this, (Td.__proto__ || Object.getPrototypeOf(Td)).apply(this, arguments));
     }
 
     _createClass(Td, [{
@@ -21908,8 +21916,18 @@ var Td = function (_React$Component8) {
                         { type: 'button', className: 'btn btn-primary btn-mini' },
                         React.createElement(
                             'a',
-                            { href: 'admin_order_detail?order_id=' + this.props.item.order_id },
+                            { href: "admin_order_product_detail?product_id=" + this.props.item.id },
                             '\u67E5\u770B'
+                        )
+                    ),
+                    '\xA0',
+                    React.createElement(
+                        'button',
+                        { type: 'button', className: 'btn btn-info btn-mini' },
+                        React.createElement(
+                            'a',
+                            { href: "admin_product_img?product_id=" + this.props.item.id },
+                            '\u5220\u9664'
                         )
                     )
                 );
@@ -22144,7 +22162,7 @@ var PageLi = function (_React$Component10) {
 ;
 
 // 返回到页面
-ReactDOM.render(React.createElement(Wrap, null), document.getElementById("admin_order_list"));
+ReactDOM.render(React.createElement(Wrap, null), document.getElementById("admin_store_list"));
 
 /***/ })
 /******/ ]);

@@ -31,6 +31,7 @@ module.exports = {
 
         admin_login: './app/admin_login.jsx',
         admin_user_list: './app/admin_user_list.jsx',
+        admin_user_edit: './app/admin_user_edit.jsx',
         admin_product_list: './app/admin_product_list.jsx',
         admin_product_img: './app/admin_product_img.jsx',
         admin_add_custom: './app/admin_add_custom.jsx',
@@ -39,6 +40,11 @@ module.exports = {
         admin_order_product_detail: './app/admin_order_product_detail.jsx',
         admin_add_product: './app/admin_add_product.jsx',
         admin_product_online_list: './app/admin_product_online_list.jsx',
+        admin_product_sort_list: './app/admin_product_sort_list.jsx',
+        admin_business_list: './app/admin_business_list.jsx',
+        admin_add_business: './app/admin_add_business.jsx',
+        admin_store_list: './app/admin_store_list.jsx',
+        admin_store_view: './app/admin_store_view.jsx',
         order_product_detail: './app/order_product_detail.jsx',
     },
     output: {

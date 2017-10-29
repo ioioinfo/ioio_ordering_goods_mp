@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 91);
+/******/ 	return __webpack_require__(__webpack_require__.s = 87);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -21308,11 +21308,7 @@ module.exports = Nav;
 /* 84 */,
 /* 85 */,
 /* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21565,7 +21561,7 @@ var Infor = function (_React$Component3) {
                         React.createElement(
                             'h1',
                             null,
-                            '\u5386\u53F2\u8BA2\u5355\u5217\u8868'
+                            '\u7528\u6237\u7F16\u8F91'
                         ),
                         React.createElement(
                             'div',
@@ -21603,14 +21599,14 @@ var Infor = function (_React$Component3) {
                         React.createElement(
                             'a',
                             { href: '#', title: 'Go to Home', className: 'tip-bottom' },
-                            React.createElement('i', { className: 'icon-tint' }),
+                            React.createElement('i', { className: 'icon-home' }),
                             ' \u9996\u9875'
                         )
                     ),
                     React.createElement(
                         'div',
                         { className: 'container-fluid' },
-                        React.createElement(TableWrap, null)
+                        React.createElement(AddWrap, null)
                     )
                 )
             );
@@ -21621,144 +21617,123 @@ var Infor = function (_React$Component3) {
 }(React.Component);
 
 ;
+// add
 
-// 右侧下部表格
+var AddWrap = function (_React$Component4) {
+    _inherits(AddWrap, _React$Component4);
 
-var TableWrap = function (_React$Component4) {
-    _inherits(TableWrap, _React$Component4);
+    function AddWrap(props) {
+        _classCallCheck(this, AddWrap);
 
-    function TableWrap(props) {
-        _classCallCheck(this, TableWrap);
-
-        var _this4 = _possibleConstructorReturn(this, (TableWrap.__proto__ || Object.getPrototypeOf(TableWrap)).call(this, props));
-
-        _this4.setPage = _this4.setPage.bind(_this4);
-        _this4.handleSort = _this4.handleSort.bind(_this4);
-        _this4.loadData = _this4.loadData.bind(_this4);
-        _this4.handleCallBack1 = _this4.handleCallBack1.bind(_this4);
         // 初始化一个空对象
-        _this4.state = { tabthitems: [], tabtritems: [], allNum: 0, everyNum: 20, thisPage: 1, sort: { name: "", dir: "" } };
+        var _this4 = _possibleConstructorReturn(this, (AddWrap.__proto__ || Object.getPrototypeOf(AddWrap)).call(this, props));
+
+        _this4.state = { items: [] };
         return _this4;
     }
 
-    _createClass(TableWrap, [{
-        key: 'handleCallBack1',
-        value: function handleCallBack1(tabtritems) {
-            console.log(tabtritems);
-            this.setState({ tabtritems: tabtritems });
-        }
-    }, {
-        key: 'loadData',
-        value: function loadData(params1) {
-            var params = { thisPage: this.state.thisPage, sort: this.state.sort };
-            $.extend(params, params1);
-
-            getTableData(params, function (data) {
-                $.extend(data, params1);
-                this.setState(data);
-            }.bind(this));
-        }
-    }, {
+    _createClass(AddWrap, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.loadData({});
-        }
-    }, {
-        key: 'setPage',
-        value: function setPage(thisPage) {
-            this.loadData({ thisPage: thisPage });
-        }
-    }, {
-        key: 'handleSort',
-        value: function handleSort(sort) {
-            this.loadData({ sort: sort });
+            selectTwo();
         }
     }, {
         key: 'render',
         value: function render() {
-
+            var style = { display: 'none' };
+            var style1 = { width: '1px' };
             return React.createElement(
                 'div',
-                null,
-                React.createElement(Table, { tabthitems: this.state.tabthitems, tabtritems: this.state.tabtritems, sort: this.state.sort, onSort: this.handleSort, handleCallBack1: this.handleCallBack1, loadData: this.loadData }),
-                React.createElement('div', { className: 'nav_text' }),
-                React.createElement(Tab, { setPage: this.setPage, allNum: this.state.allNum, everyNum: this.state.everyNum, thisPage: this.state.thisPage })
-            );
-        }
-    }]);
-
-    return TableWrap;
-}(React.Component);
-
-;
-// 表格
-
-var Table = function (_React$Component5) {
-    _inherits(Table, _React$Component5);
-
-    function Table(props) {
-        _classCallCheck(this, Table);
-
-        var _this5 = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props));
-
-        _this5.state = { tabtritems: _this5.props.tabtritems };
-        return _this5;
-    }
-
-    _createClass(Table, [{
-        key: 'render',
-        value: function render() {
-            var _this6 = this;
-
-            return React.createElement(
-                'div',
-                { className: 'container-fluid' },
+                { className: 'row-fluid' },
                 React.createElement(
                     'div',
-                    { className: 'row-fluid' },
+                    { className: 'span12' },
                     React.createElement(
                         'div',
-                        { className: 'span12' },
+                        { className: 'widget-box' },
                         React.createElement(
                             'div',
-                            { className: 'widget-box' },
+                            { className: 'widget-title' },
                             React.createElement(
-                                'div',
-                                { className: 'widget-title' },
-                                React.createElement(
-                                    'span',
-                                    { className: 'icon' },
-                                    React.createElement('i', { className: 'icon-th' })
-                                ),
-                                React.createElement(
-                                    'h5',
-                                    null,
-                                    '\u5217\u8868\u8BE6\u60C5'
-                                )
+                                'span',
+                                { className: 'icon' },
+                                React.createElement('i', { className: 'icon-align-justify' })
                             ),
                             React.createElement(
-                                'div',
-                                { className: 'widget-content nopadding' },
+                                'h5',
+                                null,
+                                '\u7528\u6237\u7F16\u8F91'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'widget-content nopadding' },
+                            React.createElement(
+                                'form',
+                                { action: '#', method: 'get', className: 'form-horizontal' },
                                 React.createElement(
-                                    'table',
-                                    { className: 'table table-bordered table-striped table-hover' },
+                                    'div',
+                                    { className: 'control-group' },
                                     React.createElement(
-                                        'thead',
-                                        null,
-                                        React.createElement(
-                                            'tr',
-                                            null,
-                                            this.props.tabthitems.map(function (item, index) {
-                                                return React.createElement(Th, { key: index, item: item, sort: _this6.props.sort, onSort: _this6.props.onSort });
-                                            })
-                                        )
+                                        'label',
+                                        { className: 'control-label' },
+                                        '\u540D\u79F0'
                                     ),
                                     React.createElement(
-                                        'tbody',
-                                        null,
-                                        this.props.tabtritems.map(function (item, index) {
-                                            return React.createElement(Tr, { key: index, item: item, tabthitems: _this6.props.tabthitems });
-                                        })
+                                        'div',
+                                        { className: 'controls' },
+                                        React.createElement('input', { type: 'text' })
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'control-group' },
+                                    React.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        '\u5730\u5740'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'controls' },
+                                        React.createElement('input', { type: 'text' })
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'control-group' },
+                                    React.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        '\u8054\u7CFB\u65B9\u5F0F'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'controls' },
+                                        React.createElement('input', { type: 'text' })
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'control-group' },
+                                    React.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        '\u8054\u7CFB\u4EBA'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'controls' },
+                                        React.createElement('input', { type: 'text' })
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'form-actions' },
+                                    React.createElement(
+                                        'button',
+                                        { type: 'submit', className: 'btn btn-primary' },
+                                        '\u4FDD \u5B58'
                                     )
                                 )
                             )
@@ -21769,382 +21744,12 @@ var Table = function (_React$Component5) {
         }
     }]);
 
-    return Table;
+    return AddWrap;
 }(React.Component);
 
 ;
-
-var Tr = function (_React$Component6) {
-    _inherits(Tr, _React$Component6);
-
-    function Tr(props) {
-        _classCallCheck(this, Tr);
-
-        // 初始化一个空对象
-        var _this7 = _possibleConstructorReturn(this, (Tr.__proto__ || Object.getPrototypeOf(Tr)).call(this, props));
-
-        _this7.state = {};
-        return _this7;
-    }
-
-    _createClass(Tr, [{
-        key: 'render',
-        value: function render() {
-            var _this8 = this;
-
-            return React.createElement(
-                'tr',
-                null,
-                this.props.tabthitems.map(function (item, index) {
-                    return React.createElement(Td, { key: index, item: _this8.props.item, thitem: item });
-                })
-            );
-        }
-    }]);
-
-    return Tr;
-}(React.Component);
-
-;
-
-var Th = function (_React$Component7) {
-    _inherits(Th, _React$Component7);
-
-    function Th(props) {
-        _classCallCheck(this, Th);
-
-        var _this9 = _possibleConstructorReturn(this, (Th.__proto__ || Object.getPrototypeOf(Th)).call(this, props));
-
-        _this9.handleClick = _this9.handleClick.bind(_this9);
-        return _this9;
-    }
-
-    _createClass(Th, [{
-        key: 'handleClick',
-        value: function handleClick(e) {
-            var sort = this.props.sort;
-            if (!sort) {
-                sort = { name: "", dir: "" };
-            }
-
-            if (sort.name != this.props.item.name) {
-                sort.dir = "";
-            }
-            sort.name = this.props.item.name;
-            //排序顺序
-            if (sort.dir == "asc") {
-                sort.dir = "desc";
-            } else {
-                sort.dir = "asc";
-            }
-
-            this.props.onSort(sort);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var img = React.createElement('span', null);
-            if (this.props.item.sort) {
-                var sort = this.props.sort;
-                if (sort && sort.name == this.props.item.name) {
-                    if (sort.dir == "desc") {
-                        img = React.createElement(
-                            'span',
-                            null,
-                            React.createElement('img', { src: 'images/htpaixu.png', alt: '', onClick: this.handleClick })
-                        );
-                    } else {
-                        img = React.createElement(
-                            'span',
-                            null,
-                            React.createElement('img', { src: 'images/htpaixu1.png', alt: '', onClick: this.handleClick })
-                        );
-                    }
-                } else {
-                    img = React.createElement(
-                        'span',
-                        null,
-                        React.createElement('img', { src: 'images/htpaixu2.png', alt: '', onClick: this.handleClick })
-                    );
-                }
-            }
-            var thStyle = {
-                width: this.props.item.width
-            };
-            return React.createElement(
-                'th',
-                null,
-                this.props.item.title,
-                ' ',
-                img
-            );
-        }
-    }]);
-
-    return Th;
-}(React.Component);
-
-;
-
-var Td = function (_React$Component8) {
-    _inherits(Td, _React$Component8);
-
-    function Td(props) {
-        _classCallCheck(this, Td);
-
-        return _possibleConstructorReturn(this, (Td.__proto__ || Object.getPrototypeOf(Td)).call(this, props));
-    }
-
-    _createClass(Td, [{
-        key: 'render',
-        value: function render() {
-            if (this.props.thitem.type == "operation") {
-
-                return React.createElement(
-                    'td',
-                    null,
-                    React.createElement(
-                        'button',
-                        { type: 'button', className: 'btn btn-primary btn-mini' },
-                        React.createElement(
-                            'a',
-                            { href: 'admin_order_detail?order_id=' + this.props.item.order_id },
-                            '\u67E5\u770B'
-                        )
-                    )
-                );
-            } else {
-                return React.createElement(
-                    'td',
-                    null,
-                    this.props.item[this.props.thitem.name]
-                );
-            }
-        }
-    }]);
-
-    return Td;
-}(React.Component);
-
-;
-// 分页
-
-var Tab = function (_React$Component9) {
-    _inherits(Tab, _React$Component9);
-
-    function Tab(props) {
-        _classCallCheck(this, Tab);
-
-        var _this11 = _possibleConstructorReturn(this, (Tab.__proto__ || Object.getPrototypeOf(Tab)).call(this, props));
-
-        _this11.gotoFirst = _this11.gotoFirst.bind(_this11);
-        _this11.gotoPrevious = _this11.gotoPrevious.bind(_this11);
-        _this11.gotoLast = _this11.gotoLast.bind(_this11);
-        _this11.gotoNext = _this11.gotoNext.bind(_this11);
-        return _this11;
-    }
-
-    _createClass(Tab, [{
-        key: 'gotoFirst',
-        value: function gotoFirst() {
-            this.props.setPage(1);
-        }
-    }, {
-        key: 'gotoPrevious',
-        value: function gotoPrevious() {
-            this.props.setPage(this.props.thisPage - 1);
-        }
-    }, {
-        key: 'gotoLast',
-        value: function gotoLast() {
-            var allNum = this.props.allNum;
-            // 每页显示条数everyNum
-            var everyNum = this.props.everyNum;
-            var allPage = Math.ceil(allNum / everyNum);
-            this.props.setPage(allPage);
-        }
-    }, {
-        key: 'gotoNext',
-        value: function gotoNext() {
-            this.props.setPage(this.props.thisPage + 1);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this12 = this;
-
-            var fenitems = [];
-            // 所有条数allNum
-            var allNum = this.props.allNum;
-            // 每页显示条数everyNum
-            var everyNum = this.props.everyNum;
-            // 当前显示页thisPage
-            var thisPage = this.props.thisPage;
-            var allPage = Math.ceil(allNum / everyNum);
-            if (allPage <= 7) {
-                for (var i = 1; i <= allPage; i++) {
-                    fenitems.push(i);
-                }
-            } else {
-                if (thisPage - 3 <= 1) {
-                    for (var i = 1; i <= 7; i++) {
-                        fenitems.push(i);
-                    }
-                } else if (thisPage + 3 >= allPage) {
-                    for (var i = allPage - 6; i <= allPage; i++) {
-                        fenitems.push(i);
-                    }
-                } else {
-                    for (var i = thisPage - 3; i <= thisPage + 3; i++) {
-                        fenitems.push(i);
-                    }
-                }
-            }
-            var first = React.createElement(
-                'span',
-                { className: 'table-tab-span1 next fg-button ui-button ui-state-default', onClick: this.gotoFirst },
-                React.createElement('img', { src: 'images/httab4.png', alt: '' })
-            );
-            var previous = React.createElement(
-                'li',
-                { className: 'next fg-button ui-button ui-state-default', onClick: this.gotoPrevious },
-                React.createElement(
-                    'span',
-                    { 'aria-hidden': 'true' },
-                    '\xAB'
-                )
-            );
-            var last = React.createElement(
-                'span',
-                { className: 'table-tab-span1 next fg-button ui-button ui-state-default', onClick: this.gotoLast },
-                React.createElement('img', { src: 'images/httab2.png', alt: '' })
-            );
-            var next = React.createElement(
-                'li',
-                { className: 'next fg-button ui-button ui-state-default', onClick: this.gotoNext },
-                React.createElement(
-                    'span',
-                    { 'aria-hidden': 'true' },
-                    '\xBB'
-                )
-            );
-
-            if (thisPage == 1) {
-                var first = React.createElement(
-                    'span',
-                    { className: 'table-tab-span1 next fg-button ui-button' },
-                    React.createElement('img', { src: 'images/httab4_1.png', alt: '' })
-                );
-                var previous = React.createElement(
-                    'li',
-                    { className: 'disabled next fg-button ui-button' },
-                    React.createElement(
-                        'span',
-                        { 'aria-hidden': 'true' },
-                        '\xAB'
-                    )
-                );
-            }
-            if (thisPage == allPage) {
-                var last = React.createElement(
-                    'span',
-                    { className: 'table-tab-span1 next fg-button ui-button' },
-                    React.createElement('img', { src: 'images/httab2_1.png', alt: '' })
-                );
-                var next = React.createElement(
-                    'li',
-                    { className: 'disabled next fg-button ui-button' },
-                    React.createElement(
-                        'span',
-                        { 'aria-hidden': 'true' },
-                        '\xBB'
-                    )
-                );
-            }
-            return React.createElement(
-                'div',
-                null,
-                React.createElement(
-                    'nav',
-                    { 'aria-label': 'Page navigation dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers', className: 'nav_text' },
-                    React.createElement(
-                        'div',
-                        { className: 'pagination' },
-                        previous,
-                        fenitems.map(function (item, index) {
-                            return React.createElement(PageLi, { key: index, setPage: _this12.props.setPage, item: item, setSelected: _this12.setSelected, selected: thisPage });
-                        }),
-                        next
-                    )
-                ),
-                React.createElement(
-                    'p',
-                    { className: 'pull-right' },
-                    React.createElement(
-                        'span',
-                        { className: 'table-tab-span4' },
-                        '\u5171',
-                        allPage,
-                        '\u9875'
-                    ),
-                    React.createElement(
-                        'span',
-                        { className: 'table-tab-span5' },
-                        '\u5171',
-                        allNum,
-                        '\u6761\u8BB0\u5F55'
-                    )
-                )
-            );
-        }
-    }]);
-
-    return Tab;
-}(React.Component);
-
-;
-// 分页数字
-
-var PageLi = function (_React$Component10) {
-    _inherits(PageLi, _React$Component10);
-
-    function PageLi(props) {
-        _classCallCheck(this, PageLi);
-
-        // 初始化一个空对象
-        var _this13 = _possibleConstructorReturn(this, (PageLi.__proto__ || Object.getPrototypeOf(PageLi)).call(this, props));
-
-        _this13.handleClick = _this13.handleClick.bind(_this13);
-        return _this13;
-    }
-
-    _createClass(PageLi, [{
-        key: 'handleClick',
-        value: function handleClick(e) {
-            this.props.setPage(this.props.item);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var c = "fg-button ui-button ui-state-default";
-            if (this.props.item == this.props.selected) {
-                c = "fg-button ui-button ui-state-default active";
-            }
-            return React.createElement(
-                'a',
-                { className: c, onClick: this.handleClick },
-                this.props.item
-            );
-        }
-    }]);
-
-    return PageLi;
-}(React.Component);
-
-;
-
 // 返回到页面
-ReactDOM.render(React.createElement(Wrap, null), document.getElementById("admin_order_list"));
+ReactDOM.render(React.createElement(Wrap, null), document.getElementById("admin_user_edit"));
 
 /***/ })
 /******/ ]);

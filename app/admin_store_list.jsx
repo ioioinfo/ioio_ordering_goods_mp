@@ -92,7 +92,7 @@ var Nav = require('Nav');
 
               <div id="content">
                 <div id="content-header">
-                  <h1>用户列表</h1>
+                  <h1>门店列表</h1>
                   <div className="btn-group">
                     <a className="btn btn-large tip-bottom" title="Manage Files"><i className="icon-file"></i></a>
                     <a className="btn btn-large tip-bottom" title="Manage Users"><i className="icon-user"></i></a>
@@ -176,23 +176,23 @@ var Nav = require('Nav');
             								<span className="icon">
             									<i className="icon-th"></i>
             								</span>
-            								<h5>用户列表</h5>
+            								<h5>门店列表</h5>
             							</div>
             							<div className="widget-content nopadding">
-                            <table className="table table-bordered table-striped table-hover">
-                              <thead>
-                                <tr>
-                                {this.props.tabthitems.map((item,index) => (
-                                    <Th  key={index}  item={item} sort={this.props.sort} onSort={this.props.onSort} />))
-                                }
-                              </tr>
-                              </thead>
-                              <tbody>
-                                {this.props.tabtritems.map((item,index )=> (
-                                    <Tr  key={index}  item={item} tabthitems={this.props.tabthitems} />))
-                                }
-                              </tbody>
-                            </table>
+                                            <table className="table table-bordered table-striped table-hover">
+                                              <thead>
+                                                <tr>
+                                                {this.props.tabthitems.map((item,index) => (
+                                                    <Th  key={index}  item={item} sort={this.props.sort} onSort={this.props.onSort} />))
+                                                }
+                                              </tr>
+                                              </thead>
+                                              <tbody>
+                                                {this.props.tabtritems.map((item,index )=> (
+                                                    <Tr  key={index}  item={item} tabthitems={this.props.tabthitems} />))
+                                                }
+                                              </tbody>
+                                            </table>
             							</div>
             						</div>
             					</div>
@@ -269,20 +269,14 @@ var Nav = require('Nav');
             }
         };
         class Td extends React.Component {
-            constructor(props) {
-                super(props);
-                this.handleEdit=this.handleEdit.bind(this);
-            }
-            handleEdit(e){
-                edit_row(this.props.item[this.props.thitem.name]);
-            }
+
             render() {
                 if (this.props.thitem.type == "operation") {
 
                   return (<td>
-                      <button type="button" className="btn btn-primary btn-mini"><a href="admin_user_edit">查看</a></button>
+                      <button type="button" className="btn btn-primary btn-mini"><a href={"admin_order_product_detail?product_id="+this.props.item.id}>查看</a></button>
                       &nbsp;
-                      <button type="button" className="btn btn-info btn-mini"><a>删除</a></button>
+                      <button type="button" className="btn btn-info btn-mini"><a href={"admin_product_img?product_id="+this.props.item.id}>删除</a></button>
                       </td>);
                 } else {
                     return (<td>{this.props.item[this.props.thitem.name]}</td>);
@@ -400,5 +394,5 @@ var Nav = require('Nav');
 // 返回到页面
 ReactDOM.render(
     <Wrap/>,
-    document.getElementById("admin_user_list")
+    document.getElementById("admin_store_list")
 );
