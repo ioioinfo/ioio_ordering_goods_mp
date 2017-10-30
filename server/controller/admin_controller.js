@@ -64,10 +64,21 @@ exports.register = function(server, options, next) {
 		var url = "http://139.196.148.40:18001/merchant/list_by_org?org_code="+org_code;
 		do_get_method(url,cb);
 	};
+	//用户列表接口
     var get_users_list = function(cb){
         var url = "http://139.196.148.40:18666/user/list?org_code="+org_code+"&platform_code="+platform_code;
         do_get_method(url,cb);
     };
+	//门店列表
+	var store_list = function(cb){
+		var url = "http://211.149.248.241:19999/store/list?org_code="+org_code;
+		do_get_method(url,cb);
+	};
+	//根据id得到指定门店信息
+	var get_by_id = function(store_id,cb){
+		var url = "http://211.149.248.241:19999/store/get_by_id?id="+store_id+"&org_code="+org_code;
+		do_get_method(url,cb);
+	};
     server.route([
         //商家列表接口
         {
@@ -97,6 +108,36 @@ exports.register = function(server, options, next) {
                 });
             },
         },
+		//门店接口
+		{
+			method: 'GET',
+			path: '/store_list',
+			handler: function(request, reply){
+				store_list(function(err,rows){
+					if (!err) {
+						return reply({"success":true,"service_info":service_info,"rows":rows.rows,"num":rows.num});
+					}else {
+						return reply({"success":false,"message":rows.message,"service_info":service_info});
+					}
+				});
+			}
+		},
+		//门店详细信息
+		{
+			method: 'get',
+			path: '/mendian_detail',
+			handler: function(request, reply){
+				var store_id = request.query.store_id;
+				get_by_id(store_id,function(err,row){
+					if (!err) {
+						return reply({"success":true,"row":row.row});
+					}else {
+						return reply({"success":false,"message":row.message});
+					}
+				});
+			}
+		},
+
 
 
     ]);
