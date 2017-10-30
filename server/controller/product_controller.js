@@ -203,6 +203,21 @@ exports.register = function(server, options, next) {
                 });
             }
         },
+		//一级分类查询
+		{
+			method: 'GET',
+			path: '/get_level_one',
+			handler: function(request, reply) {
+				api.get_level_one(function(err,rows){
+					if (!err) {
+						return reply({"success":true,"rows":rows.rows,"num":rows.rows.length});
+					}else {
+						return reply({"success":false,"message":rows.message});
+					}
+				});
+			},
+		},
+
 
 
     ]);
