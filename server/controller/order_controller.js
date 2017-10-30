@@ -280,6 +280,28 @@ exports.register = function(server, options, next) {
                 });
             },
         },
+		//根据person_id和订单批次找订单
+        {
+            method: 'GET',
+            path: '/get_batch_orders',
+            handler: function(request, reply) {
+                var person_id = get_cookie_person(request);
+				if (!person_id) {
+					return reply.redirect("/login");
+				}
+				var batch_no = request.query.batch_no;
+				if (!batch_no) {
+                    return reply({"success":false,"message":"batch_no null","service_info":service_info});
+                }
+                api.search_online_by_status(person_id,batch_no, function(err,rows){
+                    if (!err) {
+                        return reply({"success":true,"orders":rows.orders,"details":rows.details,"products":rows.products});
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
 
 
     ]);

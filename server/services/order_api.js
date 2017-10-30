@@ -22,6 +22,17 @@ var host = "http://211.149.248.241:18010/";
 
 var nav = function(server) {
     return {
+        //根据person_id和订单批次找订单
+        search_online_by_status: function(person_id,batch_no,cb) {
+            var url = host + "search_online_by_status?person_id="+person_id+"&batch_no="+batch_no;
+            uu_request.get(url, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,JSON.parse(body));
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
         //查询订单根据person_id,statuss
         search_online_by_status: function(person_id,status,cb) {
             var url = host + "search_online_by_status?person_id="+person_id+"&status="+status;
