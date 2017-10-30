@@ -20,7 +20,7 @@ var eventproxy = require('eventproxy');
 const sys_option = require('../config/sys_option');
 const uu_request = require('../utils/uu_request');
 var org_code = "ioio";
-
+var platform_code = "ording_goods";
 //get
 var do_get_method = function(url,cb){
 	uu_request.get(url, function(err, response, body){
@@ -64,7 +64,10 @@ exports.register = function(server, options, next) {
 		var url = "http://139.196.148.40:18001/merchant/list_by_org?org_code="+org_code;
 		do_get_method(url,cb);
 	};
-
+    var get_users_list = function(cb){
+        var url = "http://139.196.148.40:18666/user/list?org_code="+org_code+"&platform_code="+platform_code;
+        do_get_method(url,cb);
+    };
     server.route([
         //商家列表接口
         {
@@ -80,7 +83,20 @@ exports.register = function(server, options, next) {
                 });
             },
         },
-
+        //用户列表接口
+        {
+            method: 'GET',
+            path: '/get_users_list',
+            handler: function(request, reply) {
+                get_users_list(function(err,rows){
+                    if (!err) {
+                        return reply({"success":true,"orders":rows.rows});
+                    }else {
+                        return reply({"success":false,"message":rows.message});
+                    }
+                });
+            },
+        },
 
 
     ]);
