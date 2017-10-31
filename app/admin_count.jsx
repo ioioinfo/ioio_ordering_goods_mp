@@ -86,7 +86,7 @@ var Nav = require('Nav');
 
               <div id="content">
                 <div id="content-header">
-                  <h1>用户编辑</h1>
+                  <h1>当前批次订货统计</h1>
                   <div className="btn-group">
                     <a className="btn btn-large tip-bottom" title="Manage Files"><i className="icon-file"></i></a>
                     <a className="btn btn-large tip-bottom" title="Manage Users"><i className="icon-user"></i></a>

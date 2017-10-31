@@ -21186,9 +21186,9 @@ var Nav = function (_React$Component) {
   _createClass(Nav, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "/", icon_class: "icon-th" }] }, { name: "用户列表", code: "02", icon_class: "icon-home", child: [{ name: "用户列表", href: "admin_user_list", icon_class: "icon-th" }] }, { name: "商品列表", code: "03", icon_class: "icon-home", child: [{ name: "商品列表", href: "admin_product_list", icon_class: "icon-th" }] }, { name: "历史订单列表", code: "05", icon_class: "icon-home", child: [{ name: "历史订单列表", href: "admin_order_list", icon_class: "icon-th" }] }, { name: "在线订单列表", code: "08", icon_class: "icon-home", child: [{ name: "在线订单列表", href: "admin_product_online_list", icon_class: "icon-th" }] }, { name: "添加", code: "09", icon_class: "icon-home",
+      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "index", icon_class: "icon-th" }] }, { name: "用户", code: "02", icon_class: "icon-home", child: [{ name: "用户列表", href: "admin_user_list", icon_class: "icon-th" }] }, { name: "商品", code: "03", icon_class: "icon-home", child: [{ name: "商品列表", href: "admin_product_list", icon_class: "icon-th" }] }, { name: "历史订单", code: "05", icon_class: "icon-home", child: [{ name: "历史订单列表", href: "admin_order_list", icon_class: "icon-th" }] }, { name: "在线订单", code: "08", icon_class: "icon-home", child: [{ name: "在线订单列表", href: "admin_product_online_list", icon_class: "icon-th" }] }, { name: "添加", code: "09", icon_class: "icon-home",
         child: [{ name: "添加商品", href: "admin_add_product", icon_class: "icon-th" }, { name: "添加客户", href: "admin_add_custom", icon_class: "icon-th" }, { name: "添加商家", href: "admin_add_business", icon_class: "icon-th" }]
-      }, { name: "商品分类列表", code: "12", icon_class: "icon-home", child: [{ name: "商品分类列表", href: "admin_product_sort_list", icon_class: "icon-th" }] }, { name: "商家列表", code: "13", icon_class: "icon-home", child: [{ name: "商家列表", href: "admin_business_list", icon_class: "icon-th" }] }, { name: "门店列表", code: "15", icon_class: "icon-home", child: [{ name: "门店列表", href: "admin_store_list", icon_class: "icon-th" }] }, { name: "用户编辑", code: "17", icon_class: "icon-home", child: [{ name: "用户编辑", href: "admin_user_edit", icon_class: "icon-th" }] }, { name: "统计", code: "18", icon_class: "icon-home",
+      }, { name: "商品分类", code: "12", icon_class: "icon-home", child: [{ name: "商品分类列表", href: "admin_product_sort_list", icon_class: "icon-th" }] }, { name: "商家", code: "13", icon_class: "icon-home", child: [{ name: "商家列表", href: "admin_business_list", icon_class: "icon-th" }] }, { name: "门店", code: "15", icon_class: "icon-home", child: [{ name: "门店列表", href: "admin_store_list", icon_class: "icon-th" }] }, { name: "用户编辑", code: "17", icon_class: "icon-home", child: [{ name: "用户编辑", href: "admin_user_edit", icon_class: "icon-th" }] }, { name: "统计", code: "18", icon_class: "icon-home",
         child: [{ name: "当前批次订货统计", href: "admin_count", icon_class: "icon-th" }, { name: "产品分类订货统计", href: "admin_count_sort", icon_class: "icon-th" }, { name: "门店订货统计", href: "admin_count_store", icon_class: "icon-th" }]
       }];
       this.setState({ items: rows });
@@ -21579,7 +21579,7 @@ var Infor = function (_React$Component3) {
             React.createElement(
               'h1',
               null,
-              '\u7528\u6237\u7F16\u8F91'
+              '\u5F53\u524D\u6279\u6B21\u8BA2\u8D27\u7EDF\u8BA1'
             ),
             React.createElement(
               'div',

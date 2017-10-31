@@ -21154,7 +21154,115 @@ module.exports = function() {
 /***/ }),
 /* 31 */,
 /* 32 */,
-/* 33 */,
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var React = __webpack_require__(4);
+
+var Nav = function (_React$Component) {
+  _inherits(Nav, _React$Component);
+
+  function Nav(props) {
+    _classCallCheck(this, Nav);
+
+    // 初始化一个空对象
+    var _this = _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
+
+    _this.state = { items: [] };
+    return _this;
+  }
+
+  _createClass(Nav, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "index", icon_class: "icon-th" }] }, { name: "用户", code: "02", icon_class: "icon-home", child: [{ name: "用户列表", href: "admin_user_list", icon_class: "icon-th" }] }, { name: "商品", code: "03", icon_class: "icon-home", child: [{ name: "商品列表", href: "admin_product_list", icon_class: "icon-th" }] }, { name: "历史订单", code: "05", icon_class: "icon-home", child: [{ name: "历史订单列表", href: "admin_order_list", icon_class: "icon-th" }] }, { name: "在线订单", code: "08", icon_class: "icon-home", child: [{ name: "在线订单列表", href: "admin_product_online_list", icon_class: "icon-th" }] }, { name: "添加", code: "09", icon_class: "icon-home",
+        child: [{ name: "添加商品", href: "admin_add_product", icon_class: "icon-th" }, { name: "添加客户", href: "admin_add_custom", icon_class: "icon-th" }, { name: "添加商家", href: "admin_add_business", icon_class: "icon-th" }]
+      }, { name: "商品分类", code: "12", icon_class: "icon-home", child: [{ name: "商品分类列表", href: "admin_product_sort_list", icon_class: "icon-th" }] }, { name: "商家", code: "13", icon_class: "icon-home", child: [{ name: "商家列表", href: "admin_business_list", icon_class: "icon-th" }] }, { name: "门店", code: "15", icon_class: "icon-home", child: [{ name: "门店列表", href: "admin_store_list", icon_class: "icon-th" }] }, { name: "用户编辑", code: "17", icon_class: "icon-home", child: [{ name: "用户编辑", href: "admin_user_edit", icon_class: "icon-th" }] }, { name: "统计", code: "18", icon_class: "icon-home",
+        child: [{ name: "当前批次订货统计", href: "admin_count", icon_class: "icon-th" }, { name: "产品分类订货统计", href: "admin_count_sort", icon_class: "icon-th" }, { name: "门店订货统计", href: "admin_count_store", icon_class: "icon-th" }]
+      }];
+      this.setState({ items: rows });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      unicorn();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var nav = [];
+      this.state.items.map(function (item, index) {
+        var c = "submenu";
+        if (item.code == selected) {
+          c = "submenu active open";
+        }
+        nav.push(React.createElement(
+          "li",
+          { className: c, key: index },
+          React.createElement(
+            "a",
+            { href: "#" },
+            React.createElement("i", { className: "icon " + item.icon_class }),
+            " ",
+            React.createElement(
+              "span",
+              null,
+              item.name
+            )
+          ),
+          React.createElement(
+            "ul",
+            null,
+            item.child.map(function (item, index) {
+              return React.createElement(
+                "li",
+                { key: index },
+                React.createElement(
+                  "a",
+                  { href: item.href },
+                  item.name
+                )
+              );
+            })
+          )
+        ));
+      });
+
+      return React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "div",
+          { id: "sidebar" },
+          React.createElement(
+            "ul",
+            null,
+            nav
+          )
+        )
+      );
+    }
+  }]);
+
+  return Nav;
+}(React.Component);
+
+;
+
+module.exports = Nav;
+
+/***/ }),
 /* 34 */,
 /* 35 */,
 /* 36 */,
@@ -21192,292 +21300,7 @@ module.exports = function() {
 /* 68 */,
 /* 69 */,
 /* 70 */,
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var React = __webpack_require__(4);
-
-var Lunbo = function (_React$Component) {
-    _inherits(Lunbo, _React$Component);
-
-    function Lunbo(props) {
-        _classCallCheck(this, Lunbo);
-
-        var _this = _possibleConstructorReturn(this, (Lunbo.__proto__ || Object.getPrototypeOf(Lunbo)).call(this, props));
-
-        _this.jump = _this.jump.bind(_this);
-        _this.back = _this.back.bind(_this);
-        _this.move = _this.move.bind(_this);
-        _this.onTouchStart = _this.onTouchStart.bind(_this);
-        _this.onTouchMove = _this.onTouchMove.bind(_this);
-        _this.onTouchEnd = _this.onTouchEnd.bind(_this);
-        // 初始化一个空对象
-        _this.state = { imgItems: _this.props.items || [], selected: 0, touchPage: 0, change: 0 };
-        return _this;
-    }
-
-    _createClass(Lunbo, [{
-        key: "jump",
-        value: function jump() {
-            //当前显示图片
-            var selected = this.state.selected;
-            var imgLength = this.state.imgItems.length;
-            var widthUl = $(window).width();
-
-            var next1 = selected + 1;
-            if (next1 >= imgLength) {
-                next1 = next1 - imgLength;
-            }
-
-            //循环所有图片
-            $(".imgul li").each(function (index, element) {
-                if (index == selected) {
-                    $(this).css("z-index", "10");
-                    $(this).css("transform", "translate3d(" + -widthUl + "px, 0px, 0px)");
-                    $(this).css("transition", "all 300ms ease");
-                } else if (index == next1) {
-                    $(this).css("z-index", "10");
-                    $(this).css("transform", "translate3d(0px, 0px, 0px)");
-                    $(this).css("transition", "all 300ms ease");
-                } else {
-                    $(this).css("z-index", "9");
-                    $(this).css("transform", "translate3d(" + widthUl + "px, 0px, 0px)");
-                    $(this).css("transition", "all 0ms ease");
-                }
-            });
-
-            this.setState({ selected: next1 });
-        }
-        //向右移动一张
-
-    }, {
-        key: "back",
-        value: function back() {
-            //当前显示图片
-            var selected = this.state.selected;
-            var imgLength = this.state.imgItems.length;
-            var widthUl = $(window).width();
-
-            var prev1 = selected - 1;
-            if (prev1 < 0) {
-                prev1 = imgLength - 1;
-            }
-
-            //循环所有图片
-            $(".imgul li").each(function (index, element) {
-                if (index == selected) {
-                    $(this).css("z-index", "10");
-                    $(this).css("transform", "translate3d(" + widthUl + "px, 0px, 0px)");
-                    $(this).css("transition", "all 300ms ease");
-                } else if (index == prev1) {
-                    $(this).css("z-index", "10");
-                    $(this).css("transform", "translate3d(0px, 0px, 0px)");
-                    $(this).css("transition", "all 300ms ease");
-                } else {
-                    $(this).css("z-index", "9");
-                    $(this).css("transform", "translate3d(" + -widthUl + "px, 0px, 0px)");
-                    $(this).css("transition", "all 0ms ease");
-                }
-            });
-
-            this.setState({ selected: prev1 });
-        }
-    }, {
-        key: "move",
-        value: function move(change) {
-            var widthUl = $(window).width();
-            if (change < -widthUl / 8) {
-                this.jump();
-            } else if (change > widthUl / 8) {
-                this.back();
-            }
-        }
-    }, {
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            $(".imgul li").css("width", $(window).width());
-            var rate = this.props.rate;
-            if (!rate) {
-                rate = 1;
-            }
-
-            var imgLIheight = rate * $(window).width();
-            $(".imgul").css("height", imgLIheight);
-            var imgLength = this.state.imgItems.length;
-            var widthUl = $(window).width();
-            //循环所有图片
-            $(".imgul li").each(function (index, element) {
-                if (index == 0) {
-                    $(this).css("z-index", "10");
-                } else if (index == 1) {
-                    $(this).css("transform", "translate3d(" + widthUl + "px, 0px, 0px)");
-                    $(this).css("transition", "all 0ms ease");
-                } else if (index == imgLength - 1) {
-                    $(this).css("z-index", "10");
-                    $(this).css("transform", "translate3d(" + -widthUl + "px, 0px, 0px)");
-                    $(this).css("transition", "all 0ms ease");
-                } else {
-                    $(this).css("z-index", "9");
-                    $(this).css("transform", "translate3d(" + widthUl + "px, 0px, 0px)");
-                    $(this).css("transition", "all 0ms ease");
-                }
-            });
-
-            if (this.state.imgItems.length > 1) {
-                this.timer = setInterval(this.jump, 1500);
-            }
-        }
-
-        // 开始
-
-    }, {
-        key: "onTouchStart",
-        value: function onTouchStart(e) {
-            if (this.state.imgItems.length <= 1) {
-                return;
-            }
-            if (this.timer) {
-                clearInterval(this.timer);
-            }
-
-            var touch = e.targetTouches[0]; //touches数组对象获得屏幕上所有的touch，取第一个touch
-            var touchPageStart = touch.pageX; //获取当前最新的坐标
-
-            this.setState({ touchPage: touchPageStart, change: 0 });
-        }
-
-        // 移动中
-
-    }, {
-        key: "onTouchMove",
-        value: function onTouchMove(e) {
-            if (this.state.imgItems.length <= 1) {
-                return;
-            }
-            var touchPageMove = e.targetTouches[0].pageX; //获取当前最新的坐标
-
-            var touchPage = this.state.touchPage;
-            var change = touchPageMove - touchPage;
-
-            this.setState({ change: change });
-        }
-        // 移动结束
-
-    }, {
-        key: "onTouchEnd",
-        value: function onTouchEnd(e) {
-            if (this.state.imgItems.length <= 1) {
-                return;
-            }
-            var change = this.state.change;
-            this.move(change);
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _this2 = this;
-
-            return React.createElement(
-                "div",
-                { className: "flashWrap" },
-                React.createElement(
-                    "ul",
-                    { className: "imgul", onTouchStart: this.onTouchStart, onTouchMove: this.onTouchMove, onTouchEnd: this.onTouchEnd },
-                    this.state.imgItems.map(function (item) {
-                        return React.createElement(FlashImgLi, { key: item.id, item: item });
-                    })
-                ),
-                React.createElement(
-                    "div",
-                    { className: "pointul" },
-                    this.state.imgItems.map(function (item, index) {
-                        return React.createElement(FlashPointLi, { key: index, selected: _this2.state.selected, index: index });
-                    })
-                )
-            );
-        }
-    }]);
-
-    return Lunbo;
-}(React.Component);
-// 图片
-
-
-var FlashImgLi = function (_React$Component2) {
-    _inherits(FlashImgLi, _React$Component2);
-
-    function FlashImgLi() {
-        _classCallCheck(this, FlashImgLi);
-
-        return _possibleConstructorReturn(this, (FlashImgLi.__proto__ || Object.getPrototypeOf(FlashImgLi)).apply(this, arguments));
-    }
-
-    _createClass(FlashImgLi, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            $(".imgul li").css("width", $(window).width());
-            $(".imgul li img").css("width", $(window).width());
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var imgsec = this.props.item.img;
-            return React.createElement(
-                "li",
-                { className: "pull-left" },
-                React.createElement(
-                    "a",
-                    { href: this.props.item.href || "javascript:void(0)" },
-                    React.createElement("img", { src: imgsec, className: "img-responsive", alt: "" })
-                )
-            );
-        }
-    }]);
-
-    return FlashImgLi;
-}(React.Component);
-
-// 点
-
-
-var FlashPointLi = function (_React$Component3) {
-    _inherits(FlashPointLi, _React$Component3);
-
-    function FlashPointLi() {
-        _classCallCheck(this, FlashPointLi);
-
-        return _possibleConstructorReturn(this, (FlashPointLi.__proto__ || Object.getPrototypeOf(FlashPointLi)).apply(this, arguments));
-    }
-
-    _createClass(FlashPointLi, [{
-        key: "render",
-        value: function render() {
-
-            var c = "";
-            if (this.props.selected == this.props.index) {
-                c = "on";
-            }
-            return React.createElement("span", { className: c });
-        }
-    }]);
-
-    return FlashPointLi;
-}(React.Component);
-
-module.exports = Lunbo;
-
-/***/ }),
+/* 71 */,
 /* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21494,94 +21317,299 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var React = __webpack_require__(4);
 var ReactDOM = __webpack_require__(18);
-var Lunbo = __webpack_require__(71);
+var Nav = __webpack_require__(33);
 
 // 框架
 
 var Wrap = function (_React$Component) {
-    _inherits(Wrap, _React$Component);
+  _inherits(Wrap, _React$Component);
 
-    function Wrap() {
-        _classCallCheck(this, Wrap);
+  function Wrap() {
+    _classCallCheck(this, Wrap);
 
-        return _possibleConstructorReturn(this, (Wrap.__proto__ || Object.getPrototypeOf(Wrap)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Wrap.__proto__ || Object.getPrototypeOf(Wrap)).apply(this, arguments));
+  }
+
+  _createClass(Wrap, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        { className: 'HomePage_wrap' },
+        React.createElement(Head, null),
+        React.createElement(Nav, null),
+        React.createElement(Infor, null)
+      );
     }
+  }]);
 
-    _createClass(Wrap, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'div',
-                { className: 'wrap' },
-                React.createElement(
-                    'div',
-                    { className: 'weui-tabbar' },
-                    React.createElement(
-                        'a',
-                        { href: 'index', className: 'weui-tabbar__item weui-bar__item_on' },
-                        React.createElement(
-                            'span',
-                            { className: 'weui-tabbar__icon' },
-                            React.createElement('i', { className: 'fa fa-home' })
-                        ),
-                        React.createElement(
-                            'p',
-                            { className: 'weui-tabbar__label' },
-                            '\u9996\u9875'
-                        )
-                    ),
-                    React.createElement(
-                        'a',
-                        { href: 'product_cart', className: 'weui-tabbar__item' },
-                        React.createElement(
-                            'span',
-                            { className: 'weui-tabbar__icon' },
-                            React.createElement('i', { className: 'fa fa-cart-arrow-down' })
-                        ),
-                        React.createElement(
-                            'p',
-                            { className: 'weui-tabbar__label' },
-                            '\u8D2D\u7269\u8F66'
-                        )
-                    ),
-                    React.createElement(
-                        'a',
-                        { href: 'product_sort', className: 'weui-tabbar__item' },
-                        React.createElement(
-                            'span',
-                            { className: 'weui-tabbar__icon' },
-                            React.createElement('i', { className: 'fa fa-bars' })
-                        ),
-                        React.createElement(
-                            'p',
-                            { className: 'weui-tabbar__label' },
-                            '\u5206\u7C7B'
-                        )
-                    ),
-                    React.createElement(
-                        'a',
-                        { href: 'person_center', className: 'weui-tabbar__item' },
-                        React.createElement(
-                            'span',
-                            { className: 'weui-tabbar__icon' },
-                            React.createElement('i', { className: 'fa fa-user' })
-                        ),
-                        React.createElement(
-                            'p',
-                            { className: 'weui-tabbar__label' },
-                            '\u6211'
-                        )
-                    )
-                )
-            );
-        }
-    }]);
-
-    return Wrap;
+  return Wrap;
 }(React.Component);
 
 ;
 
+var Head = function (_React$Component2) {
+  _inherits(Head, _React$Component2);
+
+  function Head() {
+    _classCallCheck(this, Head);
+
+    return _possibleConstructorReturn(this, (Head.__proto__ || Object.getPrototypeOf(Head)).apply(this, arguments));
+  }
+
+  _createClass(Head, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'div',
+          { id: 'header' },
+          React.createElement(
+            'h1',
+            null,
+            React.createElement(
+              'a',
+              { href: '#' },
+              '\u5728\u7EBF\u8BA2\u8D27\u540E\u53F0'
+            )
+          )
+        ),
+        React.createElement(
+          'div',
+          { id: 'search' },
+          React.createElement('input', { type: 'text', placeholder: '\u641C\u7D22...' }),
+          React.createElement(
+            'button',
+            { type: 'submit', className: 'tip-right', title: 'Search' },
+            React.createElement('i', { className: 'icon-search icon-white' })
+          )
+        ),
+        React.createElement(
+          'div',
+          { id: 'user-nav', className: 'navbar navbar-inverse' },
+          React.createElement(
+            'ul',
+            { className: 'nav btn-group' },
+            React.createElement(
+              'li',
+              { className: 'btn btn-inverse' },
+              React.createElement(
+                'a',
+                { title: '', href: '#' },
+                React.createElement('i', { className: 'icon icon-user' }),
+                React.createElement(
+                  'span',
+                  { className: 'text' },
+                  'Profile'
+                )
+              )
+            ),
+            React.createElement(
+              'li',
+              { className: 'btn btn-inverse dropdown', id: 'menu-messages' },
+              React.createElement(
+                'a',
+                { href: '#', 'data-toggle': 'dropdown', 'data-target': '#menu-messages', className: 'dropdown-toggle' },
+                React.createElement('i', { className: 'icon icon-envelope' }),
+                React.createElement(
+                  'span',
+                  { className: 'text' },
+                  'Messages'
+                ),
+                React.createElement(
+                  'span',
+                  { className: 'label label-important' },
+                  '5'
+                ),
+                React.createElement('b', { className: 'caret' })
+              ),
+              React.createElement(
+                'ul',
+                { className: 'dropdown-menu' },
+                React.createElement(
+                  'li',
+                  null,
+                  React.createElement(
+                    'a',
+                    { className: 'sAdd', title: '', href: '#' },
+                    'new message'
+                  )
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  React.createElement(
+                    'a',
+                    { className: 'sInbox', title: '', href: '#' },
+                    'inbox'
+                  )
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  React.createElement(
+                    'a',
+                    { className: 'sOutbox', title: '', href: '#' },
+                    'outbox'
+                  )
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  React.createElement(
+                    'a',
+                    { className: 'sTrash', title: '', href: '#' },
+                    'trash'
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              'li',
+              { className: 'btn btn-inverse' },
+              React.createElement(
+                'a',
+                { title: '', href: '#' },
+                React.createElement('i', { className: 'icon icon-cog' }),
+                ' ',
+                React.createElement(
+                  'span',
+                  { className: 'text' },
+                  'Settings'
+                )
+              )
+            ),
+            React.createElement(
+              'li',
+              { className: 'btn btn-inverse' },
+              React.createElement(
+                'a',
+                { title: '', href: '#' },
+                React.createElement('i', { className: 'icon icon-share-alt' }),
+                React.createElement(
+                  'span',
+                  { className: 'text' },
+                  'Logout'
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return Head;
+}(React.Component);
+
+;
+
+var Infor = function (_React$Component3) {
+  _inherits(Infor, _React$Component3);
+
+  function Infor(props) {
+    _classCallCheck(this, Infor);
+
+    return _possibleConstructorReturn(this, (Infor.__proto__ || Object.getPrototypeOf(Infor)).call(this, props));
+    // 初始化一个空对象
+  }
+
+  _createClass(Infor, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+  }, {
+    key: 'render',
+    value: function render() {
+      var style = { backgroundColor: '#555555', borderColor: '#aaaaaa' };
+      var style1 = { backgroundColor: '#8399b0' };
+      var style2 = { backgroundColor: '#2D2F57' };
+      var style3 = { backgroundColor: '#673232' };
+      var style4 = { backgroundImage: " url('img/demo/red-green.png')", backgroundRepeat: "no-repeat" };
+      return React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'div',
+          { id: 'style-switcher' },
+          React.createElement('i', { className: 'icon-arrow-left icon-white' }),
+          React.createElement(
+            'span',
+            null,
+            'Style:'
+          ),
+          React.createElement('a', { href: '#grey', style: style }),
+          React.createElement('a', { href: '#light-blue', style: style1 }),
+          React.createElement('a', { href: '#blue', style: style2 }),
+          React.createElement('a', { href: '#red', style: style3 }),
+          React.createElement('a', { href: '#red-green', style: style4 })
+        ),
+        React.createElement(
+          'div',
+          { id: 'content' },
+          React.createElement(
+            'div',
+            { id: 'content-header' },
+            React.createElement(
+              'h1',
+              null,
+              '\u9996\u9875'
+            ),
+            React.createElement(
+              'div',
+              { className: 'btn-group' },
+              React.createElement(
+                'a',
+                { className: 'btn btn-large tip-bottom', title: 'Manage Files' },
+                React.createElement('i', { className: 'icon-file' })
+              ),
+              React.createElement(
+                'a',
+                { className: 'btn btn-large tip-bottom', title: 'Manage Users' },
+                React.createElement('i', { className: 'icon-user' })
+              ),
+              React.createElement(
+                'a',
+                { className: 'btn btn-large tip-bottom', title: 'Manage Comments' },
+                React.createElement('i', { className: 'icon-comment' }),
+                React.createElement(
+                  'span',
+                  { className: 'label label-important' },
+                  '5'
+                )
+              ),
+              React.createElement(
+                'a',
+                { className: 'btn btn-large tip-bottom', title: 'Manage Orders' },
+                React.createElement('i', { className: 'icon-shopping-cart' })
+              )
+            )
+          ),
+          React.createElement(
+            'div',
+            { id: 'breadcrumb' },
+            React.createElement(
+              'a',
+              { href: '#', title: 'Go to Home', className: 'tip-bottom' },
+              React.createElement('i', { className: 'icon-home' }),
+              ' \u9996\u9875'
+            )
+          ),
+          React.createElement(
+            'div',
+            { className: 'container-fluid' },
+            '1'
+          )
+        )
+      );
+    }
+  }]);
+
+  return Infor;
+}(React.Component);
+
+;
 // 返回到页面
 ReactDOM.render(React.createElement(Wrap, null), document.getElementById("index"));
 
