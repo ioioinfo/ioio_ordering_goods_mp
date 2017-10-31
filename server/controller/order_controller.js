@@ -293,7 +293,7 @@ exports.register = function(server, options, next) {
 				if (!batch_no) {
                     return reply({"success":false,"message":"batch_no null","service_info":service_info});
                 }
-                api.search_online_by_status(person_id,batch_no, function(err,rows){
+                api.search_online_batch_orders(person_id,batch_no, function(err,rows){
                     if (!err) {
                         return reply({"success":true,"orders":rows.orders,"details":rows.details,"products":rows.products});
                     }else {
