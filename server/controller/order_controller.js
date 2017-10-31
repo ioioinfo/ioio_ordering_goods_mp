@@ -323,7 +323,7 @@ exports.register = function(server, options, next) {
 			handler: function(request, reply) {
 				api.search_batch_products_infos(function(err,rows){
 					if (!err) {
-						return reply({"success":true,"row":rows.row});
+						return reply({"success":true,"rows":rows.rows});
 					}else {
 						return reply({"success":false,"message":rows.message});
 					}
