@@ -110,7 +110,7 @@ var Nav = require('Nav');
     class AddWrap extends React.Component {
         constructor(props) {
             super(props);
-            this.state = {item:{},id:""};
+            this.state = {item:{},id:"",time:""};
         }
         componentDidMount() {
             $.ajax({
@@ -119,7 +119,7 @@ var Nav = require('Nav');
                type: 'GET',
                success: function(data) {
                  if (data.success) {
-                   this.setState({item:data.row,id:data.row.order_ids[0]});
+                   this.setState({item:data.row,id:data.row.order_ids[0],time:data.time});
                  }else {
                  }
                }.bind(this),
@@ -132,6 +132,8 @@ var Nav = require('Nav');
             <div className="row-fluid">
                 <div className="span12">
                     <div className="">
+                        <div>更新时间: {this.state.time}</div>
+                        <br/>
                         <div>订单批次号: {this.state.id}</div>
                         <br/>
                         <div>订单数量: {this.state.item.num}</div>

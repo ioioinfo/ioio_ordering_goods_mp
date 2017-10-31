@@ -21752,7 +21752,9 @@ var Table = function (_React$Component5) {
                                 React.createElement(
                                     'h5',
                                     null,
-                                    '\u4EA7\u54C1\u5206\u7C7B\u8BA2\u8D27\u7EDF\u8BA1'
+                                    '\u4EA7\u54C1\u5206\u7C7B\u8BA2\u8D27\u7EDF\u8BA1 \xA0(\u66F4\u65B0\u65F6\u95F4\uFF1A',
+                                    time,
+                                    ')'
                                 )
                             ),
                             React.createElement(

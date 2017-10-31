@@ -20,6 +20,7 @@
     <div id="admin_count_sort"></div>
     <script type="text/javascript">
       var selected = '18';
+      var time = "";
       //表头
       var tt = [{name:'sort_name',title:'名称',sort:false}
       ,{name:'jine',title:'金额',sort:false}
@@ -31,6 +32,7 @@
           $.get("/search_batch_products_infos",{params:JSON.stringify(params)},function(data){
               if (data.success) {
                   allNum = data.rows.length;
+                  time = data.time;
                   cb({tabthitems:tt,tabtritems:data.rows,allNum:allNum,everyNum:params.everyNum});
               }else {
                   alert(data.message);

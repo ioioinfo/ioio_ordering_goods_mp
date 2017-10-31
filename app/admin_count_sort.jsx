@@ -176,7 +176,7 @@ var Nav = require('Nav');
             								<span className="icon">
             									<i className="icon-th"></i>
             								</span>
-            								<h5>产品分类订货统计</h5>
+            								<h5>产品分类订货统计 &nbsp;(更新时间：{time})</h5>
             							</div>
             							<div className="widget-content nopadding">
                                             <table className="table table-bordered table-striped table-hover">

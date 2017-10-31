@@ -21645,7 +21645,7 @@ var AddWrap = function (_React$Component4) {
 
     var _this4 = _possibleConstructorReturn(this, (AddWrap.__proto__ || Object.getPrototypeOf(AddWrap)).call(this, props));
 
-    _this4.state = { item: {}, id: "" };
+    _this4.state = { item: {}, id: "", time: "" };
     return _this4;
   }
 
@@ -21658,7 +21658,7 @@ var AddWrap = function (_React$Component4) {
         type: 'GET',
         success: function (data) {
           if (data.success) {
-            this.setState({ item: data.row, id: data.row.order_ids[0] });
+            this.setState({ item: data.row, id: data.row.order_ids[0], time: data.time });
           } else {}
         }.bind(this),
         error: function (xhr, status, err) {}.bind(this)
@@ -21676,6 +21676,13 @@ var AddWrap = function (_React$Component4) {
           React.createElement(
             'div',
             { className: '' },
+            React.createElement(
+              'div',
+              null,
+              '\u66F4\u65B0\u65F6\u95F4: ',
+              this.state.time
+            ),
+            React.createElement('br', null),
             React.createElement(
               'div',
               null,
