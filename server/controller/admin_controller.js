@@ -130,7 +130,7 @@ exports.register = function(server, options, next) {
 				var store_id = request.query.store_id;
 				get_by_id(store_id,function(err,row){
 					if (!err) {
-						return reply({"success":true,"row":row.row,"num":rows.rows.length});
+						return reply({"success":true,"row":row.row});
 					}else {
 						return reply({"success":false,"message":row.message});
 					}
