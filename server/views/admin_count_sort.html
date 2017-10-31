@@ -21,17 +21,16 @@
     <script type="text/javascript">
       var selected = '18';
       //表头
-      var tt = [{name:'org_merchant_id',title:'id',sort:false}
-      ,{name:'org_merchant_code',title:'编号',sort:false}
-      ,{name:'org_merchant_name',title:'商家名称',sort:false}
-      ,{name:'operation',title:'操作',type:"operation"}];
+      var tt = [{name:'sort_name',title:'名称',sort:false}
+      ,{name:'jine',title:'金额',sort:false}
+      ,{name:'num',title:'数量',sort:false}];
 
       function getTableData(params,cb) {
-          params.everyNum = 50;
+          params.everyNum = 100;
           var allNum = 0;
-          $.get("/get_sellers_list",{params:JSON.stringify(params)},function(data){
+          $.get("/search_batch_products_infos",{params:JSON.stringify(params)},function(data){
               if (data.success) {
-                  allNum = data.num;
+                  allNum = data.rows.length;
                   cb({tabthitems:tt,tabtritems:data.rows,allNum:allNum,everyNum:params.everyNum});
               }else {
                   alert(data.message);
