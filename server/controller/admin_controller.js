@@ -87,7 +87,7 @@ exports.register = function(server, options, next) {
             handler: function(request, reply) {
                 get_sellers_list(function(err,rows){
                     if (!err) {
-                        return reply({"success":true,"orders":rows.rows});
+                        return reply({"success":true,"rows":rows.rows});
                     }else {
                         return reply({"success":false,"message":rows.message});
                     }
@@ -101,7 +101,7 @@ exports.register = function(server, options, next) {
             handler: function(request, reply) {
                 get_users_list(function(err,rows){
                     if (!err) {
-                        return reply({"success":true,"orders":rows.rows});
+                        return reply({"success":true,"rows":rows.rows});
                     }else {
                         return reply({"success":false,"message":rows.message});
                     }
