@@ -274,7 +274,7 @@ var Nav = require('Nav');
                 if (this.props.thitem.type == "operation") {
 
                   return (<td>
-                      <button type="button" className="btn btn-primary btn-mini"><a href={"admin_order_product_detail?product_id="+this.props.item.id}>查看</a></button>
+                      <button type="button" className="btn btn-primary btn-mini"><a href={"admin_store_view?store_id="+this.props.item.org_store_id}>查看</a></button>
                       &nbsp;
                       <button type="button" className="btn btn-info btn-mini"><a href={"admin_product_img?product_id="+this.props.item.id}>删除</a></button>
                       </td>);

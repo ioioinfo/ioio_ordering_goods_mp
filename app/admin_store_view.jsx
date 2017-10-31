@@ -10,7 +10,7 @@ function product(state, action) {
   case 'PRODUCT_DETAIL':
     {
       $.ajax({
-         url: "/search_product_detail?product_id="+product_id,
+         url: "/mendian_detail?store_id="+store_id,
          dataType: 'json',
          type: 'GET',
          success: function(data) {
@@ -28,7 +28,7 @@ function product(state, action) {
   case 'GET_DATA':
   {
     var data = action.data;
-    return {product:data.product};
+    return {view:data.row,picture:data.row.pictures};
   }
 
   default:
@@ -36,12 +36,12 @@ function product(state, action) {
   }
 }
 
-let store = createStore(product,{product:{}});
+let store = createStore(product,{view:{},picture:[]});
 
 const mapStateToProps = (state) => {
     return {
-        product: state.product,
-
+        view: state.view,
+        picture: state.picture,
     }
 }
 
@@ -158,6 +158,16 @@ const mapStateToProps = (state) => {
           store.dispatch({ type: 'PRODUCT_DETAIL'});
       }
       render() {
+          var province = "";
+          var detail_address = "";
+          var img = "images/no.jpg";
+          if (this.props.picture.length>0) {
+              img = "http://shop.buy42.com/images/"+this.props.picture[0].location;
+          }
+          if (this.props.view.points) {
+              province = this.props.view.points[0].province+this.props.view.points[0].city+this.props.view.points[0].district;
+              detail_address = this.props.view.points[0].detail_address;
+          }
           return (
             <div className="row-fluid">
                 <div className="span12">
@@ -172,26 +182,28 @@ const mapStateToProps = (state) => {
                             <div className="invoice-content">
                                 <div className="invoice-head">
                                     <div className="invoice-meta">
-                                    <span className="invoice-number">日期 ：{this.props.product.update_at_text} </span>
+                                    <span className="invoice-number">名称 ：{this.props.view.org_store_name} </span>
                                     </div>
-                                    <h5>{this.props.product.product_name}</h5>
                                     <div className="invoice-to">
                                         <ul>
                                             <li>
                                                 <span><strong>详情：</strong></span>
-                                                <span></span>
-                                                <span>门店名称：{this.props.product.time_to_market}</span>
-                                                <span>门店地址：{this.props.product.color}</span>
-                                                <span>备注：{this.props.product.product_brand}</span>
+                                                <span>门店简称：{this.props.view.abbr}</span>
+                                                <span>开店日期：{this.props.view.open_date_text}</span>
+                                            </li>
+                                            <br/>
+                                            <li>
+                                                <span><strong>地址：</strong></span>
+                                                <span>省市区：{province}</span>
+                                                <span>详细地址：{detail_address}</span>
                                             </li>
                                         </ul>
                                     </div>
                                     <div className="invoice-from">
                                         <ul>
                                             <li>
-                                                <span><strong>价格：</strong></span>
-                                                <span>市场价：{this.props.product.product_marketing_price} 元</span>
-                                                <span>实际售价：{this.props.product.product_sale_price} 元</span>
+                                                <span><strong>门店图片：</strong></span>
+                                                <img src={img}/>
                                             </li>
                                         </ul>
                                     </div>

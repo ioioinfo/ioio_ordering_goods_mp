@@ -380,8 +380,8 @@ exports.register = function(server, options, next) {
             method: 'GET',
             path: '/admin_store_view',
             handler: function(request, reply) {
-                var product_id = request.query.product_id;
-              return reply.view("admin_store_view",{product_id:product_id});
+                var store_id = request.query.store_id;
+              return reply.view("admin_store_view",{store_id:store_id});
             }
         },
 

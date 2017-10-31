@@ -22112,7 +22112,7 @@ var Nav = function (_React$Component) {
   _createClass(Nav, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "/", icon_class: "icon-th" }] }, { name: "用户列表", code: "02", href: "admin_user_list", icon_class: "icon-home", child: [{ name: "用户列表", href: "/", icon_class: "icon-th" }] }, { name: "商品列表", code: "03", href: "admin_product_list", icon_class: "icon-home", child: [{ name: "商品列表", href: "/", icon_class: "icon-th" }] }, { name: "历史订单列表", code: "05", href: "admin_order_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "商品详情", code: "07", href: "admin_order_product_detail", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "在线订单列表", code: "08", href: "admin_product_online_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "添加商品", code: "09", href: "admin_add_product", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "添加客户", code: "10", href: "admin_add_custom", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "添加商家", code: "14", href: "admin_add_business", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "订单商品详情", code: "11", href: "order_product_detail", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "商品分类列表", code: "12", href: "admin_product_sort_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "商家列表", code: "13", href: "admin_business_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "门店列表", code: "15", href: "admin_store_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "门店详情", code: "16", href: "admin_store_view", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "用户编辑", code: "17", href: "admin_user_edit", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }];
+      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "/", icon_class: "icon-th" }] }, { name: "用户列表", code: "02", href: "admin_user_list", icon_class: "icon-home", child: [{ name: "用户列表", href: "/", icon_class: "icon-th" }] }, { name: "商品列表", code: "03", href: "admin_product_list", icon_class: "icon-home", child: [{ name: "商品列表", href: "/", icon_class: "icon-th" }] }, { name: "历史订单列表", code: "05", href: "admin_order_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "商品详情", code: "07", href: "admin_order_product_detail", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "在线订单列表", code: "08", href: "admin_product_online_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "添加商品", code: "09", href: "admin_add_product", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "添加客户", code: "10", href: "admin_add_custom", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "添加商家", code: "14", href: "admin_add_business", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "商品分类列表", code: "12", href: "admin_product_sort_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "商家列表", code: "13", href: "admin_business_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "门店列表", code: "15", href: "admin_store_list", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }, { name: "用户编辑", code: "17", href: "admin_user_edit", icon_class: "icon-home", child: [{ name: "商品图片", href: "/", icon_class: "icon-th" }] }];
       this.setState({ items: rows });
       unicorn();
     }
@@ -23546,7 +23546,7 @@ function product(state, action) {
     case 'PRODUCT_DETAIL':
       {
         $.ajax({
-          url: "/search_product_detail?product_id=" + product_id,
+          url: "/mendian_detail?store_id=" + store_id,
           dataType: 'json',
           type: 'GET',
           success: function (data) {
@@ -23562,7 +23562,7 @@ function product(state, action) {
     case 'GET_DATA':
       {
         var data = action.data;
-        return { product: data.product };
+        return { view: data.row, picture: data.row.pictures };
       }
 
     default:
@@ -23570,12 +23570,12 @@ function product(state, action) {
   }
 }
 
-var store = (0, _redux.createStore)(product, { product: {} });
+var store = (0, _redux.createStore)(product, { view: {}, picture: [] });
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    product: state.product
-
+    view: state.view,
+    picture: state.picture
   };
 };
 
@@ -23885,6 +23885,16 @@ var ImgWrapClass = function (_React$Component4) {
   }, {
     key: 'render',
     value: function render() {
+      var province = "";
+      var detail_address = "";
+      var img = "images/no.jpg";
+      if (this.props.picture.length > 0) {
+        img = "http://shop.buy42.com/images/" + this.props.picture[0].location;
+      }
+      if (this.props.view.points) {
+        province = this.props.view.points[0].province + this.props.view.points[0].city + this.props.view.points[0].district;
+        detail_address = this.props.view.points[0].detail_address;
+      }
       return React.createElement(
         'div',
         { className: 'row-fluid' },
@@ -23923,15 +23933,10 @@ var ImgWrapClass = function (_React$Component4) {
                     React.createElement(
                       'span',
                       { className: 'invoice-number' },
-                      '\u65E5\u671F \uFF1A',
-                      this.props.product.update_at_text,
+                      '\u540D\u79F0 \uFF1A',
+                      this.props.view.org_store_name,
                       ' '
                     )
-                  ),
-                  React.createElement(
-                    'h5',
-                    null,
-                    this.props.product.product_name
                   ),
                   React.createElement(
                     'div',
@@ -23951,24 +23956,43 @@ var ImgWrapClass = function (_React$Component4) {
                             '\u8BE6\u60C5\uFF1A'
                           )
                         ),
-                        React.createElement('span', null),
                         React.createElement(
                           'span',
                           null,
-                          '\u95E8\u5E97\u540D\u79F0\uFF1A',
-                          this.props.product.time_to_market
+                          '\u95E8\u5E97\u7B80\u79F0\uFF1A',
+                          this.props.view.abbr
                         ),
                         React.createElement(
                           'span',
                           null,
-                          '\u95E8\u5E97\u5730\u5740\uFF1A',
-                          this.props.product.color
+                          '\u5F00\u5E97\u65E5\u671F\uFF1A',
+                          this.props.view.open_date_text
+                        )
+                      ),
+                      React.createElement('br', null),
+                      React.createElement(
+                        'li',
+                        null,
+                        React.createElement(
+                          'span',
+                          null,
+                          React.createElement(
+                            'strong',
+                            null,
+                            '\u5730\u5740\uFF1A'
+                          )
                         ),
                         React.createElement(
                           'span',
                           null,
-                          '\u5907\u6CE8\uFF1A',
-                          this.props.product.product_brand
+                          '\u7701\u5E02\u533A\uFF1A',
+                          province
+                        ),
+                        React.createElement(
+                          'span',
+                          null,
+                          '\u8BE6\u7EC6\u5730\u5740\uFF1A',
+                          detail_address
                         )
                       )
                     )
@@ -23988,23 +24012,10 @@ var ImgWrapClass = function (_React$Component4) {
                           React.createElement(
                             'strong',
                             null,
-                            '\u4EF7\u683C\uFF1A'
+                            '\u95E8\u5E97\u56FE\u7247\uFF1A'
                           )
                         ),
-                        React.createElement(
-                          'span',
-                          null,
-                          '\u5E02\u573A\u4EF7\uFF1A',
-                          this.props.product.product_marketing_price,
-                          ' \u5143'
-                        ),
-                        React.createElement(
-                          'span',
-                          null,
-                          '\u5B9E\u9645\u552E\u4EF7\uFF1A',
-                          this.props.product.product_sale_price,
-                          ' \u5143'
-                        )
+                        React.createElement('img', { src: img })
                       )
                     )
                   )

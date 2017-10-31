@@ -17,6 +17,12 @@
     margin-right: 3px;
 
 }
+.table th{
+    text-align: left;
+}
+.table th:last-child{
+    text-align: center;
+}
 td:last-child{
   text-align: center;
 }
