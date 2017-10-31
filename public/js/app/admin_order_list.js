@@ -21611,7 +21611,7 @@ var Infor = function (_React$Component3) {
                         React.createElement(
                             'a',
                             { href: '#', title: 'Go to Home', className: 'tip-bottom' },
-                            React.createElement('i', { className: 'icon-tint' }),
+                            React.createElement('i', { className: 'icon-home' }),
                             ' \u9996\u9875'
                         )
                     ),

@@ -21675,8 +21675,8 @@ var ImgWrap = function (_React$Component4) {
                             'div',
                             { className: 'widget-content nopadding' },
                             React.createElement(
-                                'form',
-                                { className: 'form-horizontal', method: 'post', action: '#', name: 'basic_validate', id: 'basic_validate', novalidate: 'novalidate' },
+                                'div',
+                                { className: 'form-horizontal', method: 'post', action: '#', name: 'basic_validate', id: 'basic_validate' },
                                 React.createElement(
                                     'div',
                                     { className: 'control-group' },

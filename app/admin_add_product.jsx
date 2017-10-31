@@ -132,7 +132,7 @@ var Nav = require('Nav');
                             <h5>添加商品</h5>
                         </div>
                         <div className="widget-content nopadding">
-                            <form className="form-horizontal" method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                            <div className="form-horizontal" method="post" action="#" name="basic_validate" id="basic_validate">
                                 <div className="control-group">
                                     <label className="control-label">商品名称</label>
                                     <div className="controls">
@@ -178,7 +178,7 @@ var Nav = require('Nav');
                                 <div className="form-actions">
                                     <input type="submit" value="确认" className="btn btn-primary"/>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
