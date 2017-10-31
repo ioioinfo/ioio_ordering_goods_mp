@@ -316,7 +316,20 @@ exports.register = function(server, options, next) {
 				});
 			},
 		},
-
+		//获取所有带批次的商品信息
+		{
+			method: 'GET',
+			path: '/search_batch_products_infos',
+			handler: function(request, reply) {
+				api.search_batch_products_infos(function(err,rows){
+					if (!err) {
+						return reply({"success":true,"row":rows.row});
+					}else {
+						return reply({"success":false,"message":rows.message});
+					}
+				});
+			},
+		},
 
 
     ]);

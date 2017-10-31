@@ -22,6 +22,17 @@ var host = "http://211.149.248.241:18010/";
 
 var nav = function(server) {
     return {
+        //获取所有带批次的商品信息
+        search_batch_products_infos: function(cb) {
+            var url = host + "search_batch_products_infos";
+            uu_request.get(url, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,JSON.parse(body));
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
         //根据person_id和订单批次找订单
         search_lastest_batch_infos: function(cb) {
             var url = host + "search_lastest_batch_infos";
