@@ -309,7 +309,11 @@ exports.register = function(server, options, next) {
 			handler: function(request, reply) {
 				api.search_lastest_batch_infos(function(err,rows){
 					if (!err) {
-						return reply({"success":true,"row":rows.row});
+						var date,date1,date2;
+						date = new Date();
+						date1 = date.toLocaleDateString();
+						date2 = date1 +" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+						return reply({"success":true,"row":rows.row,"time":date2});
 					}else {
 						return reply({"success":false,"message":rows.message});
 					}
@@ -323,7 +327,11 @@ exports.register = function(server, options, next) {
 			handler: function(request, reply) {
 				api.search_batch_products_infos(function(err,rows){
 					if (!err) {
-						return reply({"success":true,"rows":rows.rows});
+						var date,date1,date2;
+						date = new Date();
+						date1 = date.toLocaleDateString();
+						date2 = date1 +" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+						return reply({"success":true,"rows":rows.rows,"time":date2});
 					}else {
 						return reply({"success":false,"message":rows.message});
 					}
