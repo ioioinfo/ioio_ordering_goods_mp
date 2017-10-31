@@ -302,6 +302,21 @@ exports.register = function(server, options, next) {
                 });
             },
         },
+		//获取最新批次信息
+		{
+			method: 'GET',
+			path: '/search_lastest_batch_infos',
+			handler: function(request, reply) {
+				api.search_lastest_batch_infos(function(err,rows){
+					if (!err) {
+						return reply({"success":true,"row":rows.row});
+					}else {
+						return reply({"success":false,"message":rows.message});
+					}
+				});
+			},
+		},
+
 
 
     ]);
