@@ -385,6 +385,34 @@ exports.register = function(server, options, next) {
             }
         },
 
+        //后台当前批次统计
+        {
+            method: 'GET',
+            path: '/admin_count',
+            handler: function(request, reply) {
+              return reply.view("admin_count");
+            }
+        },
+
+        //后台产品分类订货统计
+        {
+            method: 'GET',
+            path: '/admin_count_sort',
+            handler: function(request, reply) {
+              return reply.view("admin_count_sort");
+            }
+        },
+
+        //后台门店订货统计
+        {
+            method: 'GET',
+            path: '/admin_count_store',
+            handler: function(request, reply) {
+              return reply.view("admin_count_store");
+            }
+        },
+
+
 
     ]);
 

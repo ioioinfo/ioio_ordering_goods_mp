@@ -8,22 +8,32 @@ class Nav extends React.Component {
   }
   componentDidMount() {
   var rows= [{name: "首页",code: "01", href:"/", icon_class: "icon-home",child: [{name: "首页",href: "/",icon_class: "icon-th"}]},
-            {name: "用户列表",code: "02", href:"admin_user_list", icon_class: "icon-home",child: [{name: "用户列表",href: "/",icon_class: "icon-th"}]},
-            {name: "商品列表",code: "03", href:"admin_product_list", icon_class: "icon-home",child: [{name: "商品列表",href: "/",icon_class: "icon-th"}]},
-            {name: "历史订单列表",code: "05", href:"admin_order_list", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
-            {name: "商品详情",code: "07", href:"admin_order_product_detail", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
-            {name: "在线订单列表",code: "08", href:"admin_product_online_list", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
-            {name: "添加商品",code: "09", href:"admin_add_product", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
-            {name: "添加客户",code: "10", href:"admin_add_custom", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
-            {name: "添加商家",code: "14", href:"admin_add_business", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
-            {name: "商品分类列表",code: "12", href:"admin_product_sort_list", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
-            {name: "商家列表",code: "13", href:"admin_business_list", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
-            {name: "门店列表",code: "15", href:"admin_store_list", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
-            {name: "用户编辑",code: "17", href:"admin_user_edit", icon_class: "icon-home",child: [{name: "商品图片",href: "/",icon_class: "icon-th"}]},
+            {name: "用户列表",code: "02",icon_class: "icon-home",child: [{name: "用户列表",href:"admin_user_list",icon_class: "icon-th"}]},
+            {name: "商品列表",code: "03", icon_class: "icon-home",child: [{name: "商品列表",href:"admin_product_list",icon_class: "icon-th"}]},
+            {name: "历史订单列表",code: "05", icon_class: "icon-home",child: [{name: "历史订单列表",href: "admin_order_list",icon_class: "icon-th"}]},
+            {name: "在线订单列表",code: "08", icon_class: "icon-home",child: [{name: "在线订单列表", href:"admin_product_online_list",icon_class: "icon-th"}]},
+            {name: "添加",code: "09", icon_class: "icon-home"
+            ,child: [{name: "添加商品",href: "admin_add_product",icon_class: "icon-th"}
+                    ,{name: "添加客户",href: "admin_add_custom",icon_class: "icon-th"}
+                    ,{name: "添加商家",href: "admin_add_business",icon_class: "icon-th"}]
+            },
+            {name: "商品分类列表",code: "12",icon_class: "icon-home",child: [{name: "商品分类列表",href: "admin_product_sort_list",icon_class: "icon-th"}]},
+            {name: "商家列表",code: "13", icon_class: "icon-home",child: [{name: "商家列表",href: "admin_business_list",icon_class: "icon-th"}]},
+            {name: "门店列表",code: "15", icon_class: "icon-home",child: [{name: "门店列表",href: "admin_store_list",icon_class: "icon-th"}]},
+            {name: "用户编辑",code: "17", icon_class: "icon-home",child: [{name: "用户编辑",href: "admin_user_edit",icon_class: "icon-th"}]},
+            {name: "统计",code: "18", icon_class: "icon-home"
+            ,child: [{name: "当前批次订货统计",href: "admin_count",icon_class: "icon-th"}
+                    ,{name: "产品分类订货统计",href: "admin_count_sort",icon_class: "icon-th"}
+                    ,{name: "门店订货统计",href: "admin_count_store",icon_class: "icon-th"}]
+            },
           ];
-  this.setState({items:rows});
-  unicorn();
+          this.setState({items:rows});
+
   }
+  componentDidUpdate(){
+      unicorn();
+  }
+
 
   render() {
     var nav = [];
@@ -33,7 +43,7 @@ class Nav extends React.Component {
         c = "submenu active";
       }
       nav.push(<li className={c} key={index}>
-        <a href={item.href}><i className={"icon " + item.icon_class}></i> <span>{item.name}</span></a>
+        <a href="#"><i className={"icon " + item.icon_class}></i> <span>{item.name}</span></a>
         <ul>
           {item.child.map((item,index) => (
             <li key={index}><a href={item.href}>{item.name}</a></li>

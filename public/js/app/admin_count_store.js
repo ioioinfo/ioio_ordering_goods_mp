@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 88);
+/******/ 	return __webpack_require__(__webpack_require__.s = 103);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -21317,7 +21317,22 @@ module.exports = Nav;
 /* 85 */,
 /* 86 */,
 /* 87 */,
-/* 88 */
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22159,7 +22174,7 @@ var PageLi = function (_React$Component10) {
 ;
 
 // 返回到页面
-ReactDOM.render(React.createElement(Wrap, null), document.getElementById("admin_product_list"));
+ReactDOM.render(React.createElement(Wrap, null), document.getElementById("admin_count_store"));
 
 /***/ })
 /******/ ]);

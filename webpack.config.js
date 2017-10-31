@@ -45,6 +45,9 @@ module.exports = {
         admin_add_business: './app/admin_add_business.jsx',
         admin_store_list: './app/admin_store_list.jsx',
         admin_store_view: './app/admin_store_view.jsx',
+        admin_count: './app/admin_count.jsx',
+        admin_count_sort: './app/admin_count_sort.jsx',
+        admin_count_store: './app/admin_count_store.jsx',
         order_product_detail: './app/order_product_detail.jsx',
     },
     output: {
