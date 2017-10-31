@@ -40,7 +40,7 @@ class Nav extends React.Component {
     this.state.items.map(function(item,index) {
       var c = "submenu";
       if (item.code == selected) {
-        c = "submenu active";
+        c = "submenu active open";
       }
       nav.push(<li className={c} key={index}>
         <a href="#"><i className={"icon " + item.icon_class}></i> <span>{item.name}</span></a>

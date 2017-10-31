@@ -21205,7 +21205,7 @@ var Nav = function (_React$Component) {
       this.state.items.map(function (item, index) {
         var c = "submenu";
         if (item.code == selected) {
-          c = "submenu active";
+          c = "submenu active open";
         }
         nav.push(React.createElement(
           "li",
