@@ -121,8 +121,28 @@ var nav = function(server) {
                 }
             });
         },
-
-
+        //查询商品折扣
+        get_sellers_discount: function(params,cb) {
+            var url = host + "get_sellers_discount?params="+params;
+            uu_request.get(url, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,JSON.parse(body));
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
+        //保存商品折扣
+        add_seller_discount: function(data,cb) {
+            var url = host + "add_seller_discount";
+            uu_request.request(url, data, function(err, response, body) {
+                if (!err && response.statusCode === 200) {
+                    cb(err,body);
+                } else {
+                    cb(true,{message:"网络错误"});
+                }
+            });
+        },
 
     };
 };

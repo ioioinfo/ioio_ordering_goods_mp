@@ -217,6 +217,43 @@ exports.register = function(server, options, next) {
 				});
 			},
 		},
+		//查询商品折扣
+		{
+			method: 'GET',
+			path: '/get_sellers_discount',
+			handler: function(request, reply) {
+				var params = {};
+				if (request.query.params) {
+					params = request.query.params;
+				}else {
+					params = JSON.stringify(params);
+				}
+				api.get_sellers_discount(params,function(err,rows){
+					if (!err) {
+						return reply({"success":true,"rows":rows.rows,"num":rows.num});
+					}else {
+						return reply({"success":false,"message":rows.message});
+					}
+				});
+			},
+		},
+		//商品折扣查询
+		{
+			method: 'POST',
+			path: '/add_seller_discount',
+			handler: function(request, reply) {
+				var sellers_discount = request.payload.sellers_discount;
+				
+				var data = {"sellers_discount":sellers_discount};
+				api.add_seller_discount(data,function(err,rows){
+					if (!err) {
+						return reply({"success":true});
+					}else {
+						return reply({"success":false,"message":rows.message});
+					}
+				});
+			},
+		},
 
 
 
