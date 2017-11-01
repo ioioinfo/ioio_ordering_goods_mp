@@ -55,7 +55,16 @@ var do_result = function(err,result,cb){
 	}
 };
 var moduel_prefix = 'admin_data';
-
+//商户添加
+var add_merchant = function(data,cb){
+	var url = "http://139.196.148.40:18001/merchant/add_merchant";
+	do_post_method(url,data,cb);
+}
+//商户修改
+var update_merchant = function(data,cb){
+	var url = "http://139.196.148.40:18001/merchant/update_merchant";
+	do_post_method(url,data,cb);
+}
 exports.register = function(server, options, next) {
     var service_info = sys_option.desc;
     var platform_id = sys_option.platform_id;
@@ -137,7 +146,64 @@ exports.register = function(server, options, next) {
 				});
 			}
 		},
-
+		//商户添加
+		{
+			method: 'POST',
+			path: '/add_merchant',
+			handler: function(request, reply) {
+				var merchant_code = request.payload.merchant_code;
+				var merchant_name = request.payload.merchant_name;
+				var abbr = request.payload.abbr;
+				var remark = request.payload.remark;
+				if (!merchant_code || !merchant_name || !abbr || !remark) {
+					return reply({"success":false,"message":"params wrong","service_info":service_info});
+				}
+				var data = {
+					"org_code":org_code,
+					"merchant_code":merchant_code,
+					"merchant_name":merchant_name,
+					"abbr":abbr,
+					"remark":remark
+				};
+				add_merchant(data,function(err,rows){
+					if (!err) {
+						return reply({"success":true});
+					}else {
+						return reply({"success":false,"message":rows.message});
+					}
+				});
+			},
+		},
+		//商户修改
+		{
+			method: 'POST',
+			path: '/update_merchant',
+			handler: function(request, reply) {
+				var id = request.payload.id;
+				var merchant_code = request.payload.merchant_code;
+				var merchant_name = request.payload.merchant_name;
+				var abbr = request.payload.abbr;
+				var remark = request.payload.remark;
+				if (!merchant_code || !merchant_name || !abbr || !remark || !id) {
+					return reply({"success":false,"message":"params wrong","service_info":service_info});
+				}
+				var data = {
+					"id":id,
+					"org_code":org_code,
+					"merchant_code":merchant_code,
+					"merchant_name":merchant_name,
+					"abbr":abbr,
+					"remark":remark
+				};
+				update_merchant(data,function(err,rows){
+					if (!err) {
+						return reply({"success":true});
+					}else {
+						return reply({"success":false,"message":rows.message});
+					}
+				});
+			},
+		},
 
 
     ]);
