@@ -55,7 +55,16 @@ var do_result = function(err,result,cb){
 	}
 };
 var moduel_prefix = 'admin_data';
-
+//商户添加
+var add_merchant = function(data,cb){
+	var url = "http://139.196.148.40:18001/merchant/add_merchant";
+	do_post_method(url,data,cb);
+}
+//商户修改
+var update_merchant = function(data,cb){
+	var url = "http://139.196.148.40:18001/merchant/update_merchant";
+	do_post_method(url,data,cb);
+}
 exports.register = function(server, options, next) {
     var service_info = sys_option.desc;
     var platform_id = sys_option.platform_id;
@@ -77,6 +86,11 @@ exports.register = function(server, options, next) {
 	//根据id得到指定门店信息
 	var get_by_id = function(store_id,cb){
 		var url = "http://211.149.248.241:19999/store/get_by_id?id="+store_id+"&org_code="+org_code;
+		do_get_method(url,cb);
+	};
+	//根据id得到商户
+	var get_store_by_id = function(id,cb){
+		var url = "http://139.196.148.40:18001/merchant/get_by_id?id="+id;
 		do_get_method(url,cb);
 	};
     server.route([
@@ -133,6 +147,82 @@ exports.register = function(server, options, next) {
 						return reply({"success":true,"row":row.row});
 					}else {
 						return reply({"success":false,"message":row.message});
+					}
+				});
+			}
+		},
+		//商户添加
+		{
+			method: 'POST',
+			path: '/add_merchant',
+			handler: function(request, reply) {
+				var merchant_code = request.payload.merchant_code;
+				var merchant_name = request.payload.merchant_name;
+				var abbr = request.payload.abbr;
+				var remark = request.payload.remark;
+				if (!merchant_code || !merchant_name || !abbr || !remark) {
+					return reply({"success":false,"message":"params wrong","service_info":service_info});
+				}
+				var data = {
+					"org_code":org_code,
+					"merchant_code":merchant_code,
+					"merchant_name":merchant_name,
+					"abbr":abbr,
+					"remark":remark
+				};
+				add_merchant(data,function(err,rows){
+					if (!err) {
+						return reply({"success":true});
+					}else {
+						return reply({"success":false,"message":rows.message});
+					}
+				});
+			},
+		},
+		//商户修改
+		{
+			method: 'POST',
+			path: '/update_merchant',
+			handler: function(request, reply) {
+				var id = request.payload.id;
+				var merchant_code = request.payload.merchant_code;
+				var merchant_name = request.payload.merchant_name;
+				var abbr = request.payload.abbr;
+				var remark = request.payload.remark;
+				if (!merchant_code || !merchant_name || !abbr || !remark || !id) {
+					return reply({"success":false,"message":"params wrong","service_info":service_info});
+				}
+				var data = {
+					"id":id,
+					"org_code":org_code,
+					"merchant_code":merchant_code,
+					"merchant_name":merchant_name,
+					"abbr":abbr,
+					"remark":remark
+				};
+				update_merchant(data,function(err,rows){
+					if (!err) {
+						return reply({"success":true});
+					}else {
+						return reply({"success":false,"message":rows.message});
+					}
+				});
+			},
+		},
+		//查看商户根据id
+		{
+			method: 'GET',
+			path: '/get_store_by_id',
+			handler: function(request, reply){
+				var id = request.query.id;
+				if (!id) {
+					return reply({"success":false,"message":"id null","service_info":service_info});
+				}
+				get_store_by_id(id,function(err,row){
+					if (!err) {
+						return reply({"success":true,"service_info":service_info,"row":row.row});
+					}else {
+						return reply({"success":false,"message":row.message,"service_info":service_info});
 					}
 				});
 			}
