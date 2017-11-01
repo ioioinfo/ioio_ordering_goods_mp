@@ -21320,7 +21320,7 @@ var IoIo = function (_React$Component) {
             React.createElement(
               'div',
               { className: 'loding_middle_password_wrap' },
-              React.createElement('input', { className: 'loding_middle_password_input', placeholder: 'Password', type: '\u5BC6\u7801', name: 'data[password]', id: 'data_password' }),
+              React.createElement('input', { className: 'loding_middle_password_input', placeholder: '\u5BC6\u7801', type: '\u5BC6\u7801', name: 'data[password]', id: 'data_password' }),
               React.createElement('label', { className: 'loding_middle_password_name' }),
               React.createElement(
                 'span',

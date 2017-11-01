@@ -21922,7 +21922,7 @@ var Td = function (_React$Component8) {
                         { type: 'button', className: 'btn btn-primary btn-mini' },
                         React.createElement(
                             'a',
-                            { href: "admin_order_product_detail?product_id=" + this.props.item.id },
+                            { href: '#' },
                             '\u67E5\u770B'
                         )
                     ),
