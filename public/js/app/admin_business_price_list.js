@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 102);
+/******/ 	return __webpack_require__(__webpack_require__.s = 107);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -21333,7 +21333,12 @@ module.exports = Nav;
 /* 99 */,
 /* 100 */,
 /* 101 */,
-/* 102 */
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21586,7 +21591,7 @@ var Infor = function (_React$Component3) {
                         React.createElement(
                             'h1',
                             null,
-                            '\u4EA7\u54C1\u5206\u7C7B\u8BA2\u8D27\u7EDF\u8BA1'
+                            '\u5546\u5BB6\u8BA2\u8D27\u4EF7\u683C\u5217\u8868'
                         ),
                         React.createElement(
                             'div',
@@ -21754,9 +21759,7 @@ var Table = function (_React$Component5) {
                                 React.createElement(
                                     'h5',
                                     null,
-                                    '\u4EA7\u54C1\u5206\u7C7B\u8BA2\u8D27\u7EDF\u8BA1 \xA0(\u66F4\u65B0\u65F6\u95F4\uFF1A',
-                                    time,
-                                    ')'
+                                    '\u5546\u5BB6\u8BA2\u8D27\u4EF7\u683C\u5217\u8868'
                                 )
                             ),
                             React.createElement(
@@ -21931,7 +21934,7 @@ var Td = function (_React$Component8) {
                         { type: 'button', className: 'btn btn-primary btn-mini' },
                         React.createElement(
                             'a',
-                            { href: "admin_order_product_detail?product_id=" + this.props.item.id },
+                            { href: "admin_business_edit?id=" + this.props.item.org_merchant_id },
                             '\u67E5\u770B'
                         )
                     ),
@@ -22177,7 +22180,7 @@ var PageLi = function (_React$Component10) {
 ;
 
 // 返回到页面
-ReactDOM.render(React.createElement(Wrap, null), document.getElementById("admin_count_sort"));
+ReactDOM.render(React.createElement(Wrap, null), document.getElementById("admin_business_price_list"));
 
 /***/ })
 /******/ ]);

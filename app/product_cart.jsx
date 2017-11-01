@@ -111,6 +111,13 @@ function product(state, action) {
        success: function(data) {
 
          if (data.success) {
+             if ($('#loadingToast').css('display') != 'none') return;
+
+             $('#loadingToast').fadeIn(100);
+             setTimeout(function () {
+                 $('#loadingToast').fadeOut(100);
+                 location.href="product_cart";
+             }, 500);
              location.href = 'now_order?order_id='+data.order_id;
          }else {
            alert('提交失败');
@@ -149,12 +156,20 @@ class IoIo extends React.Component {
     componentDidMount() {
     }
     render() {
+        var style = {display:'none'};
       return (
         <div className="project_list_wrap">
           <Projectlist/>
           <ProjectButton/>
           <Top/>
           <Home/>
+          <div id="loadingToast" style={style}>
+              <div className="weui-mask_transparent"></div>
+              <div className="weui-toast">
+                  <i className="weui-loading weui-icon_toast"></i>
+                  <p className="weui-toast__content">正在提交</p>
+              </div>
+          </div>
         </div>
       );
     }

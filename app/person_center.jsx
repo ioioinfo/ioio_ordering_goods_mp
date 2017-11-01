@@ -1,134 +1,93 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-import { Provider, connect } from 'react-redux'
-import { createStore } from 'redux'
-
-function product(state, action) {
-  switch (action.type) {
-        case 'PERSON_INFOR':
-        {
-          $.ajax({
-             url: "/find_person_info",
-             dataType: 'json',
-             type: 'GET',
-             success: function(data) {
-               if (data.success) {
-                 store.dispatch({ type: 'GET_DATA', data: data});
-               }else {
-               }
-             }.bind(this),
-             error: function(xhr, status, err) {
-             }.bind(this)
-          });
-          return state;
-        }
-      case 'GET_DATA':
-      {
-        var data = action.data;
-        return {person:data.row,orders:state.orders};
-      }
-      case 'GET_DATA1':
-      {
-        var data = action.data;
-        return {person:state.person,orders:data.orders[0]};
-      }
-      case 'ORDER_NUMBER':
-      {
-          var status = [1];
-        $.ajax({
-           url: "/search_online_by_status",
-           dataType: 'json',
-           type: 'GET',
-           data:{"status":JSON.stringify(status)},
-           success: function(data) {
-             if (data.success) {
-               store.dispatch({ type: 'GET_DATA1', data: data});
-             }else {
-             }
-           }.bind(this),
-           error: function(xhr, status, err) {
-           }.bind(this)
-        });
-        return state;
-      }
-      default:
-        return state
-  }
-}
-
-let store = createStore(product,{person:{},orders:{}});
-
-const mapStateToProps = (state) => {
-    return {
-        person: state.person,
-        orders: state.orders
-    }
-}
 
 
 class IoIo extends React.Component {
     constructor(props) {
       super(props);
-      // 初始化一个空对象
+      this.state={person_wx:{}};
     }
     componentDidMount() {
-      var height = $(window).height();
-      $('.back_bottom').css('height',0.7*height);
-      $('.person_center_top').css('height',0.15*height);
-      $('.person_center_order').css('top',0.3*height-60);
-      store.dispatch({ type: 'PERSON_INFOR'});
-      store.dispatch({ type: 'ORDER_NUMBER'});
+    $.ajax({
+       url: "/member_info",
+       dataType: 'json',
+       type: 'GET',
+       success: function(data) {
+         if (data.success) {
+             this.setState({person_wx:data.person_wx});
+         }else {
+
+         }
+
+       }.bind(this),
+       error: function(xhr, status, err) {
+       }.bind(this)
+   });
+
     }
 
     render() {
-        var total_number = (<p>0</p>);
-        if(this.props.orders){
-            total_number = (<p>{this.props.orders.total_number}</p>);
+        var img = "images/head.jpeg";
+        if (this.state.person_wx) {
+            img = this.state.person_wx.headimgurl;
         }
       return (
         <div className="person_center">
-          <div className="background"></div>
-          <div className="back_bottom"></div>
-          <div className="person_center_top">
-            <img src="images/biyou.jpg"/>
-            <p>{this.props.person.person_code}</p>
+          <div className="person_center_head">
+            <span className="person_center_head_img"><img src={img}/></span>
+            <p className="person_center_head_name">{this.state.person_wx.nickname}</p>
           </div>
 
-          <div className="person_center_order">
-            <div className="person_center_order_infor person_center_order_left">
-              {total_number}
-              <p>待收货</p>
-            </div>
-            <div className="person_center_order_infor person_center_order_right">
-              <p>历史订单</p>
-            </div>
-          </div>
-          <div className="weui-tabbar">
-              <a href="index" className="weui-tabbar__item">
-                  <span className="weui-tabbar__icon"><i className="fa fa-home"></i></span>
-                  <p className="weui-tabbar__label">首页</p>
-              </a>
-              <a href="product_cart" className="weui-tabbar__item">
-                  <span className="weui-tabbar__icon"><i className="fa fa-cart-arrow-down"></i></span>
-                  <p className="weui-tabbar__label">购物车</p>
-              </a>
-              <a href="product_sort" className="weui-tabbar__item">
-                  <span className="weui-tabbar__icon"><i className="fa fa-bars"></i></span>
-                  <p className="weui-tabbar__label">分类</p>
-              </a>
-              <a href="person_center" className="weui-tabbar__item weui-bar__item_on">
-                  <span className="weui-tabbar__icon"><i className="fa fa-user"></i></span>
-                  <p className="weui-tabbar__label">我</p>
-              </a>
-          </div>
+          <PersonCenterMiddle/>
         </div>
       );
     }
 };
-const IoIoRedux = connect(mapStateToProps)(IoIo);
+
+
+class PersonCenterMiddle extends React.Component {
+    constructor(props) {
+      super(props);
+      // 初始化一个空对象
+    }
+    componentDidMount() {
+
+    }
+
+    render() {
+      var style = {color:'#fff',marginRight:'5px',display:'block'};
+      return (
+        <div className="weui-cells">
+            <a className="weui-cell weui-cell_access" href="order_list">
+                <div className="weui-cell__hd icon_wrap_style"><span style={style} className="icon_style1"><i className="fa fa-align-justify"></i></span></div>
+                <div className="weui-cell__bd">
+                    <p>我的订单</p>
+                </div>
+                <div className="weui-cell__ft">1</div>
+            </a>
+            <a className="weui-cell weui-cell_access" href="mendian_list">
+                <div className="weui-cell__hd icon_wrap_style"><span style={style} className="icon_style3"><i className="fa fa-building-o"></i></span></div>
+                <div className="weui-cell__bd">
+                    <p>门店列表</p>
+                </div>
+                <div className="weui-cell__ft"></div>
+            </a>
+
+            <a className="weui-cell weui-cell_access" href="product_sort">
+                <div className="weui-cell__hd icon_wrap_style"><span style={style} className="icon_style4"><i className="fa fa-file"></i></span></div>
+                <div className="weui-cell__bd">
+                    <p>商品分类</p>
+                </div>
+                <div className="weui-cell__ft"></div>
+            </a>
+        </div>
+
+      );
+    }
+};
+
+
 ReactDOM.render(
-    <Provider store={store}>
-    <IoIoRedux/>
-    </Provider>,
-    document.getElementById("person_center")
+  <IoIo/>,
+  document.getElementById("person_center")
 );

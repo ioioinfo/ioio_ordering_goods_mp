@@ -92,7 +92,7 @@ var Nav = require('Nav');
 
               <div id="content">
                 <div id="content-header">
-                  <h1>商家列表</h1>
+                  <h1>商家订货价格列表</h1>
                   <div className="btn-group">
                     <a className="btn btn-large tip-bottom" title="Manage Files"><i className="icon-file"></i></a>
                     <a className="btn btn-large tip-bottom" title="Manage Users"><i className="icon-user"></i></a>
@@ -176,7 +176,7 @@ var Nav = require('Nav');
             								<span className="icon">
             									<i className="icon-th"></i>
             								</span>
-            								<h5>商家列表</h5>
+            								<h5>商家订货价格列表</h5>
             							</div>
             							<div className="widget-content nopadding">
                                             <table className="table table-bordered table-striped table-hover">
@@ -394,5 +394,5 @@ var Nav = require('Nav');
 // 返回到页面
 ReactDOM.render(
     <Wrap/>,
-    document.getElementById("admin_business_list")
+    document.getElementById("admin_business_price_list")
 );

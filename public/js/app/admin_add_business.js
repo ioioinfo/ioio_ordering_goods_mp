@@ -21186,11 +21186,13 @@ var Nav = function (_React$Component) {
   _createClass(Nav, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "index", icon_class: "icon-th" }] }, { name: "用户", code: "02", icon_class: "icon-home", child: [{ name: "用户列表", href: "admin_user_list", icon_class: "icon-th" }] }, { name: "商品", code: "03", icon_class: "icon-home", child: [{ name: "商品列表", href: "admin_product_list", icon_class: "icon-th" }] }, { name: "历史订单", code: "05", icon_class: "icon-home", child: [{ name: "历史订单列表", href: "admin_order_list", icon_class: "icon-th" }] }, { name: "在线订单", code: "08", icon_class: "icon-home", child: [{ name: "在线订单列表", href: "admin_product_online_list", icon_class: "icon-th" }] }, { name: "添加", code: "09", icon_class: "icon-home",
+      var rows = [{ name: "首页", code: "01", href: "/", icon_class: "icon-home", child: [{ name: "首页", href: "index", icon_class: "icon-th" }] }, { name: "用户", code: "02", icon_class: "icon-home", child: [{ name: "用户列表", href: "admin_user_list", icon_class: "icon-th" }] }, { name: "商品", code: "03", icon_class: "icon-home", child: [{ name: "商品列表", href: "admin_product_list", icon_class: "icon-th" }] }, { name: "订单", code: "05", icon_class: "icon-home",
+        child: [{ name: "在线订单列表", href: "admin_product_online_list", icon_class: "icon-th" }, { name: "历史订单列表", href: "admin_order_list", icon_class: "icon-th" }]
+      }, { name: "添加", code: "09", icon_class: "icon-home",
         child: [{ name: "添加商品", href: "admin_add_product", icon_class: "icon-th" }, { name: "添加客户", href: "admin_add_custom", icon_class: "icon-th" }, { name: "添加商家", href: "admin_add_business", icon_class: "icon-th" }]
-      }, { name: "商品分类", code: "12", icon_class: "icon-home", child: [{ name: "商品分类列表", href: "admin_product_sort_list", icon_class: "icon-th" }] }, { name: "商家", code: "13", icon_class: "icon-home", child: [{ name: "商家列表", href: "admin_business_list", icon_class: "icon-th" }] }, { name: "门店", code: "15", icon_class: "icon-home", child: [{ name: "门店列表", href: "admin_store_list", icon_class: "icon-th" }] }, { name: "用户编辑", code: "17", icon_class: "icon-home", child: [{ name: "用户编辑", href: "admin_user_edit", icon_class: "icon-th" }] }, { name: "统计", code: "18", icon_class: "icon-home",
+      }, { name: "商品分类", code: "12", icon_class: "icon-home", child: [{ name: "商品分类列表", href: "admin_product_sort_list", icon_class: "icon-th" }] }, { name: "商家", code: "13", icon_class: "icon-home", child: [{ name: "商家列表", href: "admin_business_list", icon_class: "icon-th" }] }, { name: "门店", code: "15", icon_class: "icon-home", child: [{ name: "门店列表", href: "admin_store_list", icon_class: "icon-th" }] }, { name: "统计", code: "18", icon_class: "icon-home",
         child: [{ name: "当前批次订货统计", href: "admin_count", icon_class: "icon-th" }, { name: "产品分类订货统计", href: "admin_count_sort", icon_class: "icon-th" }, { name: "门店订货统计", href: "admin_count_store", icon_class: "icon-th" }]
-      }];
+      }, { name: "设置", code: "19", icon_class: "icon-home", child: [{ name: "商家价格设置", href: "admin_business_set", icon_class: "icon-th" }] }, { name: "商家订货价格", code: "20", icon_class: "icon-home", child: [{ name: "商家订货价格列表", href: "admin_business_price_list", icon_class: "icon-th" }] }];
       this.setState({ items: rows });
     }
   }, {
@@ -21641,20 +21643,31 @@ var Infor = function (_React$Component3) {
 var AddWrap = function (_React$Component4) {
     _inherits(AddWrap, _React$Component4);
 
-    function AddWrap(props) {
+    function AddWrap() {
         _classCallCheck(this, AddWrap);
 
-        // 初始化一个空对象
-        var _this4 = _possibleConstructorReturn(this, (AddWrap.__proto__ || Object.getPrototypeOf(AddWrap)).call(this, props));
-
-        _this4.state = { items: [] };
-        return _this4;
+        return _possibleConstructorReturn(this, (AddWrap.__proto__ || Object.getPrototypeOf(AddWrap)).apply(this, arguments));
     }
 
     _createClass(AddWrap, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            selectTwo();
+        key: 'handleClick',
+        value: function handleClick(e) {
+            var merchant_code = $("#merchant_code").val();
+            var merchant_name = $("#merchant_name").val();
+            var abbr = $("#abbr").val();
+            var remark = $("#remark").val();
+            $.ajax({
+                url: "/add_merchant",
+                dataType: 'json',
+                type: 'POST',
+                data: { "merchant_code": merchant_code, "merchant_name": merchant_name, "abbr": abbr, "remark": remark },
+                success: function (data) {
+                    if (data.success) {
+                        alert("添加成功");
+                    } else {}
+                }.bind(this),
+                error: function (xhr, status, err) {}.bind(this)
+            });
         }
     }, {
         key: 'render',
@@ -21688,8 +21701,22 @@ var AddWrap = function (_React$Component4) {
                             'div',
                             { className: 'widget-content nopadding' },
                             React.createElement(
-                                'form',
+                                'div',
                                 { action: '#', method: 'get', className: 'form-horizontal' },
+                                React.createElement(
+                                    'div',
+                                    { className: 'control-group' },
+                                    React.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        '\u7F16\u53F7'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'controls' },
+                                        React.createElement('input', { type: 'text', id: 'merchant_code' })
+                                    )
+                                ),
                                 React.createElement(
                                     'div',
                                     { className: 'control-group' },
@@ -21701,7 +21728,7 @@ var AddWrap = function (_React$Component4) {
                                     React.createElement(
                                         'div',
                                         { className: 'controls' },
-                                        React.createElement('input', { type: 'text' })
+                                        React.createElement('input', { type: 'text', id: 'merchant_name' })
                                     )
                                 ),
                                 React.createElement(
@@ -21710,12 +21737,12 @@ var AddWrap = function (_React$Component4) {
                                     React.createElement(
                                         'label',
                                         { className: 'control-label' },
-                                        '\u5730\u5740'
+                                        '\u7B80\u79F0'
                                     ),
                                     React.createElement(
                                         'div',
                                         { className: 'controls' },
-                                        React.createElement('input', { type: 'text' })
+                                        React.createElement('input', { type: 'text', id: 'abbr' })
                                     )
                                 ),
                                 React.createElement(
@@ -21724,26 +21751,12 @@ var AddWrap = function (_React$Component4) {
                                     React.createElement(
                                         'label',
                                         { className: 'control-label' },
-                                        '\u8054\u7CFB\u65B9\u5F0F'
+                                        '\u5907\u6CE8'
                                     ),
                                     React.createElement(
                                         'div',
                                         { className: 'controls' },
-                                        React.createElement('input', { type: 'text' })
-                                    )
-                                ),
-                                React.createElement(
-                                    'div',
-                                    { className: 'control-group' },
-                                    React.createElement(
-                                        'label',
-                                        { className: 'control-label' },
-                                        '\u8054\u7CFB\u4EBA'
-                                    ),
-                                    React.createElement(
-                                        'div',
-                                        { className: 'controls' },
-                                        React.createElement('input', { type: 'text' })
+                                        React.createElement('input', { type: 'text', id: 'remark' })
                                     )
                                 ),
                                 React.createElement(
@@ -21751,7 +21764,7 @@ var AddWrap = function (_React$Component4) {
                                     { className: 'form-actions' },
                                     React.createElement(
                                         'button',
-                                        { type: 'submit', className: 'btn btn-primary' },
+                                        { type: 'submit', className: 'btn btn-primary', onClick: this.handleClick },
                                         '\u4FDD \u5B58'
                                     )
                                 )

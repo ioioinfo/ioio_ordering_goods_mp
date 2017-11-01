@@ -68,6 +68,7 @@ function product(state, action) {
                $('#loadingToast').fadeIn(100);
                setTimeout(function () {
                    $('#loadingToast').fadeOut(100);
+                   location.href="product_cart";
                }, 500);
            }else {
              alert("添加失败");
@@ -182,7 +183,7 @@ class IoIo extends React.Component {
               <div className="weui-mask_transparent"></div>
               <div className="weui-toast">
                   <i className="weui-loading weui-icon_toast"></i>
-                  <p className="weui-toast__content">添加成功</p>
+                  <p className="weui-toast__content">添加购物车成功</p>
               </div>
           </div>
         </div>

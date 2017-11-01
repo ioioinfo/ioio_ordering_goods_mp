@@ -412,6 +412,33 @@ exports.register = function(server, options, next) {
             }
         },
 
+        //后台商家价格设置
+        {
+            method: 'GET',
+            path: '/admin_business_set',
+            handler: function(request, reply) {
+              return reply.view("admin_business_set");
+            }
+        },
+
+        //后台商家编辑
+        {
+            method: 'GET',
+            path: '/admin_business_edit',
+            handler: function(request, reply) {
+                var id = request.query.id;
+                return reply.view("admin_business_edit",{id:id});
+            }
+        },
+
+        //后台商家订货价格列表页面
+        {
+            method: 'GET',
+            path: '/admin_business_price_list',
+            handler: function(request, reply) {
+                return reply.view("admin_business_price_list");
+            }
+        },
 
 
     ]);

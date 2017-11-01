@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 81);
+/******/ 	return __webpack_require__(__webpack_require__.s = 80);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -23399,8 +23399,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /* 77 */,
 /* 78 */,
 /* 79 */,
-/* 80 */,
-/* 81 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23478,28 +23477,14 @@ var IoIo = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var style = { width: '20px', marginRight: '5px', display: 'block' };
+      var style = { marginTop: '0' };
       var style1 = { textAlign: 'center', fontSize: '12px', color: '#666', marginTop: '27px', marginBottom: '17px' };
       return React.createElement(
         'div',
         null,
         React.createElement(
           'div',
-          { className: 'page__hd' },
-          React.createElement(
-            'h1',
-            { className: 'page__title' },
-            '\u8BA2\u5355'
-          ),
-          React.createElement(
-            'p',
-            { className: 'page__desc' },
-            '\u5217\u8868'
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'weui-cells' },
+          { className: 'weui-cells', style: style },
           this.props.order_list.map(function (item, index) {
             return React.createElement(
               'a',

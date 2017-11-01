@@ -51,16 +51,11 @@ class IoIo extends React.Component {
         store.dispatch({ type: 'PRODUCT_LIST'});
     }
     render() {
-      var style = {width:'20px' , marginRight:'5px' , display:'block'};
+      var style = {marginTop:'0'};
       var style1 = {textAlign:'center' , fontSize:'12px' , color:'#666' , marginTop:'27px' , marginBottom:'17px'};
       return (
         <div>
-          <div className="page__hd">
-            <h1 className="page__title">订单</h1>
-            <p className="page__desc">列表</p>
-          </div>
-
-          <div className="weui-cells">
+          <div className="weui-cells" style = {style}>
           {this.props.order_list.map((item,index) => (
             <a key={index} className="weui-cell weui-cell_access" href={'order_detail?order_id='+item.order_id}>
                 <div className="weui-cell__bd">

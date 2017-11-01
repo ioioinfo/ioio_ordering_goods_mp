@@ -2,6 +2,70 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Nav = require('Nav');
 
+
+import { Provider, connect } from 'react-redux'
+import { createStore } from 'redux'
+
+function product(state, action) {
+  switch (action.type) {
+  case 'CUSTOM_LIST':
+    {
+      $.ajax({
+         url: "/get_sellers_list",
+         dataType: 'json',
+         type: 'GET',
+         success: function(data) {
+           if (data.success) {
+             store.dispatch({ type: 'GET_DATA', data: data});
+           }else {
+           }
+         }.bind(this),
+         error: function(xhr, status, err) {
+         }.bind(this)
+      });
+
+      $.ajax({
+         url: "/get_level_one",
+         dataType: 'json',
+         type: 'GET',
+         success: function(data) {
+           if (data.success) {
+             store.dispatch({ type: 'GET_DATA1', data1: data});
+           }else {
+           }
+         }.bind(this),
+         error: function(xhr, status, err) {
+         }.bind(this)
+      });
+
+      return state;
+    }
+  case 'GET_DATA':
+  {
+    var data = action.data;
+    return {custom_list:data.rows,product_sorts:state.product_sorts};
+  }
+  case 'GET_DATA1':
+  {
+    var data1 = action.data1;
+    return {custom_list:state.custom_list,product_sorts:data1.rows};
+  }
+
+  default:
+    return state
+  }
+}
+
+let store = createStore(product,{custom_list:[],product_sorts:[]});
+
+const mapStateToProps = (state) => {
+    return {
+        custom_list: state.custom_list,
+        product_sorts: state.product_sorts,
+    }
+}
+
+
     // 框架
     class Wrap extends React.Component {
       render() {
@@ -66,12 +130,6 @@ var Nav = require('Nav');
     };
 
     class Infor extends React.Component {
-      constructor(props) {
-          super(props);
-          // 初始化一个空对象
-      }
-      componentDidMount() {
-      }
       render() {
         var style = {backgroundColor:'#555555',borderColor:'#aaaaaa'};
         var style1 = {backgroundColor:'#8399b0'};
@@ -92,7 +150,7 @@ var Nav = require('Nav');
 
               <div id="content">
                 <div id="content-header">
-                  <h1>添加商家</h1>
+                  <h1>商家价格设置</h1>
                   <div className="btn-group">
                     <a className="btn btn-large tip-bottom" title="Manage Files"><i className="icon-file"></i></a>
                     <a className="btn btn-large tip-bottom" title="Manage Users"><i className="icon-user"></i></a>
@@ -113,77 +171,50 @@ var Nav = require('Nav');
       }
     };
     // add
-    class AddWrap extends React.Component {
-
-        handleClick(e){
-            var merchant_code = $("#merchant_code").val();
-            var merchant_name = $("#merchant_name").val();
-            var abbr = $("#abbr").val();
-            var remark = $("#remark").val();
-            $.ajax({
-               url: "/add_merchant",
-               dataType: 'json',
-               type: 'POST',
-               data:{"merchant_code":merchant_code,"merchant_name":merchant_name,"abbr":abbr,"remark":remark},
-               success: function(data) {
-                 if (data.success) {
-                     alert("添加成功");
-                 }else {
-                 }
-               }.bind(this),
-               error: function(xhr, status, err) {
-               }.bind(this)
-            });
+    class AddWrapClass extends React.Component {
+        componentDidMount() {
+            store.dispatch({ type: 'CUSTOM_LIST'});
         }
-      render() {
-        var style = {display:'none' };
-        var style1 = {width:'1px'};
+        render() {
+            var custom_list = [];
+            if (this.props.custom_list.length>0) {
+                custom_list = this.props.custom_list;
+            }
+
+            var product_sorts = [];
+            if (this.props.product_sorts.length>0) {
+                product_sorts = this.props.product_sorts;
+            }
           return (
             <div className="row-fluid">
                 <div className="span12">
-                    <div className="widget-box">
-                        <div className="widget-title">
-                            <span className="icon">
-                                <i className="icon-align-justify"></i>
-                            </span>
-                            <h5>添加商家</h5>
-                        </div>
-                        <div className="widget-content nopadding">
-                            <div action="#" method="get" className="form-horizontal">
-                                <div className="control-group">
-                                    <label className="control-label">编号</label>
-                                    <div className="controls">
-                                        <input type="text" id="merchant_code"/>
-                                    </div>
-                                </div>
+                    <div className="">
+                        商家：
+                        <select>
+                            <option value="下拉菜单选择商家">下拉菜单选择商家</option>
+                            {custom_list.map((item,index) => (
+                                <option key={index} value={item.org_merchant_name}>{item.org_merchant_name}</option>
+                            ))}
 
-
-                                <div className="control-group">
-                                    <label className="control-label">名称</label>
-                                    <div className="controls">
-                                        <input type="text" id="merchant_name"/>
-                                    </div>
-                                </div>
-
-                                <div className="control-group">
-                                    <label className="control-label">简称</label>
-                                    <div className="controls">
-                                        <input type="text" id="abbr"/>
-                                    </div>
-                                </div>
-
-                                <div className="control-group">
-                                    <label className="control-label">备注</label>
-                                    <div className="controls">
-                                        <input type="text" id="remark"/>
-                                    </div>
-                                </div>
-
-                                <div className="form-actions">
-                                    <button type="submit" className="btn btn-primary" onClick={this.handleClick}>保 存</button>
-                                </div>
-                            </div>
-                        </div>
+                        </select>
+                    </div>
+                    <br/>
+                    <div className="">
+                        分类：
+                        <select>
+                            <option value="下拉菜单选择商品分类">下拉菜单选择商品分类</option>
+                            {product_sorts.map((item,index) => (
+                                <option key={index} value={item.sort_name}>{item.sort_name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <br/>
+                    <div className="">
+                        折扣：
+                        <input type="text" placeholder="请输入折扣例如(0.5)即打5折"/>
+                    </div>
+                    <div>
+                        <button>保存</button>
                     </div>
                 </div>
             </div>
@@ -191,7 +222,10 @@ var Nav = require('Nav');
       }
     };
 // 返回到页面
+const AddWrap = connect(mapStateToProps)(AddWrapClass);
 ReactDOM.render(
-    <Wrap/>,
-    document.getElementById("admin_add_business")
+    <Provider store={store}>
+    <Wrap/>
+    </Provider>,
+    document.getElementById("admin_business_set")
 );

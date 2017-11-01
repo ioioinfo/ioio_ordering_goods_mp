@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 78);
+/******/ 	return __webpack_require__(__webpack_require__.s = 77);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -23396,8 +23396,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /* 74 */,
 /* 75 */,
 /* 76 */,
-/* 77 */,
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23521,6 +23520,13 @@ function product(state, action) {
           success: function (data) {
 
             if (data.success) {
+              if ($('#loadingToast').css('display') != 'none') return;
+
+              $('#loadingToast').fadeIn(100);
+              setTimeout(function () {
+                $('#loadingToast').fadeOut(100);
+                location.href = "product_cart";
+              }, 500);
               location.href = 'now_order?order_id=' + data.order_id;
             } else {
               alert('提交失败');
@@ -23567,13 +23573,29 @@ var IoIo = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var style = { display: 'none' };
       return React.createElement(
         'div',
         { className: 'project_list_wrap' },
         React.createElement(Projectlist, null),
         React.createElement(ProjectButton, null),
         React.createElement(Top, null),
-        React.createElement(Home, null)
+        React.createElement(Home, null),
+        React.createElement(
+          'div',
+          { id: 'loadingToast', style: style },
+          React.createElement('div', { className: 'weui-mask_transparent' }),
+          React.createElement(
+            'div',
+            { className: 'weui-toast' },
+            React.createElement('i', { className: 'weui-loading weui-icon_toast' }),
+            React.createElement(
+              'p',
+              { className: 'weui-toast__content' },
+              '\u6B63\u5728\u63D0\u4EA4'
+            )
+          )
+        )
       );
     }
   }]);

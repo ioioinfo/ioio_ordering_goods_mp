@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 84);
+/******/ 	return __webpack_require__(__webpack_require__.s = 83);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -23390,7 +23390,358 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 }
 
 /***/ }),
-/* 71 */
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactRedux = __webpack_require__(44);
+
+var _redux = __webpack_require__(36);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var React = __webpack_require__(4);
+var ReactDOM = __webpack_require__(18);
+var Lunbo = __webpack_require__(84);
+
+function product(state, action) {
+  switch (action.type) {
+    case 'PRODUCT_SHOW':
+      {
+        $.ajax({
+          url: "/get_product",
+          dataType: 'json',
+          type: 'GET',
+          data: { 'product_id': product_id },
+          success: function (data) {
+            if (data.success) {
+              store.dispatch({ type: 'GET_DATA', data: data });
+            } else {}
+          }.bind(this),
+          error: function (xhr, status, err) {}.bind(this)
+        });
+
+        return state;
+      }
+    case 'GET_DATA':
+      {
+        var data = action.data.product;
+
+        var imgs = [];
+        for (var i = 0; i < data.pictures.length; i++) {
+          imgs.push({ "id": i, "img": data.pictures[i].location, "href": "#" });
+        }
+        return { item: data, number: state.number, imgs: imgs };
+      }
+    case 'NUMBER_PLUS':
+      {
+        var number = state.number + action.addValue;
+        if (number < 0) {
+          number = 0;
+        }
+        return { item: state.item, number: number, imgs: state.imgs };
+      }
+    case 'NUMBER_CHANGE':
+      {
+        var number = action.value;
+        return { item: state.item, number: number, imgs: state.imgs };
+      }
+    case 'PRODUCT_BUY':
+      {
+
+        var number = state.number;
+        var product_price = action.product_sale_price;
+        var sku_id = action.sku_id;
+        $.ajax({
+          url: "/add_shopping_cart",
+          dataType: 'json',
+          type: 'POST',
+          data: { "product_num": number, "product_id": product_id, "product_price": product_price, "sku_id": sku_id },
+          success: function success(data) {
+            if (data.success) {
+              if ($('#loadingToast').css('display') != 'none') return;
+
+              $('#loadingToast').fadeIn(100);
+              setTimeout(function () {
+                $('#loadingToast').fadeOut(100);
+                location.href = "product_cart";
+              }, 500);
+            } else {
+              alert("添加失败");
+            }
+          },
+          error: function error(xhr, status, err) {}
+        });
+
+        return state;
+      }
+
+    default:
+      return state;
+  }
+}
+
+var store = (0, _redux.createStore)(product, { item: {}, imgs: [], number: 1 });
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    item: state.item,
+    imgs: state.imgs,
+    number: state.number
+  };
+};
+
+var IoIo = function (_React$Component) {
+  _inherits(IoIo, _React$Component);
+
+  function IoIo(props) {
+    _classCallCheck(this, IoIo);
+
+    var _this = _possibleConstructorReturn(this, (IoIo.__proto__ || Object.getPrototypeOf(IoIo)).call(this, props));
+
+    _this.handleMinus = _this.handleMinus.bind(_this);
+    _this.handlePlus = _this.handlePlus.bind(_this);
+    _this.handleSure = _this.handleSure.bind(_this);
+    _this.handleBack = _this.handleBack.bind(_this);
+    _this.handleBuy = _this.handleBuy.bind(_this);
+    _this.changeNumber = _this.changeNumber.bind(_this);
+    return _this;
+  }
+
+  _createClass(IoIo, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      store.dispatch({ type: 'PRODUCT_SHOW' });
+      $("#num").html("0");
+    }
+  }, {
+    key: 'handleBuy',
+    value: function handleBuy(e) {
+      $('.background').show();
+      $('.projecrt_number').show();
+    }
+  }, {
+    key: 'handleMinus',
+    value: function handleMinus(e) {
+      store.dispatch({ type: 'NUMBER_PLUS', addValue: -1 });
+    }
+  }, {
+    key: 'handlePlus',
+    value: function handlePlus(e) {
+      store.dispatch({ type: 'NUMBER_PLUS', addValue: 1 });
+    }
+  }, {
+    key: 'changeNumber',
+    value: function changeNumber(e) {
+      store.dispatch({ type: 'NUMBER_CHANGE', value: $('#number').val() });
+    }
+  }, {
+    key: 'handleSure',
+    value: function handleSure(product_sale_price, sku_ids) {
+      store.dispatch({ type: 'PRODUCT_BUY', product_sale_price: product_sale_price, sku_id: sku_ids });
+      var num = $("#number").val();
+      $("#num").html(num);
+      $('.background').hide();
+      $('.projecrt_number').hide();
+    }
+  }, {
+    key: 'handleBack',
+    value: function handleBack(e) {
+      $('.background').hide();
+      $('.projecrt_number').hide();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var lunbo = React.createElement('div', null);
+
+      if (this.props.imgs.length > 0) {
+        lunbo = React.createElement(Lunbo, { items: this.props.imgs });
+      }
+      var style = { display: 'none' };
+      return React.createElement(
+        'div',
+        { className: 'project_show_wrap' },
+        lunbo,
+        React.createElement(
+          'div',
+          { className: 'product_infor' },
+          React.createElement(
+            'div',
+            { className: 'product_infor_in' },
+            React.createElement(
+              'p',
+              { className: 'product_name' },
+              this.props.item.product_name
+            ),
+            React.createElement(
+              'p',
+              { className: 'product_price' },
+              React.createElement(
+                'span',
+                null,
+                '\uFFE5'
+              ),
+              ' ',
+              this.props.item.product_sale_price
+            )
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'product_remind' },
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'span',
+              null,
+              '\u4EA7\u5730\uFF1A'
+            ),
+            '\u4E2D\u56FD\u9999\u6E2F'
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'span',
+              null,
+              '\u4FDD\u8D28\u671F\uFF1A'
+            ),
+            '\u4E09\u5E74'
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'span',
+              null,
+              '\u89C4\u683C\uFF1A'
+            ),
+            '500 g'
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'span',
+              null,
+              '\u5B58\u50A8\u6E29\u5EA6\uFF1A'
+            ),
+            '2\uFF5E6\u2103'
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'project_infor_img' },
+          React.createElement('img', { src: 'images/product_infor.jpg' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'project_list_button' },
+          React.createElement(
+            'p',
+            { onClick: this.handleBuy },
+            '\u4E0B\u5355(',
+            React.createElement('span', { id: 'num' }),
+            ')'
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'a',
+              { href: 'product_cart' },
+              '\u53BB\u8D2D\u7269\u8F66'
+            )
+          )
+        ),
+        React.createElement('div', { className: 'background', onClick: this.handleBack }),
+        React.createElement(
+          'div',
+          { className: 'projecrt_number' },
+          React.createElement(
+            'div',
+            { className: 'projecrt_number_in' },
+            React.createElement(
+              'p',
+              { onClick: this.handleMinus },
+              React.createElement('i', { className: 'fa fa-minus' })
+            ),
+            React.createElement(
+              'p',
+              null,
+              React.createElement(
+                'span',
+                { className: 'input_out' },
+                React.createElement('input', { type: 'number', placeholder: '1', id: 'number', value: this.props.number, onChange: this.changeNumber })
+              )
+            ),
+            React.createElement(
+              'p',
+              { onClick: this.handlePlus },
+              React.createElement('i', { className: 'fa fa-plus' })
+            ),
+            React.createElement(
+              'button',
+              { className: 'sure', onClick: this.handleSure.bind(this, this.props.item.product_sale_price, this.props.item.sku_id) },
+              '\u786E\u5B9A'
+            )
+          )
+        ),
+        React.createElement(
+          'div',
+          { id: 'loadingToast', style: style },
+          React.createElement('div', { className: 'weui-mask_transparent' }),
+          React.createElement(
+            'div',
+            { className: 'weui-toast' },
+            React.createElement('i', { className: 'weui-loading weui-icon_toast' }),
+            React.createElement(
+              'p',
+              { className: 'weui-toast__content' },
+              '\u6DFB\u52A0\u8D2D\u7269\u8F66\u6210\u529F'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return IoIo;
+}(React.Component);
+
+;
+var IoIoRedux = (0, _reactRedux.connect)(mapStateToProps)(IoIo);
+
+ReactDOM.render(React.createElement(
+  _reactRedux.Provider,
+  { store: store },
+  React.createElement(IoIoRedux, null)
+), document.getElementById("product_show"));
+
+/***/ }),
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23674,356 +24025,6 @@ var FlashPointLi = function (_React$Component3) {
 }(React.Component);
 
 module.exports = Lunbo;
-
-/***/ }),
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _reactRedux = __webpack_require__(44);
-
-var _redux = __webpack_require__(36);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var React = __webpack_require__(4);
-var ReactDOM = __webpack_require__(18);
-var Lunbo = __webpack_require__(71);
-
-function product(state, action) {
-  switch (action.type) {
-    case 'PRODUCT_SHOW':
-      {
-        $.ajax({
-          url: "/get_product",
-          dataType: 'json',
-          type: 'GET',
-          data: { 'product_id': product_id },
-          success: function (data) {
-            if (data.success) {
-              store.dispatch({ type: 'GET_DATA', data: data });
-            } else {}
-          }.bind(this),
-          error: function (xhr, status, err) {}.bind(this)
-        });
-
-        return state;
-      }
-    case 'GET_DATA':
-      {
-        var data = action.data.product;
-
-        var imgs = [];
-        for (var i = 0; i < data.pictures.length; i++) {
-          imgs.push({ "id": i, "img": data.pictures[i].location, "href": "#" });
-        }
-        return { item: data, number: state.number, imgs: imgs };
-      }
-    case 'NUMBER_PLUS':
-      {
-        var number = state.number + action.addValue;
-        if (number < 0) {
-          number = 0;
-        }
-        return { item: state.item, number: number, imgs: state.imgs };
-      }
-    case 'NUMBER_CHANGE':
-      {
-        var number = action.value;
-        return { item: state.item, number: number, imgs: state.imgs };
-      }
-    case 'PRODUCT_BUY':
-      {
-
-        var number = state.number;
-        var product_price = action.product_sale_price;
-        var sku_id = action.sku_id;
-        $.ajax({
-          url: "/add_shopping_cart",
-          dataType: 'json',
-          type: 'POST',
-          data: { "product_num": number, "product_id": product_id, "product_price": product_price, "sku_id": sku_id },
-          success: function success(data) {
-            if (data.success) {
-              if ($('#loadingToast').css('display') != 'none') return;
-
-              $('#loadingToast').fadeIn(100);
-              setTimeout(function () {
-                $('#loadingToast').fadeOut(100);
-              }, 500);
-            } else {
-              alert("添加失败");
-            }
-          },
-          error: function error(xhr, status, err) {}
-        });
-
-        return state;
-      }
-
-    default:
-      return state;
-  }
-}
-
-var store = (0, _redux.createStore)(product, { item: {}, imgs: [], number: 1 });
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    item: state.item,
-    imgs: state.imgs,
-    number: state.number
-  };
-};
-
-var IoIo = function (_React$Component) {
-  _inherits(IoIo, _React$Component);
-
-  function IoIo(props) {
-    _classCallCheck(this, IoIo);
-
-    var _this = _possibleConstructorReturn(this, (IoIo.__proto__ || Object.getPrototypeOf(IoIo)).call(this, props));
-
-    _this.handleMinus = _this.handleMinus.bind(_this);
-    _this.handlePlus = _this.handlePlus.bind(_this);
-    _this.handleSure = _this.handleSure.bind(_this);
-    _this.handleBack = _this.handleBack.bind(_this);
-    _this.handleBuy = _this.handleBuy.bind(_this);
-    _this.changeNumber = _this.changeNumber.bind(_this);
-    return _this;
-  }
-
-  _createClass(IoIo, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      store.dispatch({ type: 'PRODUCT_SHOW' });
-      $("#num").html("0");
-    }
-  }, {
-    key: 'handleBuy',
-    value: function handleBuy(e) {
-      $('.background').show();
-      $('.projecrt_number').show();
-    }
-  }, {
-    key: 'handleMinus',
-    value: function handleMinus(e) {
-      store.dispatch({ type: 'NUMBER_PLUS', addValue: -1 });
-    }
-  }, {
-    key: 'handlePlus',
-    value: function handlePlus(e) {
-      store.dispatch({ type: 'NUMBER_PLUS', addValue: 1 });
-    }
-  }, {
-    key: 'changeNumber',
-    value: function changeNumber(e) {
-      store.dispatch({ type: 'NUMBER_CHANGE', value: $('#number').val() });
-    }
-  }, {
-    key: 'handleSure',
-    value: function handleSure(product_sale_price, sku_ids) {
-      store.dispatch({ type: 'PRODUCT_BUY', product_sale_price: product_sale_price, sku_id: sku_ids });
-      var num = $("#number").val();
-      $("#num").html(num);
-      $('.background').hide();
-      $('.projecrt_number').hide();
-    }
-  }, {
-    key: 'handleBack',
-    value: function handleBack(e) {
-      $('.background').hide();
-      $('.projecrt_number').hide();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var lunbo = React.createElement('div', null);
-
-      if (this.props.imgs.length > 0) {
-        lunbo = React.createElement(Lunbo, { items: this.props.imgs });
-      }
-      var style = { display: 'none' };
-      return React.createElement(
-        'div',
-        { className: 'project_show_wrap' },
-        lunbo,
-        React.createElement(
-          'div',
-          { className: 'product_infor' },
-          React.createElement(
-            'div',
-            { className: 'product_infor_in' },
-            React.createElement(
-              'p',
-              { className: 'product_name' },
-              this.props.item.product_name
-            ),
-            React.createElement(
-              'p',
-              { className: 'product_price' },
-              React.createElement(
-                'span',
-                null,
-                '\uFFE5'
-              ),
-              ' ',
-              this.props.item.product_sale_price
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'product_remind' },
-          React.createElement(
-            'p',
-            null,
-            React.createElement(
-              'span',
-              null,
-              '\u4EA7\u5730\uFF1A'
-            ),
-            '\u4E2D\u56FD\u9999\u6E2F'
-          ),
-          React.createElement(
-            'p',
-            null,
-            React.createElement(
-              'span',
-              null,
-              '\u4FDD\u8D28\u671F\uFF1A'
-            ),
-            '\u4E09\u5E74'
-          ),
-          React.createElement(
-            'p',
-            null,
-            React.createElement(
-              'span',
-              null,
-              '\u89C4\u683C\uFF1A'
-            ),
-            '500 g'
-          ),
-          React.createElement(
-            'p',
-            null,
-            React.createElement(
-              'span',
-              null,
-              '\u5B58\u50A8\u6E29\u5EA6\uFF1A'
-            ),
-            '2\uFF5E6\u2103'
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'project_infor_img' },
-          React.createElement('img', { src: 'images/product_infor.jpg' })
-        ),
-        React.createElement(
-          'div',
-          { className: 'project_list_button' },
-          React.createElement(
-            'p',
-            { onClick: this.handleBuy },
-            '\u4E0B\u5355(',
-            React.createElement('span', { id: 'num' }),
-            ')'
-          ),
-          React.createElement(
-            'p',
-            null,
-            React.createElement(
-              'a',
-              { href: 'product_cart' },
-              '\u53BB\u8D2D\u7269\u8F66'
-            )
-          )
-        ),
-        React.createElement('div', { className: 'background', onClick: this.handleBack }),
-        React.createElement(
-          'div',
-          { className: 'projecrt_number' },
-          React.createElement(
-            'div',
-            { className: 'projecrt_number_in' },
-            React.createElement(
-              'p',
-              { onClick: this.handleMinus },
-              React.createElement('i', { className: 'fa fa-minus' })
-            ),
-            React.createElement(
-              'p',
-              null,
-              React.createElement(
-                'span',
-                { className: 'input_out' },
-                React.createElement('input', { type: 'number', placeholder: '1', id: 'number', value: this.props.number, onChange: this.changeNumber })
-              )
-            ),
-            React.createElement(
-              'p',
-              { onClick: this.handlePlus },
-              React.createElement('i', { className: 'fa fa-plus' })
-            ),
-            React.createElement(
-              'button',
-              { className: 'sure', onClick: this.handleSure.bind(this, this.props.item.product_sale_price, this.props.item.sku_id) },
-              '\u786E\u5B9A'
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          { id: 'loadingToast', style: style },
-          React.createElement('div', { className: 'weui-mask_transparent' }),
-          React.createElement(
-            'div',
-            { className: 'weui-toast' },
-            React.createElement('i', { className: 'weui-loading weui-icon_toast' }),
-            React.createElement(
-              'p',
-              { className: 'weui-toast__content' },
-              '\u6DFB\u52A0\u6210\u529F'
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return IoIo;
-}(React.Component);
-
-;
-var IoIoRedux = (0, _reactRedux.connect)(mapStateToProps)(IoIo);
-
-ReactDOM.render(React.createElement(
-  _reactRedux.Provider,
-  { store: store },
-  React.createElement(IoIoRedux, null)
-), document.getElementById("product_show"));
 
 /***/ })
 /******/ ]);

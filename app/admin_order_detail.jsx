@@ -93,7 +93,7 @@ var Nav = require('Nav');
 
               <div id="content">
                 <div id="content-header">
-                  <h1>在线订单商品列表</h1>
+                  <h1>订单商品列表</h1>
                   <div className="btn-group">
                     <a className="btn btn-large tip-bottom" title="Manage Files"><i className="icon-file"></i></a>
                     <a className="btn btn-large tip-bottom" title="Manage Users"><i className="icon-user"></i></a>
@@ -175,7 +175,7 @@ var Nav = require('Nav');
         								<span className="icon">
         									<i className="icon-th"></i>
         								</span>
-        								<h5>在线订单商品列表</h5>
+        								<h5>订单商品列表</h5>
         							</div>
         							<div className="widget-content nopadding">
                         <table className="table table-bordered table-striped table-hover">

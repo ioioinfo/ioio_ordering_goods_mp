@@ -2,6 +2,73 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Nav = require('Nav');
 
+import { Provider, connect } from 'react-redux'
+import { createStore } from 'redux'
+
+function product(state, action) {
+  switch (action.type) {
+  case 'CUSTOM_EDIT':
+    {
+      $.ajax({
+         url: "/get_store_by_id?id="+id,
+         dataType: 'json',
+         type: 'GET',
+         success: function(data) {
+           if (data.success) {
+               var org_merchant_code = data.row.org_merchant_code;
+               var org_merchant_name = data.row.org_merchant_name;
+               var abbr = data.row.abbr;
+               var remark = data.row.remark;
+               $("#org_merchant_code").val(org_merchant_code);
+               $("#org_merchant_name").val(org_merchant_name);
+               $("#abbr").val(abbr);
+               $("#remark").val(remark);
+           }else {
+           }
+         }.bind(this),
+         error: function(xhr, status, err) {
+         }.bind(this)
+      });
+
+      return state;
+    }
+    case 'CUSTOM_KEEP':
+        var merchant_code = $("#org_merchant_code").val();
+        var merchant_name = $("#org_merchant_name").val();
+        var abbr = $("#abbr").val();
+        var remark = $("#remark").val();
+      {
+        $.ajax({
+           url: "/update_merchant",
+           dataType: 'json',
+           type: 'POST',
+           data:{"id":id,"merchant_code":merchant_code,"merchant_name":merchant_name,"abbr":abbr,"remark":remark},
+           success: function(data) {
+             if (data.success) {
+                 alert("保存成功");
+             }else {
+             }
+           }.bind(this),
+           error: function(xhr, status, err) {
+           }.bind(this)
+        });
+
+        return state;
+      }
+
+  default:
+    return state
+  }
+}
+
+let store = createStore(product);
+
+const mapStateToProps = (state) => {
+    return {
+
+    }
+}
+
     // 框架
     class Wrap extends React.Component {
       render() {
@@ -92,7 +159,7 @@ var Nav = require('Nav');
 
               <div id="content">
                 <div id="content-header">
-                  <h1>添加商家</h1>
+                  <h1>商家编辑</h1>
                   <div className="btn-group">
                     <a className="btn btn-large tip-bottom" title="Manage Files"><i className="icon-file"></i></a>
                     <a className="btn btn-large tip-bottom" title="Manage Users"><i className="icon-user"></i></a>
@@ -114,27 +181,13 @@ var Nav = require('Nav');
     };
     // add
     class AddWrap extends React.Component {
+      componentDidMount() {
+          store.dispatch({ type: 'CUSTOM_EDIT'});
 
-        handleClick(e){
-            var merchant_code = $("#merchant_code").val();
-            var merchant_name = $("#merchant_name").val();
-            var abbr = $("#abbr").val();
-            var remark = $("#remark").val();
-            $.ajax({
-               url: "/add_merchant",
-               dataType: 'json',
-               type: 'POST',
-               data:{"merchant_code":merchant_code,"merchant_name":merchant_name,"abbr":abbr,"remark":remark},
-               success: function(data) {
-                 if (data.success) {
-                     alert("添加成功");
-                 }else {
-                 }
-               }.bind(this),
-               error: function(xhr, status, err) {
-               }.bind(this)
-            });
-        }
+      }
+      handleClick(e){
+          store.dispatch({ type: 'CUSTOM_KEEP'});
+      }
       render() {
         var style = {display:'none' };
         var style1 = {width:'1px'};
@@ -146,14 +199,14 @@ var Nav = require('Nav');
                             <span className="icon">
                                 <i className="icon-align-justify"></i>
                             </span>
-                            <h5>添加商家</h5>
+                            <h5>商家编辑</h5>
                         </div>
                         <div className="widget-content nopadding">
                             <div action="#" method="get" className="form-horizontal">
                                 <div className="control-group">
                                     <label className="control-label">编号</label>
                                     <div className="controls">
-                                        <input type="text" id="merchant_code"/>
+                                        <input type="text" id="org_merchant_code" />
                                     </div>
                                 </div>
 
@@ -161,21 +214,21 @@ var Nav = require('Nav');
                                 <div className="control-group">
                                     <label className="control-label">名称</label>
                                     <div className="controls">
-                                        <input type="text" id="merchant_name"/>
+                                        <input type="text" id="org_merchant_name"  />
                                     </div>
                                 </div>
 
                                 <div className="control-group">
-                                    <label className="control-label">简称</label>
+                                    <label className="control-label">简写</label>
                                     <div className="controls">
-                                        <input type="text" id="abbr"/>
+                                        <input type="text" id="abbr"  />
                                     </div>
                                 </div>
 
                                 <div className="control-group">
                                     <label className="control-label">备注</label>
                                     <div className="controls">
-                                        <input type="text" id="remark"/>
+                                        <input type="text" id="remark"  />
                                     </div>
                                 </div>
 
@@ -193,5 +246,5 @@ var Nav = require('Nav');
 // 返回到页面
 ReactDOM.render(
     <Wrap/>,
-    document.getElementById("admin_add_business")
+    document.getElementById("admin_business_edit")
 );

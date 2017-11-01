@@ -49,6 +49,9 @@ module.exports = {
         admin_count_sort: './app/admin_count_sort.jsx',
         admin_count_store: './app/admin_count_store.jsx',
         order_product_detail: './app/order_product_detail.jsx',
+        admin_business_set: './app/admin_business_set.jsx',
+        admin_business_edit: './app/admin_business_edit.jsx',
+        admin_business_price_list: './app/admin_business_price_list.jsx',
     },
     output: {
         path: __dirname,
