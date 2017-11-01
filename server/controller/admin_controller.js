@@ -88,6 +88,11 @@ exports.register = function(server, options, next) {
 		var url = "http://211.149.248.241:19999/store/get_by_id?id="+store_id+"&org_code="+org_code;
 		do_get_method(url,cb);
 	};
+	//根据id得到商户
+	var get_store_by_id = function(id,cb){
+		var url = "http://139.196.148.40:18001/merchant/get_by_id?id="+id;
+		do_get_method(url,cb);
+	};
     server.route([
         //商家列表接口
         {
@@ -204,6 +209,25 @@ exports.register = function(server, options, next) {
 				});
 			},
 		},
+		//查看商户根据id
+		{
+			method: 'GET',
+			path: '/get_store_by_id',
+			handler: function(request, reply){
+				var id = request.query.id;
+				if (!id) {
+					return reply({"success":false,"message":"id null","service_info":service_info});
+				}
+				get_store_by_id(id,function(err,row){
+					if (!err) {
+						return reply({"success":true,"service_info":service_info,"row":row.row});
+					}else {
+						return reply({"success":false,"message":row.message,"service_info":service_info});
+					}
+				});
+			}
+		},
+
 
 
     ]);
