@@ -19,6 +19,7 @@ var eventproxy = require('eventproxy');
 const sys_option = require('../config/sys_option');
 const uu_request = require('../utils/uu_request');
 var org_code = "ioio";
+var platform_id = "weilingshou";
 
 var moduel_prefix = sys_option.product_name + '_person';
 //get
@@ -65,13 +66,29 @@ var do_login = function(data, cb){
 	var url = "http://139.196.148.40:18666/user/login_check";
 	do_post_method(url,data,cb);
 };
-
+//发现vip
+var get_wx_by_person = function(person_id,cb){
+	var url = "http://139.196.148.40:18003/person/get_wx_by_person?person_id=" + person_id + "&platform_id=" + platform_id;
+	do_get_method(url,cb);
+};
+//根据personid找vip
+var find_personsVip = function(persons, cb){
+	var url = "http://139.196.148.40:18003/vip/list_by_scope_persons?person_ids=";
+	url = url + persons + "&scope_code=" +org_code;
+	do_get_method(url,cb);
+};
+//发现vip
+var get_person_vip = function(person_id,cb){
+	var url = "http://139.196.148.40:18666/vip/get_by_person_id?person_id=" + person_id + "&org_code=" + org_code;
+	do_get_method(url,cb);
+};
 exports.register = function(server, options, next) {
     var byd_api = server.plugins.services.byd_api;
     var person = server.plugins.services.person;
     var wx_api = server.plugins.services.wx_api;
     var api = server.plugins.services["4s_api"];
     var notify = server.plugins.services.notify;
+	var platform_id = sys_option.platform_id;
 
 	var login_set_cookie = function(request,person_id){
 		var state;
@@ -96,6 +113,58 @@ exports.register = function(server, options, next) {
 	};
 
     server.route([
+		//会员信息
+		{
+			method: 'GET',
+			path: '/member_info',
+			handler: function(request, reply){
+				// var person_id = "2c293d70-4506-11e7-ad37-e93548b3e6bc";
+				var person_id = get_cookie_person(request);
+				if (!person_id) {
+					return reply.redirect("/login");
+				}
+				var ep =  eventproxy.create("person_wx","personsVip","person_info","person",
+					function(person_wx,personsVip,person_info,person){
+					return reply({"success":true,"person_wx":person_wx,"personsVip":personsVip,"person_info":person_info,"person":person});
+				});
+				var person_ids = [person_id];
+				get_wx_by_person(person_id, function(err, content){
+					if (!err) {
+						var person_wx = content.row;
+						ep.emit("person_wx", person_wx);
+					}else {
+						ep.emit("person_wx", {});
+					}
+				});
+				find_personsVip(JSON.stringify(person_ids), function(err, content){
+					if (!err) {
+						var personsVip = content.rows;
+						ep.emit("personsVip", personsVip);
+					}else {
+						ep.emit("personsVip", []);
+					}
+				});
+				find_person_info(person_id, function(err, content){
+					if (!err) {
+						if (!content.row) {
+							ep.emit("person_info", {});
+						}
+						var person_info = content.row;
+						ep.emit("person_info", person_info);
+					}else {
+						ep.emit("person_info", []);
+					}
+				});
+				get_person_vip(person_id, function(err, content){
+					if (!err) {
+						var person = content.row;
+						ep.emit("person", person);
+					}else {
+						ep.emit("person", []);
+					}
+				});
+			}
+		},
         //个人信息
         {
             method: 'GET',
