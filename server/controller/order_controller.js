@@ -338,6 +338,25 @@ exports.register = function(server, options, next) {
 				});
 			},
 		},
+		//获取所有带批次的门店信息
+		{
+			method: 'GET',
+			path: '/search_batch_stores_infos',
+			handler: function(request, reply) {
+				api.search_batch_stores_infos(function(err,rows){
+					if (!err) {
+						var date,date1,date2;
+						date = new Date();
+						date1 = date.toLocaleDateString();
+						date2 = date1 +" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+						return reply({"success":true,"rows":rows.rows,"time":date2});
+					}else {
+						return reply({"success":false,"message":rows.message});
+					}
+				});
+			},
+		},
+
 
 
     ]);
