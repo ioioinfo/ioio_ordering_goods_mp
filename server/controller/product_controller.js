@@ -243,7 +243,7 @@ exports.register = function(server, options, next) {
 			path: '/add_seller_discount',
 			handler: function(request, reply) {
 				var sellers_discount = request.payload.sellers_discount;
-				
+
 				var data = {"sellers_discount":sellers_discount};
 				api.add_seller_discount(data,function(err,rows){
 					if (!err) {
