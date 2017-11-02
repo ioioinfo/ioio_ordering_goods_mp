@@ -23559,8 +23559,6 @@ var IoIo = function (_React$Component) {
     key: 'handleSure',
     value: function handleSure(product_sale_price, sku_ids) {
       store.dispatch({ type: 'PRODUCT_BUY', product_sale_price: product_sale_price, sku_id: sku_ids });
-      var num = $("#number").val();
-      $("#num").html(num);
       $('.background').hide();
       $('.projecrt_number').hide();
     }
@@ -23662,7 +23660,7 @@ var IoIo = function (_React$Component) {
           React.createElement(
             'p',
             { onClick: this.handleBuy },
-            '\u4E0B\u5355(',
+            '\u4E0B\u5355(\u5DF2\u5B9A',
             React.createElement('span', { id: 'num' }),
             ')'
           ),

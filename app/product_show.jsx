@@ -127,8 +127,6 @@ class IoIo extends React.Component {
     }
     handleSure(product_sale_price,sku_ids){
       store.dispatch({ type: 'PRODUCT_BUY',product_sale_price:product_sale_price,sku_id:sku_ids});
-      var num = $("#number").val();
-      $("#num").html(num);
       $('.background').hide();
       $('.projecrt_number').hide();
     }
@@ -164,7 +162,7 @@ class IoIo extends React.Component {
             <img src="images/product_infor.jpg" />
           </div>
           <div className="project_list_button">
-            <p onClick={this.handleBuy}>下单(<span id="num"></span>)</p>
+            <p onClick={this.handleBuy}>下单(已定<span id="num"></span>)</p>
             <p><a href="product_cart">去购物车</a></p>
           </div>
 
