@@ -23555,6 +23555,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var React = __webpack_require__(4);
 var ReactDOM = __webpack_require__(18);
 var Nav = __webpack_require__(33);
+var s = [];
+var seller_id = "";
 
 function product(state, action) {
   switch (action.type) {
@@ -23595,6 +23597,28 @@ function product(state, action) {
       {
         var data1 = action.data1;
         return { custom_list: state.custom_list, product_sorts: data1.rows };
+      }
+    case 'SET_KEEP':
+      var sellers_discount = {};
+      var id = s[0];
+      var name = s[1];
+      var discount = $("#discount").val();
+      sellers_discount = { "seller_id": seller_id, "sort_id": id, "sort_name": name, "discount": discount };
+      {
+        $.ajax({
+          url: "/add_seller_discount",
+          dataType: 'json',
+          type: 'POST',
+          data: { "sellers_discount": JSON.stringify(sellers_discount) },
+          success: function (data) {
+            if (data.success) {
+              alert("保存成功");
+            } else {}
+          }.bind(this),
+          error: function (xhr, status, err) {}.bind(this)
+        });
+
+        return state;
       }
 
     default:
@@ -23915,6 +23939,22 @@ var AddWrapClass = function (_React$Component4) {
       store.dispatch({ type: 'CUSTOM_LIST' });
     }
   }, {
+    key: 'handlerClick',
+    value: function handlerClick(e) {
+      var val = e.target.value;
+      s = val.split("_");
+    }
+  }, {
+    key: 'handlerClick1',
+    value: function handlerClick1(e) {
+      store.dispatch({ type: 'SET_KEEP' });
+    }
+  }, {
+    key: 'handlerClick2',
+    value: function handlerClick2(e) {
+      seller_id = e.target.value;
+    }
+  }, {
     key: 'render',
     value: function render() {
       var custom_list = [];
@@ -23938,7 +23978,7 @@ var AddWrapClass = function (_React$Component4) {
             '\u5546\u5BB6\uFF1A',
             React.createElement(
               'select',
-              null,
+              { onClick: this.handlerClick2 },
               React.createElement(
                 'option',
                 { value: '\u4E0B\u62C9\u83DC\u5355\u9009\u62E9\u5546\u5BB6' },
@@ -23947,7 +23987,7 @@ var AddWrapClass = function (_React$Component4) {
               custom_list.map(function (item, index) {
                 return React.createElement(
                   'option',
-                  { key: index, value: item.org_merchant_name },
+                  { key: index, value: item.org_merchant_id },
                   item.org_merchant_name
                 );
               })
@@ -23960,7 +24000,7 @@ var AddWrapClass = function (_React$Component4) {
             '\u5206\u7C7B\uFF1A',
             React.createElement(
               'select',
-              null,
+              { onClick: this.handlerClick },
               React.createElement(
                 'option',
                 { value: '\u4E0B\u62C9\u83DC\u5355\u9009\u62E9\u5546\u54C1\u5206\u7C7B' },
@@ -23969,7 +24009,7 @@ var AddWrapClass = function (_React$Component4) {
               product_sorts.map(function (item, index) {
                 return React.createElement(
                   'option',
-                  { key: index, value: item.sort_name },
+                  { key: item.id, value: item.id + "_" + item.sort_name },
                   item.sort_name
                 );
               })
@@ -23980,14 +24020,14 @@ var AddWrapClass = function (_React$Component4) {
             'div',
             { className: '' },
             '\u6298\u6263\uFF1A',
-            React.createElement('input', { type: 'text', placeholder: '\u8BF7\u8F93\u5165\u6298\u6263\u4F8B\u5982(0.5)\u5373\u62535\u6298' })
+            React.createElement('input', { type: 'text', placeholder: '\u8BF7\u8F93\u5165\u6298\u6263\u4F8B\u5982(0.5)\u5373\u62535\u6298', id: 'discount' })
           ),
           React.createElement(
             'div',
             null,
             React.createElement(
               'button',
-              null,
+              { onClick: this.handlerClick1 },
               '\u4FDD\u5B58'
             )
           )

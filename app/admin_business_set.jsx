@@ -1,7 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Nav = require('Nav');
-
+var s=[];
+var seller_id = "";
 
 import { Provider, connect } from 'react-redux'
 import { createStore } from 'redux'
@@ -50,6 +51,30 @@ function product(state, action) {
     var data1 = action.data1;
     return {custom_list:state.custom_list,product_sorts:data1.rows};
   }
+  case 'SET_KEEP':
+      var sellers_discount = {};
+      var id = s[0];
+      var name = s[1];
+      var discount = $("#discount").val();
+      sellers_discount = {"seller_id":seller_id,"sort_id":id,"sort_name":name,"discount":discount};
+    {
+      $.ajax({
+         url: "/add_seller_discount",
+         dataType: 'json',
+         type: 'POST',
+         data:{"sellers_discount":JSON.stringify(sellers_discount)},
+         success: function(data) {
+           if (data.success) {
+               alert("保存成功");
+           }else {
+           }
+         }.bind(this),
+         error: function(xhr, status, err) {
+         }.bind(this)
+      });
+
+      return state;
+    }
 
   default:
     return state
@@ -175,6 +200,17 @@ const mapStateToProps = (state) => {
         componentDidMount() {
             store.dispatch({ type: 'CUSTOM_LIST'});
         }
+        handlerClick(e){
+            var val = e.target.value;
+            s = val.split("_");
+
+        }
+        handlerClick1(e){
+            store.dispatch({ type: 'SET_KEEP'});
+        }
+        handlerClick2(e){
+            seller_id = e.target.value;
+        }
         render() {
             var custom_list = [];
             if (this.props.custom_list.length>0) {
@@ -190,10 +226,10 @@ const mapStateToProps = (state) => {
                 <div className="span12">
                     <div className="">
                         商家：
-                        <select>
+                        <select onClick={this.handlerClick2}>
                             <option value="下拉菜单选择商家">下拉菜单选择商家</option>
                             {custom_list.map((item,index) => (
-                                <option key={index} value={item.org_merchant_name}>{item.org_merchant_name}</option>
+                                <option key={index} value={item.org_merchant_id}>{item.org_merchant_name}</option>
                             ))}
 
                         </select>
@@ -201,20 +237,20 @@ const mapStateToProps = (state) => {
                     <br/>
                     <div className="">
                         分类：
-                        <select>
+                        <select onClick={this.handlerClick}>
                             <option value="下拉菜单选择商品分类">下拉菜单选择商品分类</option>
                             {product_sorts.map((item,index) => (
-                                <option key={index} value={item.sort_name}>{item.sort_name}</option>
+                                <option key={item.id} value={item.id + "_" + item.sort_name}>{item.sort_name}</option>
                             ))}
                         </select>
                     </div>
                     <br/>
                     <div className="">
                         折扣：
-                        <input type="text" placeholder="请输入折扣例如(0.5)即打5折"/>
+                        <input type="text" placeholder="请输入折扣例如(0.5)即打5折" id="discount"/>
                     </div>
                     <div>
-                        <button>保存</button>
+                        <button onClick={this.handlerClick1}>保存</button>
                     </div>
                 </div>
             </div>

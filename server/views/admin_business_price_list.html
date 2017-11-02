@@ -21,15 +21,15 @@
     <script type="text/javascript">
       var selected = '20';
       //表头
-      var tt = [{name:'org_merchant_id',title:'id',sort:false}
-      ,{name:'org_merchant_code',title:'编号',sort:false}
-      ,{name:'org_merchant_name',title:'商家名称',sort:false}
-      ,{name:'operation',title:'操作',type:"operation"}];
+      var tt = [{name:'seller_id',title:'商家id',sort:false}
+      ,{name:'sort_id',title:'商品分类id',sort:false}
+      ,{name:'sort_name',title:'商品分类',sort:false}
+      ,{name:'discount',title:'折扣',sort:false}];
 
       function getTableData(params,cb) {
           params.everyNum = 50;
           var allNum = 0;
-          $.get("/get_sellers_list",{params:JSON.stringify(params)},function(data){
+          $.get("/get_sellers_discount",{params:JSON.stringify(params)},function(data){
               if (data.success) {
                   allNum = data.num;
                   cb({tabthitems:tt,tabtritems:data.rows,allNum:allNum,everyNum:params.everyNum});
