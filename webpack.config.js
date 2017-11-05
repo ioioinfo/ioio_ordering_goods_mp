@@ -52,6 +52,7 @@ module.exports = {
         admin_business_set: './app/admin_business_set.jsx',
         admin_business_edit: './app/admin_business_edit.jsx',
         admin_business_price_list: './app/admin_business_price_list.jsx',
+        text: './app/text.jsx',
     },
     output: {
         path: __dirname,
@@ -64,16 +65,27 @@ module.exports = {
         },
         extensions: ['.js','.jsx']
     },
+    externals: {
+      'react': 'React',
+      'react-dom': 'ReactDOM'
+    },
     module: {
         loaders: [
             {
                 loader: 'babel-loader',
-                query: {
-                    presets: ['react', 'es2015']
+                options: {
+                    presets: ['react', 'es2015'],
+                    plugins: [
+                        ["import", { libraryName: "antd-mobile", style: "css" }] // `style: true` 会加载 less 文件
+                    ],
                 },
                 test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/
+            },
+            {
+                test: /\.css$/,
+                loader: "style-loader!css-loader"
             }
         ]
-   }
+    }
 };

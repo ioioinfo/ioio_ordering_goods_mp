@@ -440,6 +440,15 @@ exports.register = function(server, options, next) {
             }
         },
 
+        //测试
+        {
+            method: 'GET',
+            path: '/text',
+            handler: function(request, reply) {
+                return reply.view("text");
+            }
+        },
+
 
     ]);
 
